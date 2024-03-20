@@ -2,6 +2,13 @@ package utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import services.ServicePersonne;
+import models.Personne;
+import java.io.IOException;
 
 public class MyDatabase {
 
@@ -30,6 +37,16 @@ public class MyDatabase {
         return connection;
     }
     public static void main(String[] args) {
-        MyDatabase sp = new MyDatabase();
+        MyDatabase db = new MyDatabase();
+        ServicePersonne sp = new ServicePersonne();
+        try {
+      sp.ajouter(new Personne(1,25,"Ben","Ali"));
+     System.out.println(sp.recuperer());
+            sp.supprimer(2);
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+
+        }
+
     }
 }
