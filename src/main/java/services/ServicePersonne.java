@@ -17,10 +17,14 @@ public class ServicePersonne implements IService<Personne>{
 
     @Override
     public void ajouter(Personne personne) throws SQLException {
-        String sql = "INSERT INTO personne (nom, prenom, age) values('"+ personne.getNom() +"'," +
-                "'"+ personne.getPrenom() +"',"+ personne.getAge() +")";
-        Statement st = cnx.createStatement();
-        st.executeUpdate(sql);
+        String sql = "INSERT INTO personne (nom, prenom, age, password) VALUES (?, ?, ?, ?)";
+        PreparedStatement ps = cnx.prepareStatement(sql);
+        ps.setString(1, personne.getNom());
+        ps.setString(2, personne.getPrenom());
+        ps.setInt(3, personne.getAge());
+        ps.setString(4, personne.getPassword());
+        ps.executeUpdate();
+
     }
 
     @Override

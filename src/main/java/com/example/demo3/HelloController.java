@@ -35,6 +35,11 @@ public class HelloController implements Initializable {
 
     @FXML
     private TextField pwd;
+    @FXML
+    private AnchorPane pane_login;
+
+    @FXML
+    private AnchorPane pane_signup;
 
     @FXML
     private TextField username;
@@ -64,21 +69,30 @@ public class HelloController implements Initializable {
     public void add(ActionEvent event) throws SQLException {
         Connection connection = MyDatabase.getInstance().getConnection();
         if (connection == null) {
-            // Handle the case where the connection is null
             System.out.println("Connection is null!");
             return;
         }
 
-        Personne personne = new Personne(1, 25, username.getText(), pwd.getText());
+        Personne personne = new Personne(1, 25, username.getText() , pwd.getText());
         ServicePersonne sp = new ServicePersonne(); // Use connection object
 
         try {
             sp.ajouter(personne);
             System.out.println(sp.recuperer());
-            // sp.supprimer(2); // Uncomment if you want to implement delete functionality
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
+    }
+    public void LoginpaneShow(){
+
+        pane_login.setVisible(true);
+        pane_signup.setVisible(false);
+    }
+
+    public void SignuppaneShow(){
+
+        pane_login.setVisible(false);
+        pane_signup.setVisible(true);
     }
     @FXML
     private void Login(ActionEvent event) throws Exception {

@@ -40,7 +40,7 @@ public class MyDatabase {
         MyDatabase db = new MyDatabase();
         ServicePersonne sp = new ServicePersonne();
         try {
-      sp.ajouter(new Personne(1,25,"Ben","Ali"));
+      sp.ajouter(new Personne(1,25,"Ben" , "1234"));
      System.out.println(sp.recuperer());
             sp.supprimer(2);
         } catch (SQLException e) {
