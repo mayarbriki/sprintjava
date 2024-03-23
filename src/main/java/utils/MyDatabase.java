@@ -6,8 +6,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import models.Produit;
 import services.ServicePersonne;
 import models.Personne;
+import services.ServiceProduit;
+
 import java.io.IOException;
 
 public class MyDatabase {
@@ -39,9 +42,14 @@ public class MyDatabase {
     public static void main(String[] args) {
         MyDatabase db = new MyDatabase();
         ServicePersonne sp = new ServicePersonne();
+        ServiceProduit serviceProduit = new ServiceProduit();
         try {
-      sp.ajouter(new Personne(1,25,"Ben" , "1234"));
-     System.out.println(sp.recuperer());
+   //   sp.ajouter(new Personne(1,25,"Ben" , "1234"));
+            //serviceProduit.ajouter(new Produit(2 , 2 ,  "5", "vf" , "fd" , "fv" ));
+
+            //serviceProduit.modifier(new Produit(2 , 3 , "5" , "vf" , "ffvd" , "fd"));
+
+            System.out.println(sp.recuperer());
             sp.supprimer(2);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
