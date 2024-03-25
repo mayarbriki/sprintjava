@@ -17,7 +17,7 @@ public class ServicePersonne implements IService<Personne>{
 
     @Override
     public void ajouter(Personne personne) throws SQLException {
-        String sql = "INSERT INTO personne (nom, prenom, age, password) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO user (nom, prenom, age, password) VALUES (?, ?, ?, ?)";
         PreparedStatement ps = cnx.prepareStatement(sql);
         ps.setString(1, personne.getNom());
         ps.setString(2, personne.getPrenom());
@@ -27,9 +27,22 @@ public class ServicePersonne implements IService<Personne>{
 
     }
 
+    public void ajouteradmin(Personne personne) throws SQLException {
+        String sql = "INSERT INTO user (nom, prenom, age, password , role ) VALUES (?, ?, ?, ? , ?)";
+        PreparedStatement ps = cnx.prepareStatement(sql);
+        ps.setString(1, personne.getNom());
+        ps.setString(2, personne.getPrenom());
+        ps.setInt(3, personne.getAge());
+        ps.setString(4, personne.getPassword());
+        ps.setString(5, personne.getRole());
+
+        ps.executeUpdate();
+
+    }
+
     @Override
     public void modifier(Personne personne) throws SQLException {
-        String sql = "UPDATE personne set nom = ? , prenom = ?, age = ? where id = ?";
+        String sql = "UPDATE user set nom = ? , prenom = ?, age = ? where id = ?";
         PreparedStatement ps = cnx.prepareStatement(sql);
         ps.setString(1,personne.getNom());
         ps.setString(2,personne.getPrenom());
@@ -40,7 +53,7 @@ public class ServicePersonne implements IService<Personne>{
 
     @Override
     public void supprimer(int id) throws SQLException {
-        String sql = "DELETE FROM personne where id = ?";
+        String sql = "DELETE FROM user where id = ?";
         PreparedStatement ps = cnx.prepareStatement(sql);
         ps.setInt(1,id);
         ps.executeUpdate();
@@ -49,7 +62,7 @@ public class ServicePersonne implements IService<Personne>{
     @Override
     public List<Personne> recuperer() throws SQLException {
         List<Personne> personnes = new ArrayList<>();
-        String sql = "SELECT * FROM personne";
+        String sql = "SELECT * FROM user";
         Statement st = cnx.createStatement();
         ResultSet rs = st.executeQuery(sql);
 

@@ -24,6 +24,7 @@ import utils.MyDatabase;
 
 public class produitcontroller extends Application {
     Connection cnx;
+
     public String path;
     @FXML
     private Button addproduit;

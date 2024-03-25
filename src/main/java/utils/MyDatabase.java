@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class MyDatabase {
 
-    private final String URL = "jdbc:mysql://localhost:3306/parapharmacy1";
+    private final String URL = "jdbc:mysql://localhost:3306/parapharmacy";
     private final String USER = "root";
     private final String PASS = "";
     private Connection connection;
@@ -44,7 +44,7 @@ public class MyDatabase {
         ServicePersonne sp = new ServicePersonne();
         ServiceProduit serviceProduit = new ServiceProduit();
         try {
-   //   sp.ajouter(new Personne(1,25,"Ben" , "1234"));
+            //   sp.ajouter(new Personne(1,25,"Ben" , "1234"));
             //serviceProduit.ajouter(new Produit(2 , 2 ,  "5", "vf" , "fd" , "fv" ));
 
             //serviceProduit.modifier(new Produit(2 , 3 , "5" , "vf" , "ffvd" , "fd"));
