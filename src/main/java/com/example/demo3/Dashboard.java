@@ -1,5 +1,9 @@
 package com.example.demo3;
-import javafx.scene.control.TextArea;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.control.*;
+import java.util.List;
+
 import java.sql.SQLException;
 
 import javafx.application.Application;
@@ -8,12 +12,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import services.ServiceProduit;
 
@@ -25,19 +28,34 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TextField;
 import models.Personne;
 import models.Produit;
 import services.ServicePersonne;
 import utils.MyDatabase;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 
 
 public class Dashboard extends Application implements Initializable {
     public String path;
+
+    @FXML
+    private TableView<Produit> tableViewProduit;
     @FXML
     private Label imagePathLabel;
+
+    @FXML
+    private TableColumn<Produit, String> descriptionproduit;
+
+    @FXML
+    private TableColumn<Produit, String> imageP;
+    @FXML
+    private TableColumn<Produit, String> nomP;
+    @FXML
+    private TableColumn<Produit, String> prix;
+    @FXML
+    private TableColumn<Produit, Integer> quantite;
+
 
     @FXML
     private TextArea description;
@@ -79,7 +97,8 @@ public class Dashboard extends Application implements Initializable {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 950, 650);
+       // Scene scene = new Scene(fxmlLoader.load(), 1520, 770);
+        Scene scene = new Scene(fxmlLoader.load(), 720, 570);
         primaryStage.setTitle("Hello!");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -123,10 +142,42 @@ public class Dashboard extends Application implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<String> list = FXCollections.observableArrayList("admin", "livreur");
         comb.setItems(list);
-        anchorPane1.setVisible(true);
+        anchorPane1.setVisible(false);
 
         // Set anchorPane2 invisible initially
-        anchorPane2.setVisible(false);
+        anchorPane2.setVisible(true);
+           setupTableColumns();
+        refreshTable();
+
+        loadDataIntoTableView();
+        setupImageColumn();
+    }
+
+    private void setupImageColumn() {
+        imageP.setCellFactory(column -> {
+            return new TableCell<Produit, String>() {
+                private final ImageView imageView = new ImageView();
+
+                @Override
+                protected void updateItem(String imagePath, boolean empty) {
+                    super.updateItem(imagePath, empty);
+
+                    if (empty || imagePath == null) {
+                        setGraphic(null);
+                    } else {
+                        // Load the image from the file path
+                        File file = new File(imagePath);
+                        Image image = new Image(file.toURI().toString());
+
+                        // Set the image to the ImageView
+                        imageView.setImage(image);
+                        imageView.setFitWidth(50); // Adjust the width as needed
+                        imageView.setFitHeight(50); // Adjust the height as needed
+                        setGraphic(imageView);
+                    }
+                }
+            };
+        });
     }
     public void add(ActionEvent event) throws SQLException {
         Connection connection = MyDatabase.getInstance().getConnection();
@@ -149,6 +200,7 @@ public class Dashboard extends Application implements Initializable {
             System.out.println(sp.recuperer());
         } catch (SQLException e) {
             System.err.println(e.getMessage());
+
         }
     }
     @FXML
@@ -201,6 +253,50 @@ public class Dashboard extends Application implements Initializable {
             System.out.println(sp.recuperer());
         } catch (SQLException e) {
             System.err.println(e.getMessage());
+        }
+    }
+
+
+    private void setupTableColumns() {
+        // idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nomP.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        imageP.setCellValueFactory(new PropertyValueFactory<>("image"));
+        prix.setCellValueFactory(new PropertyValueFactory<>("prix"));
+        quantite.setCellValueFactory(new PropertyValueFactory<>("quantite"));
+        descriptionproduit.setCellValueFactory(new PropertyValueFactory<>("description"));
+
+
+
+    }
+    @FXML
+    private void loadDataIntoTableView() {
+        ServiceProduit sp = new ServiceProduit(); // Create an instance of your service
+        ObservableList<Produit> produits = null;
+        try {
+            // Fetch the list of products from your service
+            produits = FXCollections.observableArrayList(sp.recuperer());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exception appropriately
+        }
+
+        // Set the fetched products as the items of the TableView
+        tableViewProduit.setItems(produits);
+    }
+    @FXML
+    private void refreshTable() {
+        try {
+            // Fetch the list of products from the database
+            List<Produit> produitList = new ServiceProduit().recuperer();
+
+            // Clear the existing items in the TableView
+            tableViewProduit.getItems().clear();
+
+            // Add the fetched products to the TableView
+            tableViewProduit.getItems().addAll(produitList);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exception appropriately
         }
     }
 
