@@ -2,23 +2,26 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-
 
 <AnchorPane prefHeight="647.0" prefWidth="872.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.Dashboard">
    <children>
       <VBox layoutX="45.0" layoutY="55.0" prefHeight="471.0" prefWidth="223.0">
          <children>
-            <Button fx:id="user" mnemonicParsing="false" prefHeight="64.0" prefWidth="239.0" text="Gestion utilisateur" />
+            <Button fx:id="user" mnemonicParsing="false" onAction="#handleProduitButtonClick1" prefHeight="64.0" prefWidth="239.0" text="Gestion utilisateur" />
             <Button fx:id="produit" mnemonicParsing="false" onAction="#handleProduitButtonClick" prefHeight="75.0" prefWidth="244.0" text="Gestion Produit" />
             <Button fx:id="commande" mnemonicParsing="false" prefHeight="81.0" prefWidth="270.0" text="Gestion commandes" />
             <Button fx:id="livraison" mnemonicParsing="false" prefHeight="83.0" prefWidth="239.0" text="Gestion livraison" />
          </children>
       </VBox>
-      <AnchorPane layoutX="323.0" layoutY="55.0" prefHeight="546.0" prefWidth="474.0">
+      <AnchorPane fx:id="anchorPane1" layoutX="323.0" layoutY="55.0" prefHeight="546.0" prefWidth="474.0">
          <children>
             <Text layoutX="189.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Admin" wrappingWidth="124.81097412109375" />
             <TextField fx:id="nom" layoutX="177.0" layoutY="64.0" />
@@ -31,6 +34,22 @@
             <Text layoutX="83.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="role" />
             <Button fx:id="add" layoutX="225.0" layoutY="294.0" mnemonicParsing="false" onAction="#add" text="Button" />
             <TextField fx:id="pwd" layoutX="179.0" layoutY="248.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="anchorPane2" layoutX="268.0" layoutY="55.0" prefHeight="546.0" prefWidth="595.0">
+         <children>
+            <TextField fx:id="nomproduit" layoutX="94.0" layoutY="45.0" />
+            <Text layoutX="41.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nom" />
+            <BorderPane fx:id="layout" layoutX="93.0" layoutY="89.0" prefHeight="114.0" prefWidth="150.0">
+               <center>
+                  <ImageView fx:id="imgview" fitHeight="151.0" fitWidth="138.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+            <Button layoutX="149.0" layoutY="240.0" mnemonicParsing="false" onAction="#insertImage" text="Button" />
+            <TextArea fx:id="description" layoutX="101.0" layoutY="302.0" prefHeight="100.0" prefWidth="200.0" />
+            <Label fx:id="imagePathLabel" layoutX="229.0" layoutY="244.0" text="Label" />
+            <Button fx:id="addproduit" layoutX="175.0" layoutY="411.0" mnemonicParsing="false" onAction="#addproduit1" text="Button" />
+            <Text layoutX="36.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="description" />
          </children>
       </AnchorPane>
    </children>
