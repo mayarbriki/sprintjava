@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class MyDatabase {
 
-    private final String URL = "jdbc:mysql://localhost:3306/3A60";
+    private final String URL = "jdbc:mysql://localhost:3306/parapharmacy";
     private final String USER = "root";
     private final String PASS = "";
     private Connection connection;
