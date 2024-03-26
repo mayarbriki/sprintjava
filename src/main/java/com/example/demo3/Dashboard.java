@@ -37,7 +37,12 @@ import javafx.scene.control.TableView;
 
 
 public class Dashboard extends Application implements Initializable {
+    @FXML
+    private Button supprimer;
     public String path;
+    private Produit selectedProduit; // Variable to store the selected product
+    @FXML
+    private TableColumn<Produit, Integer> idP;
 
     @FXML
     private TableView<Produit> tableViewProduit;
@@ -73,7 +78,8 @@ public class Dashboard extends Application implements Initializable {
     private TextField age;
     @FXML
     private TextField nom;
-
+    @FXML
+    private Button modifier;
     @FXML
     private TextField prenom;
     @FXML
@@ -118,6 +124,42 @@ public class Dashboard extends Application implements Initializable {
         }
     }*/
     @FXML
+    private void handleModifierButtonClick(ActionEvent event) {
+        System.out.println("Modifier button clicked");
+        if (selectedProduit != null) {
+            // Step 1: Populate text fields with data from the selected product
+            nomproduit.setText(selectedProduit.getNom());
+            description.setText(selectedProduit.getDescription());
+            // Populate other text fields as needed
+
+            // Step 2: Modify data if needed
+            // For example, if the user changes the product name or description in the text fields,
+            // update the corresponding fields of the selected product object accordingly
+            selectedProduit.setNom(nomproduit.getText());
+            selectedProduit.setDescription(description.getText());
+            // Update other fields as needed
+
+            try {
+                // Step 3: Update the modified product in the database
+                new ServiceProduit().modifier(selectedProduit);
+
+                // Step 4: Refresh TableView to reflect the changes
+
+            } catch (SQLException e) {
+                e.printStackTrace(); // Handle exception appropriately
+            }
+        } else {
+            // If no item is selected, display an error message or handle it accordingly
+            System.out.println("No product selected for modification.");
+        }
+    }
+
+
+
+    // Existing code...
+
+
+    @FXML
     private void handleProduitButtonClick(ActionEvent event) {
         // This method is already the event handler for the button click,
         // so you don't need to define another event handler inside it.
@@ -143,14 +185,22 @@ public class Dashboard extends Application implements Initializable {
         ObservableList<String> list = FXCollections.observableArrayList("admin", "livreur");
         comb.setItems(list);
         anchorPane1.setVisible(false);
-
         // Set anchorPane2 invisible initially
         anchorPane2.setVisible(true);
            setupTableColumns();
-        refreshTable();
 
         loadDataIntoTableView();
         setupImageColumn();
+        tableViewProduit.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            selectedProduit = newValue; // Update selectedProduit with the newly selected item
+            System.out.println("Selected Product: " + selectedProduit); // Print selected product for debugging
+        });
+
+
+// Add similar listeners for other text fields as needed
+
+
+
     }
 
     private void setupImageColumn() {
@@ -255,10 +305,45 @@ public class Dashboard extends Application implements Initializable {
             System.err.println(e.getMessage());
         }
     }
+    public void modifyProduit(ActionEvent event) {
+        Connection connection = MyDatabase.getInstance().getConnection();
+        if (connection == null) {
+            System.out.println("Connection is null!");
+            return;
+        }
+
+        if (selectedProduit == null) {
+            System.out.println("No product selected for modification.");
+            return;
+        }
+
+        // Get modified data from text fields
+        String nom = nomproduit.getText();
+        String descriptionText = description.getText();
+        // Get other modified fields as needed
+
+        // Update selected product with modified data
+        selectedProduit.setNom(nom);
+        selectedProduit.setDescription(descriptionText);
+        // Update other fields as needed
+
+        ServiceProduit sp = new ServiceProduit(); // Use connection object
+
+        try {
+            // Update the modified product in the database
+            sp.modifier(selectedProduit);
+            System.out.println("Product modified successfully.");
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
 
 
     private void setupTableColumns() {
         // idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        idP.setCellValueFactory(new PropertyValueFactory<>("id"));
+
         nomP.setCellValueFactory(new PropertyValueFactory<>("nom"));
         imageP.setCellValueFactory(new PropertyValueFactory<>("image"));
         prix.setCellValueFactory(new PropertyValueFactory<>("prix"));
@@ -299,9 +384,32 @@ public class Dashboard extends Application implements Initializable {
             // Handle exception appropriately
         }
     }
-
-
-
-
+    @FXML
+    private void handleSupprimerButtonClick(ActionEvent event) {
+        Produit selectedProduit = tableViewProduit.getSelectionModel().getSelectedItem();
+        if (selectedProduit != null) {
+            try {
+                // Delete the selected item from the database
+                new ServiceProduit().supprimer(selectedProduit.getId());
+                // Remove the item from the TableView
+                tableViewProduit.getItems().remove(selectedProduit);
+            } catch (SQLException e) {
+                e.printStackTrace(); // Handle exception appropriately
+            }
+        } else {
+            System.out.println("No product selected for deletion.");
+        }
+    }
+    @FXML
+    private void handleTableViewSelection() {
+        selectedProduit = tableViewProduit.getSelectionModel().getSelectedItem();
+    }
 
 }
+
+
+
+
+
+
+

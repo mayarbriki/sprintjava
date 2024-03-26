@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="719.0" prefWidth="1140.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.Dashboard">
+<AnchorPane prefHeight="719.0" prefWidth="1224.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.Dashboard">
    <children>
       <VBox layoutX="45.0" layoutY="55.0" prefHeight="471.0" prefWidth="223.0">
          <children>
@@ -54,14 +54,18 @@
             <Label fx:id="imagePathLabel" layoutX="230.0" layoutY="232.0" text="Label" />
          </children>
       </AnchorPane>
-      <TableView fx:id="tableViewProduit" layoutX="642.0" layoutY="82.0" prefHeight="430.0" prefWidth="474.0">
+      <TableView fx:id="tableViewProduit" layoutX="578.0" layoutY="82.0" prefHeight="430.0" prefWidth="583.0">
+         
         <columns>
+            <TableColumn fx:id="idP" prefWidth="75.0" text="id" />
           <TableColumn fx:id="nomP" prefWidth="75.0" text="nomproduit" />
-          <TableColumn fx:id="quantite" prefWidth="75.0" text="quantité" />
-            <TableColumn fx:id="descriptionproduit" prefWidth="75.0" text="description" />
-            <TableColumn fx:id="imageP" prefWidth="75.0" text="image" />
             <TableColumn fx:id="prix" prefWidth="75.0" text="prix" />
+            <TableColumn fx:id="imageP" prefWidth="75.0" text="image" />
+            <TableColumn fx:id="descriptionproduit" prefWidth="75.0" text="description" />
+          <TableColumn fx:id="quantite" prefWidth="75.0" text="quantité" />
         </columns>
       </TableView>
+      <Button fx:id="modifier" layoutX="672.0" layoutY="526.0" mnemonicParsing="false" onAction="#modifyProduit" text="modifier" />
+      <Button fx:id="supprimer" layoutX="752.0" layoutY="526.0" mnemonicParsing="false" onAction="#handleSupprimerButtonClick" text="supprimer" />
    </children>
 </AnchorPane>

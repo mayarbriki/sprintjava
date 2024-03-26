@@ -53,8 +53,13 @@ public class ServiceProduit implements  PService<Produit> {
 
     @Override
     public void supprimer(int id) throws SQLException {
-
+        String sql = "DELETE FROM Produit WHERE id = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        }
     }
+
 
     @Override
     public List<Produit> recuperer() throws SQLException {
