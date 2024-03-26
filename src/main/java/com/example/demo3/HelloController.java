@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -104,7 +105,7 @@ public class HelloController implements Initializable {
             return;
         }
 
-        String sql = "SELECT * FROM personne WHERE nom = ? AND password = ?";
+        String sql = "SELECT * FROM user WHERE nom = ? AND password = ?";
         try (PreparedStatement pst = connection.prepareStatement(sql)) { // Use prepared statement with try-with-resources
             pst.setString(1, usenamelogin.getText());
             pst.setString(2, pwdlogin.getText());
@@ -112,17 +113,26 @@ public class HelloController implements Initializable {
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Login Successful");
-                alert.setHeaderText("Welcome!");
-                alert.setContentText("You have logged in successfully.");
-                alert.showAndWait();
+                String role = rs.getString("role"); // Assuming the role column is named "role" in your database
+                FXMLLoader loader = new FXMLLoader();
 
-                // Switch scenes or perform other actions on successful login
-                login.getScene().getWindow().hide(); // Hide current scene
-                Stage mainStage = new Stage();
+                if ("admin".equals(role)) {
+                    loader.setLocation(getClass().getResource("dashboard.fxml"));
+                } else if ("user".equals(role)) {
+                    loader.setLocation(getClass().getResource("vueuser.fxml"));
+                } else {
+                    // Handle unrecognized roles
+                    System.out.println("Unrecognized role: " + role);
+                    return;
+                }
 
-                mainStage.show(); // Show CPanel scene
+                Parent root = loader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+
+                // Close current login window
+               // ((Node)(event.getSource())).getScene().getWindow().hide();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Login Failed");
@@ -141,7 +151,8 @@ public class HelloController implements Initializable {
         }
     }
 
-    }
+
+}
 
 
 
