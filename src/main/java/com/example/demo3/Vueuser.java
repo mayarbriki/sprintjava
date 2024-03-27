@@ -9,6 +9,9 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import models.Produit;
 import utils.MyDatabase;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vueuser extends Application {
+    @FXML
+    private Button addtocart;
 
     @Override
     public void start(Stage primaryStage) {
@@ -56,6 +61,38 @@ public class Vueuser extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+    public void displayProductsFromDatabase() {
+        List<Produit> produits = fetchProductsFromDatabase();
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+
+        for (int i = 0; i < produits.size(); i++) {
+            Produit produit = produits.get(i);
+            ImageView imageView = new ImageView();
+            Label nameLabel = new Label();
+            Label descriptionLabel = new Label();
+            Label priceLabel = new Label();
+
+            try {
+                // Load image from resource
+                imageView.setImage(new Image(produit.getImage()));
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+                continue; // Skip this product if image loading fails
+            }
+
+            nameLabel.setText(produit.getNom());
+            descriptionLabel.setText(produit.getDescription());
+            priceLabel.setText("Price: $" + produit.getPrix());
+
+            gridPane.add(imageView, 0, i);
+            gridPane.add(nameLabel, 1, i);
+            gridPane.add(descriptionLabel, 2, i);
+            gridPane.add(priceLabel, 3, i);
+        }
+    }
+
 
     public static void main(String[] args) {
         launch(args);

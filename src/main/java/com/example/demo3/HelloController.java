@@ -10,9 +10,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import models.Personne;
+import models.Produit;
 import services.IService;
 import services.ServicePersonne;
 import utils.MyDatabase;
@@ -20,6 +24,7 @@ import utils.MyDatabase;
 import javax.swing.*;
 import java.net.URL;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -60,6 +65,7 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
 
     }
 
@@ -128,11 +134,43 @@ public class HelloController implements Initializable {
 
                 Parent root = loader.load();
                 Stage stage = new Stage();
-                stage.setScene(new Scene(root));
+                List<Produit> produits = fetchProductsFromDatabase();
+
+                GridPane gridPane = new GridPane();
+                gridPane.setHgap(10);
+                gridPane.setVgap(10);
+
+                for (int i = 0; i < produits.size(); i++) {
+                    Produit produit = produits.get(i);
+                    ImageView imageView = new ImageView();
+                    Label nameLabel = new Label();
+                    Label descriptionLabel = new Label();
+                    Label priceLabel = new Label();
+
+                    try {
+                        // Load image from resource
+                        imageView.setImage(new Image(produit.getImage()));
+                    } catch (IllegalArgumentException e) {
+                        e.printStackTrace();
+                        continue; // Skip this product if image loading fails
+                    }
+
+                    nameLabel.setText(produit.getNom());
+                    descriptionLabel.setText(produit.getDescription());
+                    priceLabel.setText("Price: $" + produit.getPrix());
+
+                    gridPane.add(imageView, 0, i);
+                    gridPane.add(nameLabel, 1, i);
+                    gridPane.add(descriptionLabel, 2, i);
+                    gridPane.add(priceLabel, 3, i);
+                }
+
+                Scene scene = new Scene(gridPane, 800, 600);
+                stage.setScene(scene);
                 stage.show();
 
                 // Close current login window
-               // ((Node)(event.getSource())).getScene().getWindow().hide();
+                // ((Node)(event.getSource())).getScene().getWindow().hide();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Login Failed");
@@ -150,11 +188,32 @@ public class HelloController implements Initializable {
             alert.showAndWait();
         }
     }
+    private List<Produit> fetchProductsFromDatabase() {
+        List<Produit> produits = new ArrayList<>();
+
+        try (Connection connection = MyDatabase.getInstance().getConnection()) {
+            String sql = "SELECT * FROM produit";
+            try (PreparedStatement pst = connection.prepareStatement(sql)) {
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    Produit produit = new Produit(
+                            rs.getInt("id"),
+                            rs.getInt("quantite"),
+                            rs.getString("nom"),
+                            rs.getString("description"),
+                            "file:" + rs.getString("image"), // Prefix "file:" to create a file URL
+                            rs.getString("prix")
+                    );
+                    produits.add(produit);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle database exception
+        }
+
+        return produits;
+    }
 
 
 }
-
-
-
-
-
