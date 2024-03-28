@@ -8,14 +8,14 @@
 
 <AnchorPane prefHeight="723.0" prefWidth="848.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.Vueuser">
    <children>
-      <GridPane fx:id="container" layoutX="156.0" layoutY="243.0" prefHeight="147.0" prefWidth="189.0">
+      <GridPane fx:id="container" layoutX="175.0" layoutY="249.0" prefHeight="229.0" prefWidth="626.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="98.8" minHeight="10.0" prefHeight="51.2" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="75.39999389648438" minHeight="0.0" prefHeight="46.200021362304696" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="170.3999816894531" minHeight="10.0" prefHeight="130.3999816894531" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="75.39999389648438" minHeight="0.0" prefHeight="44.800018310546875" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="51.79997863769532" minHeight="10.0" prefHeight="47.79997863769532" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>

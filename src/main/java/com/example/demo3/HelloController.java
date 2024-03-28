@@ -1,5 +1,5 @@
 package com.example.demo3;
-
+import services.UserSessionService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
     Connection cnx;
-
+   private int loggedInUserId;
     @FXML
     private Label welcomeText;
     @FXML
@@ -113,7 +113,11 @@ public class HelloController implements Initializable {
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
-                String role = rs.getString("role"); // Assuming the role column is named "role" in your database
+                String role = rs.getString("role");
+                // Assuming the role column is named "role" in your database
+                loggedInUserId = rs.getInt("id");
+                UserSessionService.getInstance().setLoggedInUserId(loggedInUserId); // Set logged-in user ID
+                System.out.println("Logged-in User ID: " + loggedInUserId);
                 FXMLLoader loader = new FXMLLoader();
 
                 if ("admin".equals(role)) {

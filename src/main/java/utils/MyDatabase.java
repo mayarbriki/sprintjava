@@ -7,10 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.Produit;
+import services.ServicePanier;
 import services.ServicePersonne;
 import models.Personne;
 import services.ServiceProduit;
-
+import models.Panier;
 import java.io.IOException;
 
 public class MyDatabase {
@@ -43,7 +44,15 @@ public class MyDatabase {
         MyDatabase db = new MyDatabase();
         ServicePersonne sp = new ServicePersonne();
         ServiceProduit serviceProduit = new ServiceProduit();
+        ServicePanier servicepanier = new ServicePanier() ;
         try {
+            Panier panier = new Panier();
+            Produit produit = new Produit();
+
+            // Add code to initialize Panier and Produit objects with appropriate values
+
+            // Call the addToCart function
+           // servicepanier.addToCart(panier, produit , conn);
    //   sp.ajouter(new Personne(1,25,"Ben" , "1234"));
             //serviceProduit.ajouter(new Produit(2 , 2 ,  "5", "vf" , "fd" , "fv" ));
 

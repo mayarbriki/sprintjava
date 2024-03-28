@@ -1,4 +1,5 @@
 package models;
+import utils.MyDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,12 @@ public class Panier {
         this.produits = new ArrayList<>();
         this.commandes = new ArrayList<>();
     }
+    public void addProduit(Produit produit) {
+        if (produits == null) {
+            produits = new ArrayList<>();
+        }
+        produits.add(produit);
+    }
 
     public int getId() {
         return id;
@@ -28,18 +35,7 @@ public class Panier {
         return produits;
     }
 
-    public void addProduit(Produit produit) {
-        if (!produits.contains(produit)) {
-            produits.add(produit);
-           // produit.addPanier(this);
-        }
-    }
 
-    public void removeProduit(Produit produit) {
-        if (produits.remove(produit)) {
-          //  produit.removePanier(this);
-        }
-    }
 
     public Personne getOwner() {
         return owner;
@@ -68,18 +64,7 @@ public class Panier {
         return commandes;
     }
 
-    public void addCommande(Commande commande) {
-        if (!commandes.contains(commande)) {
-            commandes.add(commande);
-            commande.setPanier(this);
-        }
-    }
 
-    public void removeCommande(Commande commande) {
-        if (commandes.remove(commande)) {
-            commande.setPanier(null);
-        }
-    }
 
     @Override
     public String toString() {
