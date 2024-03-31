@@ -2,24 +2,22 @@ package com.example.demo3;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import models.Personne;
-import services.IService;
-import services.ServicePersonne;
+import models.User;
+import services.ServiceUser;
 import utils.MyDatabase;
 
-import javax.swing.*;
 import java.net.URL;
-import java.sql.*;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
@@ -73,12 +71,12 @@ public class HelloController implements Initializable {
             return;
         }
 
-        Personne personne = new Personne(1, 25, username.getText() , pwd.getText());
-        ServicePersonne sp = new ServicePersonne(); // Use connection object
+        User user = new User( 25, username.getText() , pwd.getText());
+        ServiceUser sp = new ServiceUser(); // Use connection object
 
         try {
-            sp.ajouter(personne);
-            System.out.println(sp.recuperer());
+            sp.ajouterT(user);
+            System.out.println(sp.recupererT());
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
@@ -104,7 +102,7 @@ public class HelloController implements Initializable {
             return;
         }
 
-        String sql = "SELECT * FROM personne WHERE nom = ? AND password = ?";
+        String sql = "SELECT * FROM user WHERE name = ? AND password = ?";
         try (PreparedStatement pst = connection.prepareStatement(sql)) { // Use prepared statement with try-with-resources
             pst.setString(1, usenamelogin.getText());
             pst.setString(2, pwdlogin.getText());

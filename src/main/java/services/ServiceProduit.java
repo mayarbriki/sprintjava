@@ -1,14 +1,12 @@
 package services;
 
-import models.Personne;
 import models.Produit;
 import utils.MyDatabase;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +56,25 @@ public class ServiceProduit implements  PService<Produit> {
 
     @Override
     public List<Produit> recuperer() throws SQLException {
-        return null;
+        List<Produit> produits = new ArrayList<>();
+        String sql = "SELECT * FROM Produit"; // Adjust SQL query as per your database schema
+
+        try (PreparedStatement ps = cnx.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int quantite = rs.getInt("quantite");
+                String nom = rs.getString("nom");
+                String description = rs.getString("description");
+                String image = rs.getString("image");
+                String prix = rs.getString("prix");
+
+                Produit produit = new Produit(id, quantite, nom, description, image, prix);
+                produits.add(produit);
+            }
+        }
+
+        return produits;
     }
 
 

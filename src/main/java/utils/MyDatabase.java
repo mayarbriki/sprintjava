@@ -1,21 +1,15 @@
 package utils;
+
+import services.ServiceProduit;
+import services.ServiceUser;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import models.Produit;
-import services.ServicePersonne;
-import models.Personne;
-import services.ServiceProduit;
-
-import java.io.IOException;
 
 public class MyDatabase {
 
-    private final String URL = "jdbc:mysql://localhost:3306/parapharmacy";
+    private final String URL = "jdbc:mysql://localhost:3306/3A60";
     private final String USER = "root";
     private final String PASS = "";
     private Connection connection;
@@ -41,16 +35,16 @@ public class MyDatabase {
     }
     public static void main(String[] args) {
         MyDatabase db = new MyDatabase();
-        ServicePersonne sp = new ServicePersonne();
+        ServiceUser su = new ServiceUser();
         ServiceProduit serviceProduit = new ServiceProduit();
         try {
-            //   sp.ajouter(new Personne(1,25,"Ben" , "1234"));
-            //serviceProduit.ajouter(new Produit(2 , 2 ,  "5", "vf" , "fd" , "fv" ));
 
-            //serviceProduit.modifier(new Produit(2 , 3 , "5" , "vf" , "ffvd" , "fd"));
+            // serviceProduit.ajouter(new Produit(2 , 2 ,  "5", "vf" , "fd" , "fv" ));
 
-            System.out.println(sp.recuperer());
-            sp.supprimer(2);
+            // serviceProduit.modifier(new Produit(2 , 3 , "5" , "vf" , "ffvd" , "fd"));
+
+            System.out.println(su.recupererT());
+            su.supprimerT(2);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
 
