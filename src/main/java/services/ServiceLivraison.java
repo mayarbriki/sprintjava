@@ -47,8 +47,7 @@ public class ServiceLivraison implements LService<Livraison> {
                     livraison.setDescription(resultSet.getString("description"));
                     livraison.setEtat(resultSet.getString("etat"));
                     livraison.setDateLiv(resultSet.getDate("dateLiv"));
-                    // Set "N/A" as placeholder for matricule
-                    livraison.setMatricule(new Transport(0, "", "", "N/A", "", null));
+                    //livraison.setMatricule(new Transport("N/A"));
                     livraisons.add(livraison);
                 }
             }

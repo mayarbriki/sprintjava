@@ -1,5 +1,9 @@
 /******** Dashboard Design **********/
 
+.gradient-background{
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #048b9a,#44ccff)
+
+}
 .top-form{
     -fx-background-color:#fff;
     -fx-border-color:#000;

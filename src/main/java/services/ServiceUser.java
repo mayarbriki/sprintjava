@@ -78,4 +78,9 @@ public class ServiceUser implements IService<User>{
         }
         return users;
     }
+
+    @Override
+    public List<String> Matriculescombobox() throws SQLException {
+        return null;
+    }
 }

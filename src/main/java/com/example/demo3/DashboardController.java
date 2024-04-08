@@ -71,28 +71,28 @@ public class DashboardController extends Application implements Initializable {
     private Label id_livraison;
 
     @FXML
-    private TableColumn<?, ?> livraison_col_AdresseLiv;
+    private TableColumn<Livraison, Livraison> livraison_col_AdresseLiv;
 
     @FXML
-    private TableColumn<?, ?> livraison_col_Commande;
+    private TableColumn<Livraison, Livraison> livraison_col_Commande;
 
     @FXML
-    private TableColumn<?, ?> livraison_col_DateLiv;
+    private TableColumn<Livraison, Livraison> livraison_col_DateLiv;
 
     @FXML
-    private TableColumn<?, ?> livraison_col_Description;
+    private TableColumn<Livraison, Livraison> livraison_col_Description;
 
     @FXML
-    private TableColumn<?, ?> livraison_col_Etat;
+    private TableColumn<Livraison, Livraison> livraison_col_Etat;
 
     @FXML
-    private TableColumn<?, ?> livraison_col_ID;
+    private TableColumn<Livraison, Livraison> livraison_col_ID;
 
     @FXML
-    private TableColumn<?, ?> livraison_col_Matricule;
+    private TableColumn<Livraison, Livraison> livraison_col_Matricule;
 
     @FXML
-    private TableColumn<?, ?> livraison_col_Nom;
+    private TableColumn<Livraison, Livraison> livraison_col_Nom;
 
     @FXML
     private TableView<Livraison> livraison_tableview;
@@ -116,22 +116,22 @@ public class DashboardController extends Application implements Initializable {
     private Button transport_clear_btn;
 
     @FXML
-    private TableColumn<?, ?> transport_col_ID;
+    private TableColumn<Transport, Transport> transport_col_ID;
 
     @FXML
-    private TableColumn<?, ?> transport_col_Type;
+    private TableColumn<Transport, Transport> transport_col_Type;
 
     @FXML
-    private TableColumn<?, ?> transport_col_annefab;
+    private TableColumn<Transport, Transport> transport_col_annefab;
 
     @FXML
-    private TableColumn<?, ?> transport_col_etat;
+    private TableColumn<Transport, Transport> transport_col_etat;
 
     @FXML
-    private TableColumn<?, ?> transport_col_marque;
+    private TableColumn<Transport, Transport> transport_col_marque;
 
     @FXML
-    private TableColumn<?, ?> transport_col_matricule;
+    private TableColumn<Transport, Transport> transport_col_matricule;
 
     @FXML
     private DatePicker transport_date;
@@ -168,13 +168,16 @@ public class DashboardController extends Application implements Initializable {
 
     @FXML
     private Label matriculeErrorLabel;
+    @FXML
+    private Button maximizeButton;
+    private boolean maximized = false;
 
 
     public void ajouterT(ActionEvent event) throws SQLException {
-        // Retrieve selected items from ComboBoxes
-        String selectedType = (String) transport_type.getSelectionModel().getSelectedItem();
-        String selectedMarque = (String) transport_marque.getSelectionModel().getSelectedItem();
-        String selectedEtat = (String) transport_etat.getSelectionModel().getSelectedItem();
+
+        String selectedType = transport_type.getSelectionModel().getSelectedItem();
+        String selectedMarque = transport_marque.getSelectionModel().getSelectedItem();
+        String selectedEtat = transport_etat.getSelectionModel().getSelectedItem();
         String matriculeValue = transport_matricule.getText();
         LocalDate selectedDate = transport_date.getValue();
 
@@ -188,7 +191,7 @@ public class DashboardController extends Application implements Initializable {
         }
 
         if (!matriculeValue.matches("\\d{3}-TUN-\\d{4}")) {
-            // If the format is not matched, display an error message
+
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error Message");
             alert.setHeaderText(null);
@@ -203,6 +206,7 @@ public class DashboardController extends Application implements Initializable {
 
         try {
             st.ajouterT(transport);
+            refreshTable();
             System.out.println("Transport added successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -212,14 +216,38 @@ public class DashboardController extends Application implements Initializable {
 
     @FXML
     public void modifierT() {
-        Transport selectedTransport = (Transport) transport_tableview.getSelectionModel().getSelectedItem();
+        Transport selectedTransport = transport_tableview.getSelectionModel().getSelectedItem();
         if (selectedTransport != null) {
-            // Update the selected transport with the new values
-            selectedTransport.setType((String) transport_type.getSelectionModel().getSelectedItem());
-            selectedTransport.setMarque((String) transport_marque.getSelectionModel().getSelectedItem());
-            selectedTransport.setMatricule(transport_matricule.getText());
-            selectedTransport.setEtat((String) transport_etat.getSelectionModel().getSelectedItem());
-            selectedTransport.setAnneefab(Date.valueOf(transport_date.getValue()));
+
+            String selectedType = transport_type.getSelectionModel().getSelectedItem();
+            String selectedMarque = transport_marque.getSelectionModel().getSelectedItem();
+            String selectedEtat = transport_etat.getSelectionModel().getSelectedItem();
+            String matriculeValue = transport_matricule.getText();
+            LocalDate selectedDate = transport_date.getValue();
+
+            if (selectedType == null || selectedMarque == null || selectedEtat == null || matriculeValue.isEmpty() || selectedDate == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Veuillez remplir tous les champs vides");
+                alert.showAndWait();
+                return;
+            }
+
+            if (!matriculeValue.matches("\\d{3}-TUN-\\d{4}")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Matricule doit être dans le format ***-TUN-****");
+                alert.showAndWait();
+                return; // Exit the function without proceeding further
+            }
+
+            selectedTransport.setType(selectedType);
+            selectedTransport.setMarque(selectedMarque);
+            selectedTransport.setMatricule(matriculeValue);
+            selectedTransport.setEtat(selectedEtat);
+            selectedTransport.setAnneefab(Date.valueOf(selectedDate));
 
             try {
                 ServiceTransport st = new ServiceTransport();
@@ -235,7 +263,7 @@ public class DashboardController extends Application implements Initializable {
 
 
     public void supprimerT(ActionEvent event) {
-        // Get the selected transport from the table view
+
         Transport selectedTransport = transport_tableview.getSelectionModel().getSelectedItem();
         if (selectedTransport != null) {
             try {
@@ -246,8 +274,7 @@ public class DashboardController extends Application implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("Transport deleted successfully.");
                 alert.showAndWait();
-                // Refresh the table view after deletion
-                refreshTable();
+                refreshTable(); // refresh after delete
             } catch (SQLException ex) {
 
                 Alert alert = new Alert(AlertType.ERROR);
@@ -290,13 +317,10 @@ public class DashboardController extends Application implements Initializable {
     @FXML
     private void refreshTable() {
         try {
-            // Fetch the list of products from the database
             List<Transport> transportList = new ServiceTransport().recupererT();
 
-            // Clear the existing items in the TableView
             transport_tableview.getItems().clear();
 
-            // Add the fetched products to the TableView
             transport_tableview.getItems().addAll(transportList);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -328,19 +352,15 @@ public class DashboardController extends Application implements Initializable {
     @FXML
     private void refreshLivraisonTable() {
         try {
-            // Fetch the list of Livraisons from the database
             List<Livraison> livraisonList = new ServiceLivraison().recupererL();
 
-            // Clear the existing items in the TableView
             livraison_tableview.getItems().clear();
 
-            // Add the fetched Livraisons to the TableView
             livraison_tableview.getItems().addAll(livraisonList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
 
     public void switchForm(ActionEvent event) {
         /*if (event.getSource() == acceuil_btn) {
@@ -363,7 +383,7 @@ public class DashboardController extends Application implements Initializable {
             Livraison_form.setVisible(true);
             transport_form.setVisible(false);
 
-            gestionlivraison_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #3a4368, #28966c);");
+            gestionlivraison_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #08b4c7 , #007fff);");
             acceuil_btn.setStyle("-fx-background-color:transparent");
             gestiontransport_btn.setStyle("-fx-background-color:transparent");
 
@@ -371,7 +391,7 @@ public class DashboardController extends Application implements Initializable {
             Livraison_form.setVisible(false);
             transport_form.setVisible(true);
 
-            gestiontransport_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #3a4368, #28966c);");
+            gestiontransport_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #08b4c7 , #007fff);");
             gestionlivraison_btn.setStyle("-fx-background-color:transparent");
             acceuil_btn.setStyle("-fx-background-color:transparent");
 
@@ -387,38 +407,29 @@ public class DashboardController extends Application implements Initializable {
         transport_matricule.setText("");
         transport_date.setValue(null);
     }
-
-    @FXML
-    private Button maximizeButton;
-
-    private boolean maximized = false;
-
-    @FXML
-    void maximize(ActionEvent event) {
-        Stage stage = (Stage) main_form.getScene().getWindow();
-        if (!maximized) {
-            Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
-            stage.setX(screenSize.getMinX());
-            stage.setY(screenSize.getMinY());
-            stage.setWidth(screenSize.getWidth());
-            stage.setHeight(screenSize.getHeight());
-            maximized = true;
-        } else {
-            stage.setMaximized(false);
-            maximized = false;
+    private void resetLivraisonFields() {
+        id_livraison.setText("");
+        dateLiv.setText("");
+        adresseLiv.setText("");
+        description.setText("");
+        etat.setText("");
+//        commande.setText("");
+//        matricule.getSelectionModel().clearSelection();
+    }
+    private void loadDataIntoComboBox() {
+        ServiceTransport sp = new ServiceTransport();
+        List<String> matricules = null;
+        try {
+            matricules = sp.Matriculescombobox();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception
+        }
+        if (matricules != null) {
+            ObservableList<String> matriculesList = FXCollections.observableArrayList(matricules);
+            matricule.setItems(matriculesList);
         }
     }
-
-    public void close() {
-        System.exit(0);
-    }
-
-    public void minimize() {
-        Stage stage = (Stage) main_form.getScene().getWindow();
-        stage.setIconified(true);
-    }
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -429,6 +440,8 @@ public class DashboardController extends Application implements Initializable {
         setupLivraisonTableColumns();
         refreshLivraisonTable();
         loadDataIntoLivraisonTableView();
+
+        loadDataIntoComboBox();
 
         transport_tableview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
@@ -442,36 +455,29 @@ public class DashboardController extends Application implements Initializable {
                 TransportReset();
             }
         });
+        livraison_tableview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                Livraison selectedLivraison = livraison_tableview.getSelectionModel().getSelectedItem();
+                id_livraison.setText(String.valueOf(selectedLivraison.getId()));
+                dateLiv.setText(String.valueOf(selectedLivraison.getDateLiv().toLocalDate()));
+                adresseLiv.setText(selectedLivraison.getAdresseLiv());
+                description.setText(selectedLivraison.getDescription());
+                etat.setText(selectedLivraison.getEtat());
+//                commande.setText(selectedLivraison.getCommande());
+//                matricule.getSelectionModel().select(selectedLivraison.getMatricule());
+            } else {
+                // If no item is selected, reset the fields
+                resetLivraisonFields();
+            }
+        });
 
     }
-
-    private double x = 0;
-    private double y = 0;
 
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Dashboard1.fxml")));
 
         Scene scene = new Scene(root);
-
-        root.setOnMousePressed((MouseEvent event) -> {
-            x = event.getSceneX();
-            y = event.getSceneY();
-        });
-
-        root.setOnMouseDragged((MouseEvent event) -> {
-            stage.setX(event.getScreenX() - x);
-            stage.setY(event.getScreenY() - y);
-
-            stage.setOpacity(1);
-        });
-
-        root.setOnMouseReleased((MouseEvent event) -> {
-            stage.setOpacity(1);
-        });
-
-        stage.initStyle(StageStyle.TRANSPARENT);
-
         stage.setScene(scene);
         stage.show();
     }

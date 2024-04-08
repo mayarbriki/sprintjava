@@ -10,4 +10,6 @@ public interface IService<T> {
     void modifierT(T t) throws SQLException;
     void supprimerT(int id) throws SQLException;
     List<T> recupererT() throws SQLException;
+
+    List<String> Matriculescombobox() throws SQLException;
 }

@@ -20,11 +20,11 @@
     <children>
         <AnchorPane fx:id="main_form" prefHeight="200.0" prefWidth="1300.0">
             <children>
-                <BorderPane layoutX="92.0" layoutY="114.0" prefHeight="600.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <BorderPane layoutX="92.0" layoutY="-33.6" prefHeight="634.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-34.0">
                     <top>
-                        <AnchorPane prefHeight="45.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                        <AnchorPane prefHeight="10.0" prefWidth="1300.0" styleClass="semi-top-form" stylesheets="@DashbordDesign.css" BorderPane.alignment="CENTER">
                             <children>
-                                <AnchorPane layoutX="26.0" layoutY="-77.0" prefHeight="35.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <AnchorPane layoutX="26.0" layoutY="-77.0" prefHeight="35.0" prefWidth="1100.0" styleClass="top-form" stylesheets="@DashbordDesign.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <children>
                                         <FontAwesomeIconView glyphName="USERS" layoutX="24.0" layoutY="27.0" size="20" />
                                         <Label layoutX="60.0" layoutY="14.0" text="Systeme de Gestion Parapharma+">
@@ -32,20 +32,20 @@
                                                 <Font name="Cambria" size="14.0" />
                                             </font>
                                         </Label>
-                                        <Button fx:id="close" layoutX="1020.0" layoutY="11.0" mnemonicParsing="false" onAction="#close" prefHeight="24.0" prefWidth="60.0" styleClass="close" stylesheets="@DashbordDesign.css" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
+                                        <Button fx:id="close" layoutX="1020.0" layoutY="11.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="60.0" styleClass="close" stylesheets="@DashbordDesign.css" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
                                             <graphic>
                                                 <FontAwesomeIconView glyphName="CLOSE" size="16" />
                                             </graphic>
                                         </Button>
-                                        <Button fx:id="maximizeButton" layoutX="1196.0" layoutY="2.0" mnemonicParsing="false" onAction="#maximize" prefHeight="24.0" prefWidth="60.0" styleClass="minimize" stylesheets="@DashbordDesign.css" AnchorPane.rightAnchor="44.0" AnchorPane.topAnchor="2.0">
+                                        <Button fx:id="maximizeButton" layoutX="1178.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="60.0" styleClass="minimize" stylesheets="@DashbordDesign.css" AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="2.0">
                                             <graphic>
                                                 <FontAwesomeIconView glyphName="SQUARE" size="16" />
                                             </graphic>
                                         </Button>
-                                        <Button layoutX="1162.0" layoutY="2.0" mnemonicParsing="false" onAction="#minimize" prefHeight="24.0" prefWidth="41.0" styleClass="minimize" stylesheets="@DashbordDesign.css" AnchorPane.topAnchor="2.0">
-                                 <graphic>
+                                        <Button layoutX="1118.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="60.0" styleClass="minimize" stylesheets="@DashbordDesign.css" AnchorPane.rightAnchor="122.0" AnchorPane.topAnchor="2.0">
+                                            <graphic>
                                                 <FontAwesomeIconView fx:id="minimize" glyphName="MINUS" size="16" />
-                                 </graphic>
+                                            </graphic>
                                         </Button>
                                     </children>
                                 </AnchorPane>
@@ -53,7 +53,7 @@
                         </AnchorPane>
                     </top>
                     <left>
-                        <AnchorPane prefHeight="555.0" prefWidth="211.0" BorderPane.alignment="CENTER">
+                        <AnchorPane prefHeight="554.0" prefWidth="201.0" BorderPane.alignment="CENTER">
                             <children>
                                 <AnchorPane layoutX="6.0" layoutY="49.0" prefHeight="554.4" prefWidth="211.2" styleClass="nav-form" stylesheets="@DashbordDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <children>
@@ -104,30 +104,30 @@
                         </AnchorPane>
                     </left>
                     <center>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@DashbordDesign.css" BorderPane.alignment="CENTER">
                             <children>
                                 <AnchorPane fx:id="transport_form" layoutX="98.0" layoutY="63.0" prefHeight="554.4" prefWidth="888.8" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <children>
-                                        <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="530.0" prefWidth="1062.0" stylesheets="@DashbordDesign.css">
+                                        <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="575.0" prefWidth="1063.0" stylesheets="@DashbordDesign.css">
                                             <styleClass>
                                                 <String fx:value="white-bg" />
                                                 <String fx:value="shadow" />
                                             </styleClass>
                                             <children>
-                                                <AnchorPane prefHeight="282.0" prefWidth="1062.0" stylesheets="@DashbordDesign.css">
+                                                <AnchorPane prefHeight="282.0" prefWidth="1063.0" stylesheets="@DashbordDesign.css">
                                                     <styleClass>
                                                         <String fx:value="white-bg" />
                                                         <String fx:value="shadow" />
                                                     </styleClass>
                                                     <children>
-                                                        <TableView fx:id="transport_tableview" layoutX="10.0" layoutY="46.0" prefHeight="227.0" prefWidth="1047.0">
+                                                        <TableView fx:id="transport_tableview" layoutX="10.0" layoutY="46.0" prefHeight="227.0" prefWidth="1044.0">
                                                             <columns>
                                                                 <TableColumn fx:id="transport_col_ID" prefWidth="92.80000686645508" text="ID" />
                                                                 <TableColumn fx:id="transport_col_Type" prefWidth="137.59996032714844" text="Type" />
                                                                 <TableColumn fx:id="transport_col_marque" prefWidth="213.59999084472656" text="Marque" />
                                                                 <TableColumn fx:id="transport_col_matricule" prefWidth="215.20001220703125" text="Matricule" />
                                                                 <TableColumn fx:id="transport_col_annefab" prefWidth="245.60009765625" text="Année Fabrication" />
-                                                                <TableColumn fx:id="transport_col_etat" prefWidth="145.60015869140625" text="Etat" />
+                                                                <TableColumn fx:id="transport_col_etat" prefWidth="135.99993896484375" text="Etat" />
                                                             </columns>
                                                         </TableView>
                                                         <TextField fx:id="transport_search" layoutX="14.0" layoutY="8.0" prefHeight="30.0" prefWidth="277.0" promptText="Rechercher..." styleClass="search" stylesheets="@DashbordDesign.css" />
@@ -142,7 +142,7 @@
                                                 <TextField fx:id="transport_matricule" layoutX="149.0" layoutY="392.0" styleClass="textfield" stylesheets="@DashbordDesign.css" />
                                                 <Label fx:id="matriculeErrorLabel" textFill="red" />
                                                 <DatePicker fx:id="transport_date" layoutX="149.0" layoutY="436.0" promptText="Entrer une date" />
-                                                <ComboBox fx:id="transport_type" layoutX="149.0" layoutY="311.0" prefWidth="150.0" promptText="Choisir">
+                                                <ComboBox fx:id="transport_type" layoutX="149.0" layoutY="311.0" prefWidth="150.0" promptText="Choisir" styleClass="textfield" stylesheets="@DashbordDesign.css">
                                                     <items>
                                                         <FXCollections fx:factory="observableArrayList">
                                                             <String fx:value="SUV/4X4" />
@@ -153,7 +153,7 @@
                                                         </FXCollections>
                                                     </items>
                                                 </ComboBox>
-                                                <ComboBox fx:id="transport_marque" layoutX="149.0" layoutY="354.0" prefWidth="150.0" promptText="Choisir">
+                                                <ComboBox fx:id="transport_marque" layoutX="149.0" layoutY="354.0" prefWidth="150.0" promptText="Choisir" styleClass="textfield" stylesheets="@DashbordDesign.css">
                                                     <items>
                                                         <FXCollections fx:factory="observableArrayList">
                                                             <String fx:value="Hyundai" />
@@ -167,7 +167,7 @@
                                                         </FXCollections>
                                                     </items>
                                                 </ComboBox>
-                                                <ComboBox fx:id="transport_etat" layoutX="148.0" layoutY="480.0" prefWidth="150.0" promptText="Choisir">
+                                                <ComboBox fx:id="transport_etat" layoutX="148.0" layoutY="480.0" prefWidth="150.0" promptText="Choisir" styleClass="textfield" stylesheets="@DashbordDesign.css">
                                                     <items>
                                                         <FXCollections fx:factory="observableArrayList">
                                                             <String fx:value="Opérationnel" />
@@ -183,39 +183,39 @@
                                                     </styleClass>
                                                     <children>
                                                         <Button fx:id="transport_ajouter_btn" layoutX="38.0" layoutY="29.0" mnemonicParsing="false" onAction="#ajouterT" prefHeight="55.0" prefWidth="86.0" stylesheets="@DashbordDesign.css" text="Ajouter">
-                                             <styleClass>
-                                                <String fx:value="add-btn" />
-                                                <String fx:value="shadow" />
-                                             </styleClass></Button>
+                                                            <styleClass>
+                                                                <String fx:value="add-btn" />
+                                                                <String fx:value="shadow" />
+                                                            </styleClass></Button>
                                                         <Button fx:id="transport_supprimer_btn" layoutX="38.0" layoutY="124.0" mnemonicParsing="false" onAction="#supprimerT" prefHeight="55.0" prefWidth="86.0" text="Supprimer">
-                                             <styleClass>
-                                                <String fx:value="delete-btn" />
-                                                <String fx:value="shadow" />
-                                             </styleClass></Button>
+                                                            <styleClass>
+                                                                <String fx:value="delete-btn" />
+                                                                <String fx:value="shadow" />
+                                                            </styleClass></Button>
                                                         <Button fx:id="transport_modifier_btn" layoutX="390.0" layoutY="29.0" mnemonicParsing="false" onAction="#modifierT" prefHeight="55.0" prefWidth="86.0" stylesheets="@DashbordDesign.css" text="Modifier">
-                                             <styleClass>
-                                                <String fx:value="update-btn" />
-                                                <String fx:value="shadow" />
-                                             </styleClass></Button>
+                                                            <styleClass>
+                                                                <String fx:value="update-btn" />
+                                                                <String fx:value="shadow" />
+                                                            </styleClass></Button>
                                                         <Button fx:id="transport_demontrer_btn" layoutX="390.0" layoutY="124.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="86.0" text="Démontrer">
-                                             <styleClass>
-                                                <String fx:value="clear-btn" />
-                                                <String fx:value="shadow" />
-                                             </styleClass></Button>
+                                                            <styleClass>
+                                                                <String fx:value="clear-btn" />
+                                                                <String fx:value="shadow" />
+                                                            </styleClass></Button>
                                                     </children>
                                                 </AnchorPane>
                                                 <Button fx:id="transport_clear_btn" layoutX="364.0" layoutY="367.0" mnemonicParsing="false" onAction="#TransportReset" prefHeight="54.0" prefWidth="86.0" text="Effacer">
-                                       <styleClass>
-                                          <String fx:value="clear-btn" />
-                                          <String fx:value="shadow" />
-                                       </styleClass></Button>
+                                                    <styleClass>
+                                                        <String fx:value="clear-btn" />
+                                                        <String fx:value="shadow" />
+                                                    </styleClass></Button>
                                             </children>
                                         </AnchorPane>
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane fx:id="Livraison_form" layoutX="207.0" layoutY="90.0" prefHeight="554.4" prefWidth="888.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <children>
-                                        <AnchorPane layoutX="6.0" layoutY="12.0" prefHeight="530.0" prefWidth="221.0" stylesheets="@DashbordDesign.css">
+                                        <AnchorPane layoutX="7.0" layoutY="11.0" prefHeight="576.0" prefWidth="222.0" stylesheets="@DashbordDesign.css">
                                             <styleClass>
                                                 <String fx:value="white-bg" />
                                                 <String fx:value="shadow" />
@@ -234,26 +234,26 @@
                                                 <Label fx:id="description" layoutX="85.0" layoutY="204.0" prefHeight="25.0" prefWidth="125.0" styleClass="label-info" text="Label" />
                                                 <Label fx:id="etat" layoutX="85.0" layoutY="261.0" prefHeight="25.0" prefWidth="125.0" styleClass="label-info" text="Label" />
                                                 <Label fx:id="commande" layoutX="85.0" layoutY="320.0" prefHeight="25.0" prefWidth="125.0" styleClass="label-info" text="Label" />
-                                                <ComboBox fx:id="matricule" layoutX="62.0" layoutY="375.0" prefWidth="150.0" />
+                                                <ComboBox fx:id="matricule" layoutX="72.0" layoutY="375.0" prefHeight="25.0" prefWidth="142.0" styleClass="textfield" stylesheets="@DashbordDesign.css" />
                                                 <Button fx:id="affecter" layoutX="62.0" layoutY="438.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="104.0" styleClass="update-btn" text="Affecter" />
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane layoutX="233.0" layoutY="12.0" prefHeight="530.0" prefWidth="841.0" stylesheets="@DashbordDesign.css">
+                                        <AnchorPane layoutX="238.0" layoutY="12.0" prefHeight="574.0" prefWidth="859.0" stylesheets="@DashbordDesign.css">
                                             <styleClass>
                                                 <String fx:value="white-bg" />
                                                 <String fx:value="shadow" />
                                             </styleClass>
                                             <children>
-                                                <TableView fx:id="livraison_tableview" layoutX="3.0" layoutY="5.0" prefHeight="523.0" prefWidth="824.0">
+                                                <TableView fx:id="livraison_tableview" layoutX="4.0" layoutY="7.0" prefHeight="556.0" prefWidth="852.0">
                                                     <columns>
-                                                        <TableColumn fx:id="livraison_col_ID" prefWidth="40.79997253417969" text="ID" />
-                                                        <TableColumn fx:id="livraison_col_DateLiv" prefWidth="92.800048828125" text="DateLiv" />
+                                                        <TableColumn fx:id="livraison_col_ID" prefWidth="31.199981689453125" text="ID" />
+                                                        <TableColumn fx:id="livraison_col_DateLiv" prefWidth="103.20001220703125" text="DateLiv" />
                                                         <TableColumn fx:id="livraison_col_AdresseLiv" prefWidth="157.60003662109375" text="AdresseLiv" />
-                                                        <TableColumn fx:id="livraison_col_Description" prefWidth="167.2000732421875" text="Description" />
-                                                        <TableColumn fx:id="livraison_col_Etat" prefWidth="71.199951171875" text="Etat" />
-                                                        <TableColumn fx:id="livraison_col_Commande" prefWidth="69.60003662109375" text="Commande" />
-                                                        <TableColumn fx:id="livraison_col_Matricule" prefWidth="149.5999755859375" text="Matricule" />
-                                                        <TableColumn fx:id="livraison_col_Nom" prefWidth="72.00006103515625" text="Nom" />
+                                                        <TableColumn fx:id="livraison_col_Description" prefWidth="169.5999755859375" text="Description" />
+                                                        <TableColumn fx:id="livraison_col_Etat" prefWidth="99.20001220703125" text="Etat" />
+                                                        <TableColumn fx:id="livraison_col_Commande" prefWidth="71.2000732421875" text="Commande" />
+                                                        <TableColumn fx:id="livraison_col_Matricule" prefWidth="159.2000732421875" text="Matricule" />
+                                                        <TableColumn fx:id="livraison_col_Nom" prefWidth="55.9998779296875" text="Nom" />
                                                     </columns>
                                                 </TableView>
                                             </children>

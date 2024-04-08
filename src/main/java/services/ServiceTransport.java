@@ -104,4 +104,20 @@ public class ServiceTransport implements IService<Transport>{
         return transports;
     }
 
+    @Override
+    public List<String> Matriculescombobox() throws SQLException {
+        List<String> matriculeList = new ArrayList<>();
+        String query = "SELECT DISTINCT matricule FROM transport";
+        try (PreparedStatement preparedStatement = cnx.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                matriculeList.add(resultSet.getString("matricule"));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            // Handle the exception
+        }
+
+        return matriculeList;
+    }
 }
