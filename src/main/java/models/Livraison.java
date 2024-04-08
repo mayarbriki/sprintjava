@@ -10,14 +10,14 @@ public class Livraison {
     private String etat;
     private Date dateLiv;
 //    private User livreur;
-    private Transport matricule;
+    private String  matricule;
 //  private Commande reference;
 //    private boolean sent;
 
     public Livraison() {
     }
 
-    public Livraison(int id, String aresseLiv, String description, String etat, Date dateLiv, Transport matricule) {
+    public Livraison(int id, String aresseLiv, String description, String etat, Date dateLiv, String  matricule) {
         this.id = id;
         this.adresseLiv = aresseLiv;
         this.description = description;
@@ -26,7 +26,7 @@ public class Livraison {
         this.matricule = matricule;
     }
 
-    public Livraison(int id, String aresseLiv, String description, String etat, Date dateLiv, User livreur, Transport matricule, boolean sent) {
+    public Livraison(int id, String aresseLiv, String description, String etat, Date dateLiv, User livreur, String  matricule, boolean sent) {
         this.id = id;
         this.adresseLiv = aresseLiv;
         this.description = description;
@@ -37,7 +37,7 @@ public class Livraison {
 //        this.sent = sent;
     }
 
-    public Livraison(String aresseLiv, String description, String etat, Date dateLiv, User livreur, Transport matricule, boolean sent) {
+    public Livraison(String aresseLiv, String description, String etat, Date dateLiv, User livreur, String  matricule, boolean sent) {
         this.adresseLiv = aresseLiv;
         this.description = description;
         this.etat = etat;
@@ -93,11 +93,11 @@ public class Livraison {
 //        this.livreur = livreur;
 //    }
 
-    public Transport getMatricule() {
+    public String  getMatricule() {
         return matricule;
     }
 
-    public void setMatricule(Transport matricule) {
+    public void setMatricule(String  matricule) {
         this.matricule = matricule;
     }
 

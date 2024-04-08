@@ -49,8 +49,8 @@ public class DashboardController extends Application implements Initializable {
     @FXML
     private Button close;
 
-    @FXML
-    private Label commande;
+//    @FXML
+//    private Label commande;
 
     @FXML
     private Label dateLiv;
@@ -73,8 +73,8 @@ public class DashboardController extends Application implements Initializable {
     @FXML
     private TableColumn<Livraison, Livraison> livraison_col_AdresseLiv;
 
-    @FXML
-    private TableColumn<Livraison, Livraison> livraison_col_Commande;
+//    @FXML
+//    private TableColumn<Livraison, Livraison> livraison_col_Commande;
 
     @FXML
     private TableColumn<Livraison, Livraison> livraison_col_DateLiv;
@@ -333,7 +333,7 @@ public class DashboardController extends Application implements Initializable {
         livraison_col_AdresseLiv.setCellValueFactory(new PropertyValueFactory<>("adresseLiv"));
         livraison_col_Description.setCellValueFactory(new PropertyValueFactory<>("description"));
         livraison_col_Etat.setCellValueFactory(new PropertyValueFactory<>("etat"));
-        livraison_col_Commande.setCellValueFactory(new PropertyValueFactory<>("commande"));
+//        livraison_col_Commande.setCellValueFactory(new PropertyValueFactory<>("commande"));
         livraison_col_Matricule.setCellValueFactory(new PropertyValueFactory<>("matricule"));
     }
 
@@ -347,6 +347,56 @@ public class DashboardController extends Application implements Initializable {
             e.printStackTrace();
         }
         livraison_tableview.setItems(livraisons);
+    }
+
+    private Transport getTransportByMatricule(String matricule) {
+        try {
+            ServiceTransport serviceTransport = new ServiceTransport();
+            return serviceTransport.getTransportByMatricule(matricule);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+
+    @FXML
+    private void affecterLivraison(ActionEvent event) {
+        Livraison selectedLivraison = livraison_tableview.getSelectionModel().getSelectedItem();
+        String selectedMatricule = matricule.getValue();
+        if (selectedLivraison != null && selectedMatricule != null) {
+            // Retrieve the Transport object associated with the selected matricule
+            Transport selectedTransport = getTransportByMatricule(selectedMatricule);
+            if (selectedTransport != null) {
+                // Update the selected Livraison with the retrieved Transport object
+                selectedLivraison.setMatricule (String.valueOf(selectedTransport.getId()));
+
+                // Now, update the Livraison in the database
+                try {
+                    ServiceLivraison serviceLivraison = new ServiceLivraison();
+                    serviceLivraison.modifierL(selectedLivraison);
+                    System.out.println("Matricule added to Livraison successfully.");
+
+                    // Refresh the Livraison table to reflect the changes
+                    refreshLivraisonTable();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    showAlert(Alert.AlertType.ERROR, "Error", "Failed to add matricule to Livraison: " + e.getMessage());
+                }
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error", "Selected matricule is not associated with any Transport.");
+            }
+        } else {
+            // Show an error message if no Livraison or matricule is selected
+            showAlert(Alert.AlertType.ERROR, "Error", "Please select a Livraison and a matricule.");
+        }
     }
 
     @FXML

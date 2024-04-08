@@ -25,7 +25,12 @@ public class ServiceLivraison implements LService<Livraison> {
 
     @Override
     public void modifierL(Livraison livraison) throws SQLException {
-
+        String sql = "UPDATE livraison SET matricule_id = ? WHERE id = ?";
+        try (PreparedStatement preparedStatement = cnx.prepareStatement(sql)) {
+            preparedStatement.setString(1, livraison.getMatricule());
+            preparedStatement.setInt(2, livraison.getId());
+            preparedStatement.executeUpdate();
+        }
     }
 
     @Override
@@ -36,7 +41,8 @@ public class ServiceLivraison implements LService<Livraison> {
     @Override
     public List<Livraison> recupererL() throws SQLException {
         List<Livraison> livraisons = new ArrayList<>();
-        String sql = "SELECT id, adresseLiv, description, etat, dateLiv FROM livraison";
+        String sql = "SELECT l.id, l.adresseLiv, l.description, l.etat, l.dateLiv, t.matricule AS transport_matricule " +
+                "FROM livraison l LEFT JOIN transport t ON l.matricule_id = t.id";
         try (PreparedStatement preparedStatement = cnx.prepareStatement(sql)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
@@ -47,7 +53,14 @@ public class ServiceLivraison implements LService<Livraison> {
                     livraison.setDescription(resultSet.getString("description"));
                     livraison.setEtat(resultSet.getString("etat"));
                     livraison.setDateLiv(resultSet.getDate("dateLiv"));
-                    //livraison.setMatricule(new Transport("N/A"));
+                    String matricule = resultSet.getString("transport_matricule");
+                    if (matricule != null) {
+                        // If matricule is not null, set it to the Livraison object
+                        livraison.setMatricule(matricule);
+                    } else {
+                        // If matricule is null, set it to "N/A"
+                        livraison.setMatricule("N/A");
+                    }
                     livraisons.add(livraison);
                 }
             }
@@ -57,9 +70,10 @@ public class ServiceLivraison implements LService<Livraison> {
         return livraisons;
     }
 
+
     public List<Livraison> retrieveLivraisonsWithMatricule() throws SQLException {
         List<Livraison> livraisons = new ArrayList<>();
-        String sql = "SELECT l.*, t.matricule AS transport_matricule FROM livraison l JOIN transport t ON l.matricule = t.matricule";
+        String sql = "SELECT l.*, t.matricule_id AS transport_matricule FROM livraison l JOIN transport t ON l.matricule = t.matricule";
 
         try (PreparedStatement preparedStatement = cnx.prepareStatement(sql)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -70,7 +84,7 @@ public class ServiceLivraison implements LService<Livraison> {
                     livraison.setDescription(resultSet.getString("description"));
                     livraison.setEtat(resultSet.getString("etat"));
                     livraison.setDateLiv(resultSet.getDate("dateLiv"));
-                    livraison.setMatricule(new Transport(resultSet.getString("transport_matricule")));
+                    livraison.setMatricule(String.valueOf(new Transport(resultSet.getString("transport_matricule")).getId()));
 
                     livraisons.add(livraison);
                 }

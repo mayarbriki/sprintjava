@@ -3,10 +3,7 @@ package services;
 import models.Transport;
 import utils.MyDatabase;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,5 +116,27 @@ public class ServiceTransport implements IService<Transport>{
         }
 
         return matriculeList;
+    }
+
+    public Transport getTransportByMatricule(String matricule) throws SQLException {
+        Transport transport = null;
+        String sql = "SELECT * FROM transport WHERE matricule = ?";
+        try (PreparedStatement preparedStatement = cnx.prepareStatement(sql)) {
+            preparedStatement.setString(1, matricule);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    // Retrieve the transport details from the ResultSet
+                    int id = resultSet.getInt("id");
+                    String type = resultSet.getString("type");
+                    String marque = resultSet.getString("marque");
+                    String etat = resultSet.getString("etat");
+                    Date anneefab = resultSet.getDate("anneefab");
+
+                    // Create a new Transport object with the retrieved details
+                    transport = new Transport(id, type, marque, matricule, etat, anneefab);
+                }
+            }
+        }
+        return transport;
     }
 }
