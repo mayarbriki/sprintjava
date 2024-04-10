@@ -34,6 +34,8 @@
 
 .nav-form{
     -fx-background-color:linear-gradient(to bottom right, #272b3f, #048b9a);
+    -fx-background-radius: 1px 30px 25px 1px;
+    -fx-box-shadow: 10px 10px;
 }
 
 .nav-btn{
@@ -176,3 +178,4 @@
     -fx-border-radius:4px;
     -fx-padding:0px 0px 0px 8px;
 }
+

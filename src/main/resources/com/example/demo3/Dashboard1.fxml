@@ -16,6 +16,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
+
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.DashboardController">
     <children>
         <AnchorPane fx:id="main_form" prefHeight="200.0" prefWidth="1300.0">
@@ -55,7 +56,7 @@
                     <left>
                         <AnchorPane prefHeight="554.0" prefWidth="201.0" BorderPane.alignment="CENTER">
                             <children>
-                                <AnchorPane layoutX="6.0" layoutY="49.0" prefHeight="554.4" prefWidth="211.2" styleClass="nav-form" stylesheets="@DashbordDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <AnchorPane layoutX="6.0" layoutY="49.0" prefHeight="554.4" prefWidth="211.2" stylesheets="@DashbordDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <children>
                                         <Label layoutX="67.0" layoutY="93.0" text="Bienvenue," textFill="WHITE">
                                             <font>
@@ -83,7 +84,7 @@
                                                 <FontAwesomeIconView fill="WHITE" glyphName="TRUCK" size="18" />
                                             </graphic>
                                         </Button>
-                                        <Button fx:id="logout" layoutX="14.0" layoutY="515.0" mnemonicParsing="false" stylesheets="@DashbordDesign.css">
+                                        <Button fx:id="logout" layoutX="14.0" layoutY="542.0" mnemonicParsing="false" stylesheets="@DashbordDesign.css">
                                             <graphic>
                                                 <FontAwesomeIconView glyphName="SIGN_OUT" size="24" />
                                             </graphic>
@@ -92,13 +93,17 @@
                                                 <String fx:value="shadow" />
                                             </styleClass>
                                         </Button>
-                                        <Label layoutX="56.0" layoutY="522.0" text="Déconnecter" textFill="WHITE">
+                                        <Label layoutX="61.0" layoutY="550.0" styleClass="nav-btn" stylesheets="@DashbordDesign.css" text="Déconnecter" textFill="WHITE">
                                             <font>
                                                 <Font size="14.0" />
                                             </font>
                                         </Label>
                                         <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="77.0" layoutY="83.0" size="80" />
                                     </children>
+                           <styleClass>
+                              <String fx:value="nav-form" />
+                              <String fx:value="shadow" />
+                           </styleClass>
                                 </AnchorPane>
                             </children>
                         </AnchorPane>
@@ -191,7 +196,8 @@
                                                             <styleClass>
                                                                 <String fx:value="delete-btn" />
                                                                 <String fx:value="shadow" />
-                                                            </styleClass></Button>
+                                                            </styleClass>
+                                                        </Button>
                                                         <Button fx:id="transport_modifier_btn" layoutX="390.0" layoutY="29.0" mnemonicParsing="false" onAction="#modifierT" prefHeight="55.0" prefWidth="86.0" stylesheets="@DashbordDesign.css" text="Modifier">
                                                             <styleClass>
                                                                 <String fx:value="update-btn" />
