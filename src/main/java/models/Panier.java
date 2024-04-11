@@ -13,11 +13,22 @@ public class Panier {
     private String produitNom ;
     private int produitPrix ;
     private String produitImage; // String for image path or URL
-    public Panier(int id, String produitNom, int produitPrix , String produitImage) {
+    private int quantite ;
+
+    public int getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
+    }
+
+    public Panier(int id, String produitNom, int produitPrix , String produitImage ) {
         this.id = id;
         this.produitNom = produitNom;
         this.produitPrix = produitPrix;
         this.produitImage = produitImage;
+
     }
     public String getProduitImage() {
         return produitImage;

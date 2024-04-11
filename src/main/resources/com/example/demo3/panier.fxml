@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,8 +13,10 @@
           <TableColumn fx:id="produitNom" prefWidth="75.0" text="C2" />
             <TableColumn fx:id="produitPrix" prefWidth="75.0" text="Column " />
             <TableColumn fx:id="produitImage" prefWidth="75.0" text="Column X" />
-            <TableColumn prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="quantite" prefWidth="75.0" text="Column X" />
         </columns>
       </TableView>
+      <Button fx:id="modifier" layoutX="520.0" layoutY="406.0" mnemonicParsing="false" onAction="#updateQuantityInDatabase" text="modifier" />
+      <Button layoutX="593.0" layoutY="406.0" mnemonicParsing="false" onAction="#deletePanierFromDatabase" text="Button" />
    </children>
 </AnchorPane>
