@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="769.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.Paniercontroller">
+   <children>
+      <TableView fx:id="tableView" layoutX="103.0" layoutY="129.0" prefHeight="259.0" prefWidth="482.0">
+        <columns>
+          <TableColumn fx:id="panier_id" prefWidth="75.0" text="C1" />
+          <TableColumn fx:id="produitNom" prefWidth="75.0" text="C2" />
+            <TableColumn fx:id="produitPrix" prefWidth="75.0" text="Column " />
+            <TableColumn fx:id="produitImage" prefWidth="75.0" text="Column X" />
+            <TableColumn prefWidth="75.0" text="Column X" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

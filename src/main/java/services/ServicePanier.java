@@ -69,5 +69,44 @@ public class ServicePanier implements panierService<Panier> {
             }
         }
     }
+    public void savePanier(Produit[] cart) throws SQLException {
+        StringBuilder sql = new StringBuilder("INSERT INTO panier(produit_name) VALUES ");
+        boolean first = true;
+        int productsAdded = 0;
+
+        // Construct the VALUES part of the SQL statement
+        for (Produit produit : cart) {
+            if (produit != null) {
+                if (!first) {
+                    sql.append(", ");
+                }
+                sql.append("(?)");
+                first = false;
+                productsAdded++;
+            }
+        }
+
+        // If no products to add, return without executing the query
+        if (productsAdded == 0) {
+            System.out.println("No products to add to the panier.");
+            return;
+        }
+
+        // Prepare the statement and set parameter values
+        try (PreparedStatement ps = cnx.prepareStatement(sql.toString())) {
+            int parameterIndex = 1;
+            for (Produit produit : cart) {
+                if (produit != null) {
+                    ps.setString(parameterIndex++, produit.getNom());
+                }
+            }
+
+            // Execute the update
+            ps.executeUpdate();
+        }
+        System.out.println("Panier contents saved to the database.");
+    }
+
+
 
 }

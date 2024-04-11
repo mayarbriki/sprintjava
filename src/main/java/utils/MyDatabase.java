@@ -46,7 +46,7 @@ public class MyDatabase {
         ServiceProduit serviceProduit = new ServiceProduit();
         ServicePanier servicepanier = new ServicePanier() ;
         try {
-            Panier panier = new Panier();
+         //   Panier panier = new Panier();
             Produit produit = new Produit();
 
             // Add code to initialize Panier and Produit objects with appropriate values
@@ -60,8 +60,19 @@ public class MyDatabase {
 
             System.out.println(sp.recuperer());
             sp.supprimer(2);
+           // Panier panier = new Panier(5); // Create a Panier with a capacity of 5 produits
+         //   Produit produit1 = new Produit(2 , 2 ,  "5", "vf" , "fd" , "fv" );
+          //  Produit produit2 = new Produit(3 , 2 ,  "5", "vf" , "fd" , "fv" );
+
+          //  panier.addProduit1(produit1); // Add produit1 to the cart
+          //  panier.addProduit1(produit2); // Add produit2 to the cart
+          //  Produit[] cart = {produit1 , produit2};
+          //  servicepanier.savePanier(cart);
+// You can continue adding more produits to the cart using panier.addProduit() method
+
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+           // System.err.println(e.getMessage());
+            System.err.println("Error connecting to the database: " + e.getMessage());
 
         }
 

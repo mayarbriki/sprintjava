@@ -1,11 +1,40 @@
 package models;
-import utils.MyDatabase;
+
+import com.mysql.cj.conf.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
 public class Panier {
+    private Produit[] cart ;
+
     private int id;
+    private String produitNom ;
+    private int produitPrix ;
+    private String produitImage; // String for image path or URL
+    public Panier(int id, String produitNom, int produitPrix , String produitImage) {
+        this.id = id;
+        this.produitNom = produitNom;
+        this.produitPrix = produitPrix;
+        this.produitImage = produitImage;
+    }
+    public String getProduitImage() {
+        return produitImage;
+    }
+
+    public String getProduitNom() {
+        return produitNom;
+    }
+
+    public int getProduitPrix() {
+        return produitPrix;
+    }
+
+    public void setProduitPrix(int produitPrix) {
+        this.produitPrix = produitPrix;
+    }
+
     private List<Produit> produits;
     private Personne owner;
     private Personne user;
@@ -16,6 +45,15 @@ public class Panier {
         this.produits = new ArrayList<>();
         this.commandes = new ArrayList<>();
     }
+
+    public Panier(Produit[] cart) {
+        this.cart = cart;
+    }
+
+    public Panier(int size){
+        cart = new Produit[size];
+    }
+
     public void addProduit(Produit produit) {
         if (produits == null) {
             produits = new ArrayList<>();
@@ -35,8 +73,6 @@ public class Panier {
         return produits;
     }
 
-
-
     public Personne getOwner() {
         return owner;
     }
@@ -44,7 +80,6 @@ public class Panier {
     public void setOwner(Personne owner) {
         this.owner = owner;
     }
-
 
     public Commande getCommande() {
         return commande;
@@ -64,10 +99,33 @@ public class Panier {
         return commandes;
     }
 
-
-
     @Override
     public String toString() {
         return String.valueOf(id);
+    }
+
+    private final ArrayList<Produit> list = new ArrayList<>();
+
+    public void add(Produit produit) {
+        list.add(produit);
+    }
+
+    public void remove(Produit produit) {
+        list.remove(produit);
+    }
+
+    public Iterator<Produit> iterator() {
+        return list.iterator();
+    }
+
+    public int panierSize() {
+        return list.size();
+    }
+
+    public void setProduitNom(String produitNom) {
+
+    }
+
+    public void setProduitPrix(double produitPrix) {
     }
 }
