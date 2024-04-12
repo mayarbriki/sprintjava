@@ -1,5 +1,7 @@
 package com.example.demo3;
 
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.*;
@@ -11,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -55,7 +58,7 @@ public class DashboardAdminT extends Application implements Initializable {
     private Label name;
 
     @FXML
-    private TableColumn<?, ?> transport_col_ID;
+    private TableColumn<Transport, Integer> transport_col_ID;
 
     @FXML
     private TableColumn<?, ?> transport_col_Type;
@@ -116,6 +119,20 @@ public class DashboardAdminT extends Application implements Initializable {
         }
     }
 
+    @FXML
+    public void switchToDashboardAdminL(javafx.event.ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DashboardAdminL.fxml"));
+            Parent root = loader.load();
+            DashboardAdminL controller = loader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("DashboardAdminT.fxml")));

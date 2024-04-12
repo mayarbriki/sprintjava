@@ -21,6 +21,36 @@ public class ServiceLivraison implements LService<Livraison> {
 
     @Override
     public void ajouterL(Livraison livraison) throws SQLException {
+        String requete1 = "INSERT INTO livraison (dateLiv, adresseLiv, description, etat) VALUES (?, ?, ?, ?)";
+
+        try (PreparedStatement preparedStatement = cnx.prepareStatement(requete1)) {
+
+            preparedStatement.setDate(1, livraison.getDateLiv());
+            preparedStatement.setString(2, livraison.getAdresseLiv());
+            preparedStatement.setString(3, livraison.getDescription());
+            preparedStatement.setString(4, livraison.getEtat());
+
+            preparedStatement.executeUpdate();
+        }catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    @Override
+    public void modifier_L(Livraison livraison) throws SQLException {
+        String requete2 = "UPDATE livraison SET dateLiv=?, adresseLiv=?, description=?, etat=? WHERE id=?";
+
+        try (PreparedStatement preparedStatement = cnx.prepareStatement(requete2)) {
+
+            preparedStatement.setDate(1, livraison.getDateLiv());
+            preparedStatement.setString(2, livraison.getAdresseLiv());
+            preparedStatement.setString(3, livraison.getDescription());
+            preparedStatement.setString(4, livraison.getEtat());
+            preparedStatement.setInt(5, livraison.getId());
+
+            preparedStatement.executeUpdate();
+        }catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Override
@@ -33,9 +63,19 @@ public class ServiceLivraison implements LService<Livraison> {
         }
     }
 
+
     @Override
     public void supprimerL(int id) throws SQLException {
 
+        String requete3 = "DELETE FROM livraison WHERE id=?";
+
+        try (PreparedStatement preparedStatement = cnx.prepareStatement(requete3)) {
+
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        }catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
     }
 
     @Override
@@ -55,10 +95,8 @@ public class ServiceLivraison implements LService<Livraison> {
                     livraison.setDateLiv(resultSet.getDate("dateLiv"));
                     String matricule = resultSet.getString("transport_matricule");
                     if (matricule != null) {
-                        // If matricule is not null, set it to the Livraison object
                         livraison.setMatricule(matricule);
                     } else {
-                        // If matricule is null, set it to "N/A"
                         livraison.setMatricule("N/A");
                     }
                     livraisons.add(livraison);

@@ -84,7 +84,7 @@
                                     </FontAwesomeIconView>
                                  </graphic>
                               </Button>
-                                        <Button fx:id="gestionlivraison_btn" layoutX="11.0" layoutY="290.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@DashbordDesign.css" text="  Gestion Livraison">
+                                        <Button fx:id="gestionlivraison_btn" layoutX="11.0" layoutY="290.0" mnemonicParsing="false" onAction="#switchToDashboardAdminL" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@DashbordDesign.css" text="  Gestion Livraison">
                                             <graphic>
                                                 <FontAwesomeIconView fill="WHITE" glyphName="MALE" size="18" text="" />
                                             </graphic>
@@ -131,7 +131,7 @@
                                             <children>
                                                 <AnchorPane prefHeight="568.0" prefWidth="1063.0" stylesheets="@DashbordDesign.css">
                                                     <styleClass>
-                                                        <String fx:value="white-bg" />
+                                                        <String fx:value="creer-main" />
                                                         <String fx:value="shadow" />
                                                     </styleClass>
                                                     <children>

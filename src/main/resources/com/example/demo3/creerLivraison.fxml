@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="675.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.CreerLivraison">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <BorderPane layoutX="238.0" layoutY="98.0" prefHeight="450.4" prefWidth="675.2" styleClass="white-bg" stylesheets="@DashbordDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <top>
+                  <AnchorPane prefHeight="118.0" prefWidth="675.0" styleClass="creer-header" stylesheets="@DashbordDesign.css" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="144.0" fitWidth="160.0" layoutX="7.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/MediCare-removebg-preview.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="151.0" layoutY="51.0" text="Créer une nouvelle livraison">
+                           <font>
+                              <Font name="SansSerif Regular" size="36.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </top>
+               <center>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="creer-main" stylesheets="@DashbordDesign.css" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="25.0" layoutY="35.0" text="Commande :">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="dateLiv" layoutX="165.0" layoutY="105.0" prefHeight="26.0" prefWidth="150.0" styleClass="textfield" stylesheets="@DashbordDesign.css" />
+                        <Label layoutX="25.0" layoutY="175.0" text="Adresse de Livraison :">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="331.0" layoutY="35.0" text="Description :">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="description" layoutX="421.0" layoutY="35.0" prefWidth="150.0" styleClass="textfield">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="Déposez le colis à la porte d'entrée" />
+                                 <String fx:value="Appeler à l'arrivée" />
+                                 <String fx:value="Manipuler avec soin" />
+                                 <String fx:value="Signature requise" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
+                        <Label layoutX="331.0" layoutY="105.0" text="Etat :">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ComboBox layoutX="421.0" layoutY="175.0" prefWidth="150.0" styleClass="textfield" stylesheets="@DashbordDesign.css" />
+                        <Label layoutX="25.0" layoutY="105.0" text="Date de Livraison :">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="331.0" layoutY="175.0" text="Livreur :">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="165.0" layoutY="35.0" text="Label">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="adresseLiv" layoutX="165.0" layoutY="175.0" styleClass="textfield" stylesheets="@DashbordDesign.css" />
+                        <TextField fx:id="etat" layoutX="421.0" layoutY="105.0" styleClass="textfield" stylesheets="@DashbordDesign.css" />
+                        <Button layoutX="100.0" layoutY="236.0" mnemonicParsing="false" onAction="#ajouterL" prefHeight="45.0" prefWidth="102.0" styleClass="button-save" stylesheets="@DashbordDesign.css" text="Enregistrer">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </center>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

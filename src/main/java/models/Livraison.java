@@ -47,6 +47,14 @@ public class Livraison {
 //        this.sent = sent;
     }
 
+    public Livraison(int id, Date dateLiv, String adresseLiv, String description, String etat) {
+        this.id = id;
+        this.dateLiv = dateLiv;
+        this.adresseLiv = adresseLiv;
+        this.description = description;
+        this.etat = etat;
+    }
+
     public int getId() {
         return id;
     }

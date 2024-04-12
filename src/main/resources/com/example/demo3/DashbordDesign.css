@@ -179,3 +179,77 @@
     -fx-padding:0px 0px 0px 8px;
 }
 
+.button-save{
+    -fx-background-color: #1CB0F6;
+    -fx-border-radius: 10px;
+    -fx-border-width: 0;
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, #1899D6, 0, 10, 0, 10);
+    -fx-cursor: hand;
+}
+
+.button-save:hover{
+    -fx-effect: dropshadow(gaussian, #1899D6, 0, 10, 0, 7);
+    -fx-background-color: #35b7fc;
+    /*-fx-translate-y: 5px;*/
+}
+
+.button-modifier{
+    -fx-background-color: #34974d;
+    -fx-border-radius: 10px;
+    -fx-border-width: 0;
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, #2e8644, 0, 10, 0, 10);
+    -fx-cursor: hand;
+}
+
+.button-modifier:hover{
+    -fx-effect: dropshadow(gaussian, #2e8644, 0, 10, 0, 7);
+    -fx-background-color: #489a55;
+    /*-fx-translate-y: 5px;*/
+}
+
+.button-supprimer{
+    -fx-background-color: #e11a1a;
+    -fx-border-radius: 10px;
+    -fx-border-width: 0;
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, #ce0404, 0, 10, 0, 10);
+    -fx-cursor: hand;
+}
+
+.button-supprimer:hover{
+    -fx-effect: dropshadow(gaussian, #ce0404, 0, 10, 0, 7);
+    -fx-background-color: #ff3636;
+    /*-fx-translate-y: 5px;*/
+}
+
+.button-clear{
+    -fx-background-color: #048b9a;
+    -fx-border-radius: 10px;
+    -fx-border-width: 0;
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, #046e7c, 0, 10, 0, 10);
+    -fx-cursor: hand;
+}
+
+.button-clear:hover{
+    -fx-effect: dropshadow(gaussian, #048b9a, 0, 10, 0, 7);
+    -fx-background-color: #35969b;
+    /*-fx-translate-y: 5px;*/
+}
+
+.creer-header{
+    -fx-background-color:linear-gradient(to bottom right, #9de2ec, #06aabe);
+    -fx-background-radius: 1px 1px 30px 30px;
+    -fx-box-shadow: 10px 10px;
+}
+.creer-main{
+    -fx-background-color:linear-gradient(to bottom, #ffffff, #d3ecef);
+    -fx-box-shadow: 10px 10px;
+    -fx-background-radius:8px;
+}
