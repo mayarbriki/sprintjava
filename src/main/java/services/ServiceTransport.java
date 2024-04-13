@@ -5,7 +5,9 @@ import utils.MyDatabase;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ServiceTransport implements IService<Transport>{
 
@@ -139,4 +141,37 @@ public class ServiceTransport implements IService<Transport>{
         }
         return transport;
     }
+
+    public int countTransports() throws SQLException {
+        String query = "SELECT COUNT(*) FROM transport";
+        int count = 0;
+
+        try (PreparedStatement statement = cnx.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            if (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+        }
+
+        return count;
+    }
+
+    public Map<String, Long> countTransportsByEtat() throws SQLException {
+        String query = "SELECT etat, COUNT(*) AS count FROM transport GROUP BY etat";
+        Map<String, Long> transportCountsByEtat = new HashMap<>();
+
+        try (PreparedStatement statement = cnx.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                String etat = resultSet.getString("etat");
+                long count = resultSet.getLong("count");
+                transportCountsByEtat.put(etat, count);
+            }
+        }
+
+        return transportCountsByEtat;
+    }
+
 }

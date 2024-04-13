@@ -4,12 +4,11 @@ import models.Livraison;
 import models.Transport;
 import utils.MyDatabase;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ServiceLivraison implements LService<Livraison> {
 
@@ -132,6 +131,49 @@ public class ServiceLivraison implements LService<Livraison> {
         }
 
         return livraisons;
+    }
+    public int countLivraisons() throws SQLException {
+        String query = "SELECT COUNT(*) FROM livraison";
+        int count = 0;
+
+        try (PreparedStatement statement = cnx.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            if (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+        }
+
+        return count;
+    }
+    public int livraisons_Aaffecter() throws SQLException {
+        int count = 0;
+        String query = "SELECT COUNT(*) AS count FROM livraison WHERE matricule_id IS NULL OR matricule_id = ''";
+        try (PreparedStatement statement = cnx.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            if (resultSet.next()) {
+                count = resultSet.getInt("count");
+            }
+        }
+        return count;
+    }
+
+    public Map<String, Integer> countLivraisonsByDate() throws SQLException {
+        Map<String, Integer> livraisonsByDate = new HashMap<>();
+        String query = "SELECT dateLiv, COUNT(*) AS count FROM livraison GROUP BY dateLiv";
+
+        try (PreparedStatement statement = cnx.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Date date = resultSet.getDate("dateLiv");
+                int count = resultSet.getInt("count");
+                livraisonsByDate.put(date.toString(), count);
+            }
+        }
+
+        return livraisonsByDate;
     }
 
 }

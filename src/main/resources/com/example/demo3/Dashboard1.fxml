@@ -68,7 +68,7 @@
                                             </font>
                                         </Label>
                                         <Line endX="62.99998474121094" endY="-1.52587890625E-5" layoutX="123.0" layoutY="167.0" startX="-100.0" stroke="WHITE" />
-                                        <Button fx:id="acceuil_btn" layoutX="16.0" layoutY="185.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@DashbordDesign.css" text=" Acceuil">
+                                        <Button fx:id="acceuil_btn" layoutX="16.0" layoutY="185.0" mnemonicParsing="false" onAction="#switchToDashboardAccueil" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@DashbordDesign.css" text=" Accueil">
                                             <graphic>
                                                 <FontAwesomeIconView fill="WHITE" glyphName="HOME" size="18" text="" />
                                             </graphic>
@@ -222,7 +222,7 @@
                                                 <Label fx:id="description" layoutX="85.0" layoutY="204.0" prefHeight="25.0" prefWidth="125.0" styleClass="label-info" text="Label" />
                                                 <Label fx:id="etat" layoutX="85.0" layoutY="261.0" prefHeight="25.0" prefWidth="125.0" styleClass="label-info" text="Label" />
                                                 <Label fx:id="commande" layoutX="85.0" layoutY="320.0" prefHeight="25.0" prefWidth="125.0" styleClass="label-info" text="Label" />
-                                                <ComboBox fx:id="matricule" layoutX="72.0" layoutY="375.0" prefHeight="25.0" prefWidth="142.0" styleClass="textfield" stylesheets="@DashbordDesign.css" />
+                                                <ComboBox fx:id="matricule" layoutX="72.0" layoutY="375.0" prefHeight="25.0" prefWidth="142.0" promptText="Choisir" styleClass="textfield" stylesheets="@DashbordDesign.css" />
                                                 <Button fx:id="affecter" layoutX="62.0" layoutY="438.0" mnemonicParsing="false" onAction="#affecterLivraison" prefHeight="40.0" prefWidth="104.0" styleClass="button-save" text="Affecter" />
                                             </children>
                                         </AnchorPane>
@@ -237,10 +237,10 @@
                                                         <TableColumn fx:id="livraison_col_ID" prefWidth="31.199981689453125" text="ID" />
                                                         <TableColumn fx:id="livraison_col_DateLiv" prefWidth="103.20001220703125" text="DateLiv" />
                                                         <TableColumn fx:id="livraison_col_AdresseLiv" prefWidth="157.60003662109375" text="AdresseLiv" />
-                                                        <TableColumn fx:id="livraison_col_Description" prefWidth="169.5999755859375" text="Description" />
-                                                        <TableColumn fx:id="livraison_col_Etat" prefWidth="99.20001220703125" text="Etat" />
-                                                        <TableColumn fx:id="livraison_col_Commande" prefWidth="71.2000732421875" text="Commande" />
-                                                        <TableColumn fx:id="livraison_col_Matricule" prefWidth="159.2000732421875" text="Matricule" />
+                                                        <TableColumn fx:id="livraison_col_Description" prefWidth="198.39996337890625" text="Description" />
+                                                        <TableColumn fx:id="livraison_col_Etat" prefWidth="80.79998779296875" text="Etat" />
+                                                        <TableColumn fx:id="livraison_col_Commande" prefWidth="77.5999755859375" text="Commande" />
+                                                        <TableColumn fx:id="livraison_col_Matricule" prefWidth="148.0" text="Matricule" />
                                                         <TableColumn fx:id="livraison_col_Nom" prefWidth="55.9998779296875" text="Nom" />
                                                     </columns>
                                                 </TableView>

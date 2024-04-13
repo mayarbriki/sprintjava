@@ -1,34 +1,35 @@
 package com.example.demo3;
 
-import java.net.URL;
-import java.sql.*;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.*;
-
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import models.Livraison;
 import models.Transport;
 import services.ServiceLivraison;
 import services.ServiceTransport;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class DashboardController extends Application implements Initializable {
 
@@ -71,28 +72,28 @@ public class DashboardController extends Application implements Initializable {
     private Label id_livraison;
 
     @FXML
-    private TableColumn<Livraison, Livraison> livraison_col_AdresseLiv;
+    private TableColumn<Livraison, String> livraison_col_AdresseLiv;
 
 //    @FXML
 //    private TableColumn<Livraison, Livraison> livraison_col_Commande;
 
     @FXML
-    private TableColumn<Livraison, Livraison> livraison_col_DateLiv;
+    private TableColumn<Livraison, String> livraison_col_DateLiv;
 
     @FXML
-    private TableColumn<Livraison, Livraison> livraison_col_Description;
+    private TableColumn<Livraison, String> livraison_col_Description;
 
     @FXML
-    private TableColumn<Livraison, Livraison> livraison_col_Etat;
+    private TableColumn<Livraison, String> livraison_col_Etat;
 
     @FXML
-    private TableColumn<Livraison, Livraison> livraison_col_ID;
+    private TableColumn<Livraison, String> livraison_col_ID;
 
     @FXML
-    private TableColumn<Livraison, Livraison> livraison_col_Matricule;
+    private TableColumn<Livraison, String> livraison_col_Matricule;
 
     @FXML
-    private TableColumn<Livraison, Livraison> livraison_col_Nom;
+    private TableColumn<Livraison, String> livraison_col_Nom;
 
     @FXML
     private TableView<Livraison> livraison_tableview;
@@ -116,22 +117,22 @@ public class DashboardController extends Application implements Initializable {
     private Button transport_clear_btn;
 
     @FXML
-    private TableColumn<Transport, Transport> transport_col_ID;
+    private TableColumn<Transport, String> transport_col_ID;
 
     @FXML
-    private TableColumn<Transport, Transport> transport_col_Type;
+    private TableColumn<Transport, String> transport_col_Type;
 
     @FXML
-    private TableColumn<Transport, Transport> transport_col_annefab;
+    private TableColumn<Transport, String> transport_col_annefab;
 
     @FXML
-    private TableColumn<Transport, Transport> transport_col_etat;
+    private TableColumn<Transport, String> transport_col_etat;
 
     @FXML
-    private TableColumn<Transport, Transport> transport_col_marque;
+    private TableColumn<Transport, String> transport_col_marque;
 
     @FXML
-    private TableColumn<Transport, Transport> transport_col_matricule;
+    private TableColumn<Transport, String> transport_col_matricule;
 
     @FXML
     private DatePicker transport_date;
@@ -170,7 +171,10 @@ public class DashboardController extends Application implements Initializable {
     private Label matriculeErrorLabel;
     @FXML
     private Button maximizeButton;
-    private boolean maximized = false;
+    private final boolean maximized = false;
+
+    private FilteredList<Livraison> filteredLivraisonData;
+    private FilteredList<Transport> filteredTransportData;
 
 
     public void ajouterT(ActionEvent event) throws SQLException {
@@ -358,6 +362,7 @@ public class DashboardController extends Application implements Initializable {
             return null;
         }
     }
+
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -376,7 +381,7 @@ public class DashboardController extends Application implements Initializable {
             Transport selectedTransport = getTransportByMatricule(selectedMatricule);
             if (selectedTransport != null) {
                 // Update the selected Livraison with the retrieved Transport object
-                selectedLivraison.setMatricule (String.valueOf(selectedTransport.getId()));
+                selectedLivraison.setMatricule(String.valueOf(selectedTransport.getId()));
 
                 // Now, update the Livraison in the database
                 try {
@@ -449,14 +454,52 @@ public class DashboardController extends Application implements Initializable {
 
     }
 
+    public void navigateToLivraisonForm(){
+
+        Livraison_form.setVisible(true);
+        transport_form.setVisible(false);
+
+        gestionlivraison_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #08b4c7 , #007fff);");
+        acceuil_btn.setStyle("-fx-background-color:transparent");
+        gestiontransport_btn.setStyle("-fx-background-color:transparent");
+    }
+
+    public void navigateToTransportForm(){
+
+        Livraison_form.setVisible(false);
+        transport_form.setVisible(true);
+
+        gestiontransport_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #08b4c7 , #007fff);");
+        gestionlivraison_btn.setStyle("-fx-background-color:transparent");
+        acceuil_btn.setStyle("-fx-background-color:transparent");
+    }
     public void TransportReset() {
 
         transport_type.getSelectionModel().clearSelection();
+        setComboBoxPromptText(transport_type, "Choisir");
         transport_marque.getSelectionModel().clearSelection();
+        setComboBoxPromptText(transport_marque, "Choisir");
         transport_etat.getSelectionModel().clearSelection();
+        setComboBoxPromptText(transport_etat, "Choisir");
         transport_matricule.setText("");
         transport_date.setValue(null);
     }
+
+    private void setComboBoxPromptText(ComboBox<String> comboBox, String promptText) {
+        comboBox.setPromptText(promptText);
+        comboBox.setButtonCell(new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(promptText);
+                } else {
+                    setText(item);
+                }
+            }
+        });
+    }
+
     private void resetLivraisonFields() {
         id_livraison.setText("");
         dateLiv.setText("");
@@ -466,6 +509,7 @@ public class DashboardController extends Application implements Initializable {
 //        commande.setText("");
 //        matricule.getSelectionModel().clearSelection();
     }
+
     private void loadDataIntoComboBox() {
         ServiceTransport sp = new ServiceTransport();
         List<String> matricules = null;
@@ -480,6 +524,43 @@ public class DashboardController extends Application implements Initializable {
             matricule.setItems(matriculesList);
         }
     }
+
+    public void setupTransportSearch() {
+        filteredTransportData = new FilteredList<>(transport_tableview.getItems(), p -> true);
+
+        transport_tableview.setItems(filteredTransportData);
+
+        transport_search.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredTransportData.setPredicate(transport -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                return transport.getType().toLowerCase().contains(lowerCaseFilter)
+                        || transport.getMarque().toLowerCase().contains(lowerCaseFilter)
+                        || transport.getMatricule().toLowerCase().contains(lowerCaseFilter)
+                        || transport.getEtat().toLowerCase().contains(lowerCaseFilter)
+                        || transport.getAnneefab().toString().toLowerCase().contains(lowerCaseFilter)
+                        || String.valueOf(transport.getId()).toLowerCase().contains(lowerCaseFilter);
+            });
+        });
+    }
+    @FXML
+    public void switchToDashboardAccueil(javafx.event.ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DashboardAccueil.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -492,6 +573,7 @@ public class DashboardController extends Application implements Initializable {
         loadDataIntoLivraisonTableView();
 
         loadDataIntoComboBox();
+        setupTransportSearch();
 
         transport_tableview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
@@ -516,7 +598,6 @@ public class DashboardController extends Application implements Initializable {
 //                commande.setText(selectedLivraison.getCommande());
 //                matricule.getSelectionModel().select(selectedLivraison.getMatricule());
             } else {
-                // If no item is selected, reset the fields
                 resetLivraisonFields();
             }
         });

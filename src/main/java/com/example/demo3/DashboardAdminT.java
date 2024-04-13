@@ -1,15 +1,10 @@
 package com.example.demo3;
 
-import java.awt.event.ActionEvent;
-import java.io.IOException;
-import java.net.URL;
-import java.sql.*;
-import java.util.*;
-
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,6 +17,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.Transport;
 import services.ServiceTransport;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Objects;
+import java.util.ResourceBundle;
+
 public class DashboardAdminT extends Application implements Initializable {
 
     @FXML
@@ -61,19 +64,19 @@ public class DashboardAdminT extends Application implements Initializable {
     private TableColumn<Transport, Integer> transport_col_ID;
 
     @FXML
-    private TableColumn<?, ?> transport_col_Type;
+    private TableColumn<Transport, String> transport_col_Type;
 
     @FXML
-    private TableColumn<?, ?> transport_col_annefab;
+    private TableColumn<Transport, String> transport_col_annefab;
 
     @FXML
-    private TableColumn<?, ?> transport_col_etat;
+    private TableColumn<Transport, String> transport_col_etat;
 
     @FXML
-    private TableColumn<?, ?> transport_col_marque;
+    private TableColumn<Transport, String> transport_col_marque;
 
     @FXML
-    private TableColumn<?, ?> transport_col_matricule;
+    private TableColumn<Transport, String> transport_col_matricule;
 
     @FXML
     private AnchorPane transport_form;
@@ -83,6 +86,7 @@ public class DashboardAdminT extends Application implements Initializable {
 
     @FXML
     private TableView<Transport> transport_tableview;
+    private FilteredList<Transport> filteredTransportData;
 
     private void setupTableColumns() {
         transport_col_ID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -119,6 +123,30 @@ public class DashboardAdminT extends Application implements Initializable {
         }
     }
 
+    public void setupTransportSearch() {
+        filteredTransportData = new FilteredList<>(transport_tableview.getItems(), p -> true);
+
+        transport_tableview.setItems(filteredTransportData);
+
+        transport_search.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredTransportData.setPredicate(transport -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                return transport.getType().toLowerCase().contains(lowerCaseFilter)
+                        || transport.getMarque().toLowerCase().contains(lowerCaseFilter)
+                        || transport.getMatricule().toLowerCase().contains(lowerCaseFilter)
+                        || transport.getEtat().toLowerCase().contains(lowerCaseFilter)
+                        || transport.getAnneefab().toString().toLowerCase().contains(lowerCaseFilter)
+                        || String.valueOf(transport.getId()).toLowerCase().contains(lowerCaseFilter);
+            });
+        });
+    }
+
+
     @FXML
     public void switchToDashboardAdminL(javafx.event.ActionEvent event) {
         try {
@@ -133,6 +161,7 @@ public class DashboardAdminT extends Application implements Initializable {
             e.printStackTrace();
         }
     }
+
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("DashboardAdminT.fxml")));
@@ -149,7 +178,7 @@ public class DashboardAdminT extends Application implements Initializable {
         setupTableColumns();
         refreshTable();
         loadDataIntoTableView();
-
+        setupTransportSearch();
 
 
     }

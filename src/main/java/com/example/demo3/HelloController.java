@@ -61,9 +61,6 @@ public class HelloController implements Initializable {
     }
 
 
-
-
-
     public void add(ActionEvent event) throws SQLException {
         Connection connection = MyDatabase.getInstance().getConnection();
         if (connection == null) {
@@ -71,7 +68,7 @@ public class HelloController implements Initializable {
             return;
         }
 
-        User user = new User( 25, username.getText() , pwd.getText());
+        User user = new User(25, username.getText(), pwd.getText());
         ServiceUser sp = new ServiceUser(); // Use connection object
 
         try {
@@ -81,17 +78,19 @@ public class HelloController implements Initializable {
             System.err.println(e.getMessage());
         }
     }
-    public void LoginpaneShow(){
+
+    public void LoginpaneShow() {
 
         pane_login.setVisible(true);
         pane_signup.setVisible(false);
     }
 
-    public void SignuppaneShow(){
+    public void SignuppaneShow() {
 
         pane_login.setVisible(false);
         pane_signup.setVisible(true);
     }
+
     @FXML
     private void Login(ActionEvent event) throws Exception {
         Connection connection = MyDatabase.getInstance().getConnection(); // Get connection
@@ -139,7 +138,7 @@ public class HelloController implements Initializable {
         }
     }
 
-    }
+}
 
 
 

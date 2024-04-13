@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 
-
 public class Dashboard extends Application implements Initializable {
     public String path;
 
@@ -96,8 +95,9 @@ public class Dashboard extends Application implements Initializable {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
     //void Select(ActionEvent event) {
-      //  String role = comb.getSelectionModel().getSelectedItem().toString();
+    //  String role = comb.getSelectionModel().getSelectedItem().toString();
     //}
     /*@FXML
     private void handleProduitButtonClick(ActionEvent event) {
@@ -119,6 +119,7 @@ public class Dashboard extends Application implements Initializable {
         anchorPane1.setVisible(false);
         anchorPane2.setVisible(true);
     }
+
     @FXML
     private void handleProduitButtonClick1(ActionEvent event) {
         // This method is already the event handler for the button click,
@@ -128,7 +129,6 @@ public class Dashboard extends Application implements Initializable {
         anchorPane1.setVisible(true);
         anchorPane2.setVisible(false);
     }
-
 
 
     @Override
@@ -172,6 +172,7 @@ public class Dashboard extends Application implements Initializable {
             };
         });
     }
+
     public void add(ActionEvent event) throws SQLException {
         Connection connection = MyDatabase.getInstance().getConnection();
         if (connection == null) {
@@ -180,7 +181,7 @@ public class Dashboard extends Application implements Initializable {
         }
 
         // Retrieve selected role from ComboBox
-        String role = comb.getSelectionModel().getSelectedItem().toString(); // Retrieve selected item from ComboBox
+        String role = comb.getSelectionModel().getSelectedItem(); // Retrieve selected item from ComboBox
         String ageString = age.getText();
         int ageInt = Integer.parseInt(ageString);
 
@@ -195,8 +196,10 @@ public class Dashboard extends Application implements Initializable {
             System.err.println(e.getMessage());
         }
     }
+
     @FXML
     Label label = new Label();
+
     public void insertImage() {
 
         // String chosenImagePath;
@@ -225,6 +228,7 @@ public class Dashboard extends Application implements Initializable {
 
         }
     }
+
     public void addproduit1(ActionEvent event) throws SQLException {
         Connection connection = MyDatabase.getInstance().getConnection();
         if (connection == null) {
@@ -257,8 +261,8 @@ public class Dashboard extends Application implements Initializable {
         descriptionproduit.setCellValueFactory(new PropertyValueFactory<>("description"));
 
 
-
     }
+
     @FXML
     private void loadDataIntoTableView() {
         ServiceProduit sp = new ServiceProduit(); // Create an instance of your service
@@ -274,6 +278,7 @@ public class Dashboard extends Application implements Initializable {
         // Set the fetched products as the items of the TableView
         tableViewProduit.setItems(produits);
     }
+
     @FXML
     private void refreshTable() {
         try {

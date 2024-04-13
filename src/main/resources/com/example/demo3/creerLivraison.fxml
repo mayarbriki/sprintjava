@@ -54,7 +54,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="description" layoutX="421.0" layoutY="35.0" prefWidth="150.0" styleClass="textfield">
+                        <ComboBox fx:id="description" layoutX="421.0" layoutY="35.0" prefWidth="150.0" promptText="Choisir" styleClass="textfield">
                            <items>
                               <FXCollections fx:factory="observableArrayList">
                                  <String fx:value="Déposez le colis à la porte d'entrée" />
@@ -69,7 +69,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox layoutX="421.0" layoutY="175.0" prefWidth="150.0" styleClass="textfield" stylesheets="@DashbordDesign.css" />
+                        <ComboBox layoutX="421.0" layoutY="175.0" prefWidth="150.0" promptText="Choisir" styleClass="textfield" stylesheets="@DashbordDesign.css" />
                         <Label layoutX="25.0" layoutY="105.0" text="Date de Livraison :">
                            <font>
                               <Font size="14.0" />

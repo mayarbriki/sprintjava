@@ -1,36 +1,31 @@
 package com.example.demo3;
 
-import java.io.IOException;
-import java.net.URL;
-import java.sql.*;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.*;
-
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import models.Livraison;
-import models.Transport;
 import services.ServiceLivraison;
-import services.ServiceTransport;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class DashboardAdminL extends Application implements Initializable {
 
@@ -65,28 +60,28 @@ public class DashboardAdminL extends Application implements Initializable {
     private Button gestiontransport_btn;
 
     @FXML
-    private TableColumn<?, ?> livraison_col_AdresseLiv;
+    private TableColumn<Livraison, String> livraison_col_AdresseLiv;
 
     @FXML
-    private TableColumn<?, ?> livraison_col_Commande;
+    private TableColumn<Livraison, String> livraison_col_Commande;
 
     @FXML
-    private TableColumn<?, ?> livraison_col_DateLiv;
+    private TableColumn<Livraison, String> livraison_col_DateLiv;
 
     @FXML
-    private TableColumn<?, ?> livraison_col_Description;
+    private TableColumn<Livraison, String> livraison_col_Description;
 
     @FXML
-    private TableColumn<?, ?> livraison_col_Etat;
+    private TableColumn<Livraison, String> livraison_col_Etat;
 
     @FXML
-    private TableColumn<?, ?> livraison_col_ID;
+    private TableColumn<Livraison, String> livraison_col_ID;
 
     @FXML
-    private TableColumn<?, ?> livraison_col_Matricule;
+    private TableColumn<Livraison, String> livraison_col_Matricule;
 
     @FXML
-    private TableColumn<?, ?> livraison_col_Nom;
+    private TableColumn<Livraison, String> livraison_col_Nom;
 
     @FXML
     private TextField livraison_search;
@@ -99,10 +94,11 @@ public class DashboardAdminL extends Application implements Initializable {
 
     @FXML
     private Label name;
+    private FilteredList<Livraison> filteredLivraisonData;
 
-    public void modifier_L(){
+    public void modifier_L() {
         Livraison selectedLivraison = livraison_tableview.getSelectionModel().getSelectedItem();
-        if (selectedLivraison != null){
+        if (selectedLivraison != null) {
             LocalDate selectedDate = dateLiv.getValue();
             String adresseLivValue = adresseLiv.getText();
             String descriptionValue = description.getSelectionModel().getSelectedItem();
@@ -182,6 +178,7 @@ public class DashboardAdminL extends Application implements Initializable {
         }
         livraison_tableview.setItems(livraisons);
     }
+
     @FXML
     private void refreshLivraisonTable() {
         try {
@@ -194,14 +191,31 @@ public class DashboardAdminL extends Application implements Initializable {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void resetLivraisonFields() {
         dateLiv.setValue(null);
         adresseLiv.setText("");
         description.getSelectionModel().clearSelection();
+        setComboBoxPromptText(description, "Choisir");
         etat.setText("");
 //        commande.setText("");
 //        matricule.getSelectionModel().clearSelection();
+    }
+
+    private void setComboBoxPromptText(ComboBox<String> comboBox, String promptText) {
+        comboBox.setPromptText(promptText);
+        comboBox.setButtonCell(new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(promptText);
+                } else {
+                    setText(item);
+                }
+            }
+        });
     }
 
     private void showAlert(AlertType alertType, String title, String content) {
@@ -210,6 +224,29 @@ public class DashboardAdminL extends Application implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    public void setupLivraisonSearch() {
+        filteredLivraisonData = new FilteredList<>(livraison_tableview.getItems(), p -> true);
+
+        livraison_tableview.setItems(filteredLivraisonData);
+
+        livraison_search.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredLivraisonData.setPredicate(livraison -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                return livraison.getAdresseLiv().toLowerCase().contains(lowerCaseFilter)
+                        || livraison.getDescription().toLowerCase().contains(lowerCaseFilter)
+                        || livraison.getMatricule().toLowerCase().contains(lowerCaseFilter)
+                        || livraison.getEtat().toLowerCase().contains(lowerCaseFilter)
+                        || livraison.getDateLiv().toString().toLowerCase().contains(lowerCaseFilter)
+                        || String.valueOf(livraison.getId()).toLowerCase().contains(lowerCaseFilter);
+            });
+        });
     }
 
     @FXML
@@ -242,6 +279,7 @@ public class DashboardAdminL extends Application implements Initializable {
         setupLivraisonTableColumns();
         refreshLivraisonTable();
         loadDataIntoLivraisonTableView();
+        setupLivraisonSearch();
 
         livraison_tableview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {

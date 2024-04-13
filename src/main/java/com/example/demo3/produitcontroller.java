@@ -43,6 +43,7 @@ public class produitcontroller extends Application {
     private TextArea description;
     @FXML
     Label label = new Label();
+
     public void insertImage() {
 
         // String chosenImagePath;
@@ -71,13 +72,14 @@ public class produitcontroller extends Application {
 
         }
     }
+
     public void addproduit(ActionEvent event) throws SQLException {
         Connection connection = MyDatabase.getInstance().getConnection();
         if (connection == null) {
             System.out.println("Connection is null!");
             return;
         }
-      //  String imagePath = insertImage();  // Call insertImage to get the path (or null)
+        //  String imagePath = insertImage();  // Call insertImage to get the path (or null)
         String imagePath = path;
         if (imagePath == null) {
             System.out.println("No image selected!");
@@ -93,10 +95,6 @@ public class produitcontroller extends Application {
             System.err.println(e.getMessage());
         }
     }
-
-
-
-
 
 
     public static void main(String[] args) {
