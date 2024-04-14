@@ -1,12 +1,17 @@
 package com.example.demo3;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import models.Panier;
 import utils.MyDatabase;
 import services.UserSessionService;
@@ -22,6 +27,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Paniercontroller implements Initializable {
+    @FXML
+    private Button confirmer;
     @FXML
     private TableColumn<Panier, String> produitImage;
     @FXML
@@ -173,6 +180,7 @@ public class Paniercontroller implements Initializable {
         if (selectedPanier == null) {
             // No item selected, handle this case if needed
             System.err.println("No item selected.");
+            showAlert("Select a Product", "Please select a product first.");
             return;
         }
 
@@ -210,6 +218,13 @@ public class Paniercontroller implements Initializable {
             }
         });
     }
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
     @FXML
     private void deletePanierFromDatabase() {
         // Get the selected Panier item from the TableView
@@ -217,6 +232,7 @@ public class Paniercontroller implements Initializable {
         if (selectedPanier == null) {
             // No item selected, handle this case if needed
             System.err.println("No item selected.");
+            showAlert("Select a Product", "Please select a product first.");
             return;
         }
 
@@ -245,6 +261,74 @@ public class Paniercontroller implements Initializable {
             }
         }
     }
+    @FXML
+    private void confirmerCommande() {
+        // Get the list of displayed "panier" items in the TableView
+        ObservableList<Panier> paniers = tableView.getItems();
+
+        if (paniers.isEmpty()) {
+            showAlert("No Panier", "There are no paniers to confirm.");
+            return;
+        }
+
+        // For simplicity, let's assume the first item in the list is the current "panier"
+        Panier currentPanier = paniers.get(0); // You can adjust this based on your logic
+
+        // Calculate the total sum of product prices in the cart
+        int total = calculateTotalPrice(currentPanier);
+
+        // Get the logged-in user's ID
+        int loggedInUserId = UserSessionService.getInstance().getLoggedInUserId();
+
+        // Insert data into the "commande" table
+        String insertCommandeQuery = "INSERT INTO commande (pani_id, user_id, totale) VALUES (?, ?, ?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(insertCommandeQuery)) {
+            pstmt.setInt(1, currentPanier.getId());
+            pstmt.setInt(2, loggedInUserId);
+            pstmt.setInt(3, total);
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Commande inserted into the database.");
+                // Optionally, you can clear the cart or update its status after confirmation
+                // clearCart(currentPanier);
+
+                // Navigate to the commandeview.fxml scene
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("commandeview.fxml"));
+                    Parent root = loader.load();
+
+                    // Create a new scene
+                    Scene scene = new Scene(root);
+
+                    // Get the current stage (window)
+                    Stage stage = (Stage) confirmer.getScene().getWindow(); // Assuming confirmer is the Button
+
+                    // Set the new scene on the stage
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Handle any exceptions that may occur during loading
+                }
+            } else {
+                System.out.println("Failed to insert commande into the database.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+    private int calculateTotalPrice(Panier panier) {
+        int total = 0;
+        for (Panier item : tableView.getItems()) {
+            total += item.getProduitPrix() * item.getQuantite();
+        }
+        return total;
+    }
+
 }
 
 

@@ -17,6 +17,7 @@
         </columns>
       </TableView>
       <Button fx:id="modifier" layoutX="520.0" layoutY="406.0" mnemonicParsing="false" onAction="#updateQuantityInDatabase" text="modifier" />
-      <Button layoutX="593.0" layoutY="406.0" mnemonicParsing="false" onAction="#deletePanierFromDatabase" text="Button" />
+      <Button layoutX="593.0" layoutY="406.0" mnemonicParsing="false" onAction="#deletePanierFromDatabase" text="supprimer" />
+      <Button fx:id="confirmer" layoutX="550.0" layoutY="506.0" mnemonicParsing="false" onAction="#confirmerCommande" text="confirmer commande" />
    </children>
 </AnchorPane>

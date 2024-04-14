@@ -14,6 +14,20 @@ public class Panier {
     private int produitPrix ;
     private String produitImage; // String for image path or URL
     private int quantite ;
+    private int ownerId;  // Added ownerId here
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
+    }
+    public Panier(int id, int ownerId) {
+        this.id=id ;
+        this.ownerId=ownerId ;
+
+
+    }
 
     public int getQuantite() {
         return quantite;
@@ -139,4 +153,5 @@ public class Panier {
 
     public void setProduitPrix(double produitPrix) {
     }
+
 }

@@ -1,69 +1,54 @@
 package models;
 
-import java.time.LocalDateTime;
-import models.Panier ;
-public class Commande {
-    private int id;
-    private Boolean sent;
-    private Panier panier;
-    private int totale;
-    private Personne user;
-    private LocalDateTime createdAt;
-    private Panier pani;
+import javafx.beans.property.*;
 
-    public int getId() {
+public class Commande {
+    private IntegerProperty id;
+    private BooleanProperty sent;
+    private ObjectProperty<Panier> panier;
+    private IntegerProperty totale;
+    private int userId;
+
+    public Commande(int id, int totale, Panier panier) {
+        this.id = new SimpleIntegerProperty(id);
+        this.totale = new SimpleIntegerProperty(totale);
+        this.panier = new SimpleObjectProperty<>(panier);
+        this.sent = new SimpleBooleanProperty(false); // Default value
+    }
+
+    public Commande(int id, int totale, int userId, Panier panier) {
+        this.id = new SimpleIntegerProperty(id);
+        this.totale = new SimpleIntegerProperty(totale);
+        this.userId = userId;
+        this.panier = new SimpleObjectProperty<>(panier);
+        this.sent = new SimpleBooleanProperty(false); // Default value
+    }
+
+    // Getters and setters for id, sent, panier, totale, and userId
+    // These methods are omitted for brevity
+
+    public IntegerProperty idProperty() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Boolean isSent() {
-        return sent;
-    }
-
-    public void setSent(Boolean sent) {
-        this.sent = sent;
-    }
-
-    public Panier getPanier() {
-        return panier;
-    }
-
-    public void setPanier(Panier panier) {
-        this.panier = panier;
-    }
-
-    public int getTotale() {
+    public IntegerProperty totalProperty() {
         return totale;
     }
 
-    public void setTotale(int totale) {
-        this.totale = totale;
+    public BooleanProperty sentProperty() {
+        return sent;
     }
 
-    public Personne getUser() {
-        return user;
+    public ObjectProperty<Panier> panierProperty() {
+        return panier;
     }
 
-    public void setUser(Personne user) {
-        this.user = user;
+    public Panier getPanier() {
+        return panier.get();
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public void setPanier(Panier panier) {
+        this.panier.set(panier);
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Panier getPani() {
-        return pani;
-    }
-
-    public void setPani(Panier pani) {
-        this.pani = pani;
-    }
 }

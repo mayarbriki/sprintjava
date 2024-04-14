@@ -6,20 +6,26 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="723.0" prefWidth="848.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.Vueuser">
-   <children>
-      <GridPane fx:id="container" layoutX="25.0" layoutY="30.0" prefHeight="230.0" prefWidth="323.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="170.3999816894531" minHeight="10.0" prefHeight="84.4" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="113.99999389648437" minHeight="0.0" prefHeight="73.00000000000001" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="143.39999389648438" minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-      </GridPane>
-      <Button fx:id="addtocart" layoutX="562.0" layoutY="659.0" mnemonicParsing="false" text="ajourer au panier" />
-      <Button fx:id="panier" layoutX="676.0" layoutY="659.0" mnemonicParsing="false" onAction="#redirectToPanier" prefHeight="26.0" prefWidth="117.0" text="panier" />
-   </children>
+<AnchorPane prefHeight="723.0" prefWidth="848.0" style="-fx-background-color: #e0e0e0; -fx-padding: 20px;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.Vueuser">
+    <children>
+        <GridPane fx:id="container" hgap="20" layoutX="78.0" layoutY="14.0" prefHeight="593.0" prefWidth="670.0" style="-fx-background-color: #ffffff; -fx-background-radius: 20px; -fx-padding: 20px;" vgap="20">
+            <!-- Product Cards -->
+            <children>
+                <!-- Product Card 1 -->
+                <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-radius: 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.0, 0, 2);" />
+                <!-- Product Card 2 -->
+                <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-radius: 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.0, 0, 2);" />
+            </children>
+            <columnConstraints>
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+        <!-- Styling for the Add to Cart button -->
+        <Button fx:id="addtocart" layoutX="320.0" layoutY="660.0" mnemonicParsing="false" style="-fx-background-color: #607d8b; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 5px;" text="Ajouter au panier" />
+        <!-- Styling for the Panier button -->
+        <Button fx:id="panier" layoutX="470.0" layoutY="660.0" mnemonicParsing="false" onAction="#redirectToPanier" style="-fx-background-color: #78909c; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-border-radius: 5px;" text="Panier" />
+    </children>
 </AnchorPane>

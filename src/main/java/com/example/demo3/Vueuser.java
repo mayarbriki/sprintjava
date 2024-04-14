@@ -1,24 +1,24 @@
 package com.example.demo3;
-import javafx.util.Pair;
-import services.UserSessionService;
+
 import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import models.Produit;
-import utils.MyDatabase;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.Parent;
-import models.Panier;
 import services.ServicePanier;
+import services.UserSessionService;
+import utils.MyDatabase;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -27,7 +27,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class Vueuser extends Application implements Initializable {
-    private int loggedInUserId; // Class-level variable to store logged-in user ID
+
+    private int loggedInUserId;
+    private Produit selectedProduct;
+
     @FXML
     private Button panier;
 
@@ -37,17 +40,17 @@ public class Vueuser extends Application implements Initializable {
     @FXML
     private GridPane container;
 
-    // Track the currently selected product
-    private Produit selectedProduct;
-    private ServicePanier servicePanier;
+    private Pane selectedPane;
+
+    private Connection connection = null;
+    private PreparedStatement pst = null;
+    private ResultSet rs = null;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // Load the FXML file
         FXMLLoader loader = new FXMLLoader(getClass().getResource("vueuser.fxml"));
+        loader.setController(this);
         Parent root = loader.load();
-
-        // Set the scene
         Scene scene = new Scene(root, 1000, 700);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Vueuser");
@@ -58,19 +61,97 @@ public class Vueuser extends Application implements Initializable {
         launch(args);
     }
 
-    private Pane selectedPane; // Track the currently selected pane
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        ServicePanier servicePanier = new ServicePanier();
 
-    // Method to highlight the selected product pane
-    private void highlightProductPane(Pane pane) {
-        // Remove highlight from previously selected pane
-        if (selectedPane != null) {
-            selectedPane.setStyle("-fx-background-color: transparent;"); // Remove highlight
+        // Initialize loggedInUserId from UserSessionService
+        loggedInUserId = UserSessionService.getInstance().getLoggedInUserId();
+
+        List<Produit> produits = fetchProductsFromDatabase();
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(50);
+        gridPane.setVgap(50);
+
+        for (int i = 0; i < produits.size(); i++) {
+            Produit produit = produits.get(i);
+            Pane productPane = createProductPane(produit);
+            gridPane.add(productPane, i % 3, i / 3);
         }
 
-        // Add highlight to the newly selected pane
-        pane.setStyle("-fx-background-color: lightblue; -fx-border-color: blue; -fx-border-width: 2px;"); // Add highlight
+        container.getChildren().add(gridPane);
+
+        addtocart.setOnAction(event -> {
+            if (selectedProduct != null) {
+                if (loggedInUserId > 0) {
+                    addToCart(selectedProduct);
+                    System.out.println("Product added to cart successfully.");
+                    // You can navigate to the cart page here if needed
+                } else {
+                    System.out.println("Cannot add product to cart: User is not logged in");
+                    // You might want to show an alert or redirect to the login page
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText(null);
+                alert.setContentText("Please select a product first.");
+                alert.showAndWait();
+            }
+        });
+    }
+
+    private Pane createProductPane(Produit produit) {
+        Pane productPane = new Pane();
+        productPane.setPrefSize(200, 250);
+        productPane.setStyle("-fx-background-color: #f9f9f9; -fx-border-color: #ccc; -fx-border-width: 1px; -fx-border-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.0, 0, 2);");
+
+        ImageView imageView = new ImageView();
+        imageView.setFitWidth(120);
+        imageView.setFitHeight(180);
+        imageView.setPreserveRatio(true);
+        try {
+            imageView.setImage(new Image(produit.getImage()));
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return productPane;
+        }
+
+        double imageX = (productPane.getPrefWidth() - imageView.getFitWidth()) / 2;
+        double imageY = 20;
+        imageView.setLayoutX(imageX);
+        imageView.setLayoutY(imageY);
+
+        Label nameLabel = new Label(produit.getNom());
+        nameLabel.setWrapText(true);
+        nameLabel.setMaxWidth(180);
+        nameLabel.setLayoutX((productPane.getPrefWidth() - nameLabel.getMaxWidth()) / 2);
+        nameLabel.setLayoutY(imageY + imageView.getFitHeight() + 10);
+        nameLabel.setStyle("-fx-font-weight: bold;");
+
+        Label priceLabel = new Label("Price: $" + produit.getPrix());
+        priceLabel.setLayoutX((productPane.getPrefWidth() - priceLabel.getWidth()) / 2);
+        priceLabel.setLayoutY(nameLabel.getLayoutY() + nameLabel.getHeight() + 5);
+        priceLabel.setStyle("-fx-font-size: 12px;");
+
+        productPane.getChildren().addAll(imageView, nameLabel, priceLabel);
+
+        productPane.setOnMouseClicked(event -> {
+            selectedProduct = produit;
+            highlightProductPane(productPane);
+        });
+
+        return productPane;
+    }
+
+    private void highlightProductPane(Pane pane) {
+        if (selectedPane != null) {
+            selectedPane.setStyle("-fx-background-color: transparent;");
+        }
+        pane.setStyle("-fx-background-color: lightblue; -fx-border-color: blue; -fx-border-width: 2px;");
         selectedPane = pane;
     }
+
     @FXML
     private void redirectToPanier() {
         try {
@@ -91,20 +172,12 @@ public class Vueuser extends Application implements Initializable {
 
     private List<Produit> fetchProductsFromDatabase() {
         List<Produit> produits = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement pst = null;
-        ResultSet rs = null;
 
         try {
-            // Get the connection
             connection = MyDatabase.getInstance().getConnection();
-
-            // Create and execute the SQL statement
             pst = connection.prepareStatement("SELECT * FROM produit");
-
             rs = pst.executeQuery();
 
-            // Process the ResultSet
             while (rs.next()) {
                 Produit produit = new Produit(
                         rs.getInt("id"),
@@ -117,216 +190,155 @@ public class Vueuser extends Application implements Initializable {
                 produits.add(produit);
             }
         } catch (SQLException e) {
-            // Handle database exception
             System.err.println("Error fetching products from database: " + e.getMessage());
-            e.printStackTrace(); // Print the stack trace for debugging
+            e.printStackTrace();
         } finally {
-            // Close resources in the finally block
-            // ...
+           // closeResources();
         }
 
         return produits;
     }
 
-    private void insertProduitPanier(int loggedInUserId, int produitId) {
-        String sql = "INSERT INTO produit_panier (panier_id, produit_id) VALUES (?, ?)";
+    private void addToCart(Produit produit) {
+        // Check if user is logged in
+        int loggedInUserId = UserSessionService.getInstance().getLoggedInUserId();
+        if (loggedInUserId <= 0) {
+            System.err.println("Cannot add product to cart: User is not logged in");
+            // Display an error message or redirect to the login page
+            return;
+        }
 
-        try (Connection connection = MyDatabase.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, loggedInUserId);
-            statement.setInt(2, produitId);
-            int rowsAffected = statement.executeUpdate();
+        // Perform adding to cart operation
+        if (checkProductInCart(loggedInUserId, produit.getId())) {
+            System.out.println("Product is already in the cart.");
+        } else {
+            insertProduitPanier(loggedInUserId, produit.getId());
+            System.out.println("Product added to cart successfully.");
+        }
+    }
+
+    private void insertProduitPanier(int loggedInUserId, int produitId) {
+        String selectPanierSQL = "SELECT id FROM panier WHERE owner_id = ?";
+        String insertPanierSQL = "INSERT INTO panier (owner_id) VALUES (?)";
+        String insertProduitPanierSQL = "INSERT INTO produit_panier (panier_id, produit_id) VALUES (?, ?)";
+
+        try {
+            connection = MyDatabase.getInstance().getConnection();
+
+            // Check if the user has a cart (panier) already created
+            int panierId = -1;
+            pst = connection.prepareStatement(selectPanierSQL);
+            pst.setInt(1, loggedInUserId);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                panierId = rs.getInt("id");
+            }
+
+            if (panierId <= 0) {
+                // If no cart exists, create one
+                pst = connection.prepareStatement(insertPanierSQL, Statement.RETURN_GENERATED_KEYS);
+                pst.setInt(1, loggedInUserId);
+                int rowsAffected = pst.executeUpdate();
+                if (rowsAffected > 0) {
+                    ResultSet generatedKeys = pst.getGeneratedKeys();
+                    if (generatedKeys.next()) {
+                        panierId = generatedKeys.getInt(1);
+                    }
+                }
+            }
+
+            if (panierId <= 0) {
+                System.err.println("Error inserting into panier: Could not create or find cart.");
+                return;  // Exit if there's still no cart ID
+            }
+
+            // Now insert into produit_panier
+            pst = connection.prepareStatement(insertProduitPanierSQL);
+            pst.setInt(1, panierId);
+            pst.setInt(2, produitId);
+            int rowsAffected = pst.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Inserted into produit_panier: user=" + loggedInUserId + ", produit=" + produitId);
+                System.out.println("Product added to cart successfully.");
             } else {
                 System.err.println("Failed to insert into produit_panier.");
             }
         } catch (SQLException e) {
-            System.err.println("Error inserting into produit_panier: " + e.getMessage());
-            // Handle the exception gracefully, such as displaying an error message to the user
-            // You can also log the exception or perform any necessary cleanup
+            System.err.println("Error inserting into panier/produit_panier: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            //closeResources();
         }
     }
 
+    private int getPanierIdForUser(int userId) throws SQLException {
+        String sqlSelect = "SELECT id FROM panier WHERE owner_id = ?";
+        String sqlInsert = "INSERT INTO panier (owner_id) VALUES (?)";
 
-    private Pair<Integer, Panier> getCurrentUserCart() {
-        int loggedInUserId = UserSessionService.getInstance().getLoggedInUserId();
-        if (loggedInUserId <= 0) {
-            System.err.println("User is not logged in.");
-            return null;
-        }
-
-        Connection connection = null;
-        PreparedStatement pst = null;
-        ResultSet rs = null;
+        int panierId = -1;  // Default value if no cart found
 
         try {
-            // Get the connection
-            connection = MyDatabase.getInstance().getConnection();
-
             // Check if the user already has a cart
-            pst = connection.prepareStatement("SELECT * FROM panier WHERE owner_id = ?");
-            pst.setInt(1, loggedInUserId);
+            pst = connection.prepareStatement(sqlSelect);
+            pst.setInt(1, userId);
             rs = pst.executeQuery();
 
-            // If the cart exists, retrieve its details
             if (rs.next()) {
-                int cartId = rs.getInt("id");
-                // You can fetch other details of the cart from the ResultSet if needed
-
-                // Create a new Panier instance with the retrieved details
-                Panier cart = new Panier();
-                cart.setId(cartId);
-                // Set other details of the cart if needed
-
-                // Return the owner ID and the cart
-                return new Pair<>(loggedInUserId, cart);
+                panierId = rs.getInt("id");
             } else {
-                // If the cart doesn't exist, create a new one
-                pst = connection.prepareStatement("INSERT INTO panier (owner_id) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
-                pst.setInt(1, loggedInUserId);
+                // User doesn't have a cart, create one
+                pst = connection.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
+                pst.setInt(1, userId);
                 int rowsAffected = pst.executeUpdate();
                 if (rowsAffected > 0) {
-                    rs = pst.getGeneratedKeys();
-                    if (rs.next()) {
-                        int cartId = rs.getInt(1);
-
-                        // Create a new Panier instance for the newly created cart
-                        Panier cart = new Panier();
-                        cart.setId(cartId);
-                        // Set other details of the cart if needed
-
-                        // Return the owner ID and the newly created cart
-                        return new Pair<>(loggedInUserId, cart);
+                    ResultSet generatedKeys = pst.getGeneratedKeys();
+                    if (generatedKeys.next()) {
+                        panierId = generatedKeys.getInt(1);
                     }
                 }
             }
         } catch (SQLException e) {
-            System.err.println("error");
-         //   e.printStackTrace();
-            // Handle database exception
+            System.err.println("Error getting/creating panier: " + e.getMessage());
+            e.printStackTrace();
         }
 
-
-        // Return null if an error occurs or if no cart is found
-        return null;
+        return panierId;
     }
 
-    private List<Produit> cart = new ArrayList<>();
-    public void addToCart(Produit produit) {
-        // Check if a product is selected
-        if (produit == null) {
-            System.out.println("Please select a product first.");
-            return;
-        }
-
-        // Check if a user is logged in
-        if (loggedInUserId <= 0) {
-            System.err.println("User is not logged in.");
-            return;
-        }
-
-        // Retrieve or create the current user's cart
-        Pair<Integer, Panier> currentUserCartPair = getCurrentUserCart();
-        if (currentUserCartPair == null) {
-            System.err.println("Cannot add product to cart: User doesn't have a cart.");
-            return;
-        }
-
-        // Add the product to the cart in the database
-        int cartId = currentUserCartPair.getValue().getId(); // Retrieve the cart ID
-        insertProduitPanier(cartId, produit.getId()); // Insert the product into the cart
-
-        // Update the local cart list (if needed)
-        cart.add(produit);
-
-       // System.out.println("Product added to cart successfully.");
-    }
-
-
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        servicePanier = new ServicePanier();
-
-        List<Produit> produits = fetchProductsFromDatabase();
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(150); // Horizontal gap between grid items
-        gridPane.setVgap(150); // Vertical gap between grid items
-
-        // Retrieve current user's cart
-        Pair<Integer, Panier> currentUserCartPair = getCurrentUserCart();
-        Panier currentUserCart;
-        if (currentUserCartPair != null) {
-            loggedInUserId = currentUserCartPair.getKey(); // Update the loggedInUserId
-            currentUserCart = currentUserCartPair.getValue();
-        } else {
-            loggedInUserId = -1; // Set it to a default value indicating no user logged in
-            currentUserCart = null;
-        }
-
-        for (int i = 0; i < produits.size(); i++) {
-            Produit produit = produits.get(i);
-            Pane productPane = new Pane();
-            productPane.setPrefSize(200, 250); // Adjust size as needed
-            productPane.setStyle("-fx-background-color: #f9f9f9; -fx-border-color: #ccc; -fx-border-width: 1px; -fx-border-radius: 5px;");
-
-            ImageView imageView = new ImageView();
-            imageView.setFitWidth(150); // Adjust image width
-            imageView.setFitHeight(150); // Adjust image height
-            imageView.setPreserveRatio(true); // Preserve aspect ratio
-            try {
-                // Load image from resource
-                imageView.setImage(new Image(produit.getImage()));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-                continue; // Skip this product if image loading fails
+    private boolean checkProductInCart(int loggedInUserId, int productId) {
+        String sql = "SELECT COUNT(*) FROM produit_panier WHERE panier_id = ? AND produit_id = ?";
+        try {
+            connection = MyDatabase.getInstance().getConnection();
+            pst = connection.prepareStatement(sql);
+            pst.setInt(1, loggedInUserId);
+            pst.setInt(2, productId);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
             }
-
-            Label nameLabel = new Label(produit.getNom());
-            nameLabel.setWrapText(true); // Wrap text if it exceeds the label width
-            nameLabel.setMaxWidth(150); // Set max width for label
-            nameLabel.setLayoutY(160); // Position label below image
-            nameLabel.setStyle("-fx-font-weight: bold;");
-
-            Label priceLabel = new Label("Price: $" + produit.getPrix());
-            priceLabel.setLayoutY(200); // Position label below name
-            priceLabel.setStyle("-fx-font-size: 12px;");
-
-            productPane.getChildren().addAll(imageView, nameLabel, priceLabel);
-
-            // Add event handler to select the item
-            productPane.setOnMouseClicked(event -> {
-                selectedProduct = produit; // Store the selected product
-                System.out.println("Selected: " + selectedProduct.getId());
-                System.out.println("Selected: " + selectedProduct.getNom());
-                System.out.println("Selected: " + selectedProduct.getDescription());
-                highlightProductPane(productPane); // Highlight the selected product pane
-            });
-
-            gridPane.add(productPane, i % 3, i / 3);
+        } catch (SQLException e) {
+            System.err.println("Error checking product in cart: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+          //  closeResources();
         }
-
-        // Assuming you have a container in your FXML file with fx:id "container"
-        container.getChildren().add(gridPane);
-
-        // Add event handler for the Add to Cart button
-        addtocart.setOnAction(event -> {
-            if (selectedProduct != null) {
-                if (loggedInUserId > 0) {
-                    addToCart(selectedProduct);
-                    System.out.println("Product added to cart successfully.");
-                    // You can navigate to the cart page here if needed
-                } else {
-                    System.out.println("Cannot add product to cart: User is not logged in");
-                }
-            } else {
-                System.out.println("Please select a product first.");
-            }
-        });
-
+        return false;
     }
 
-
-
+    private void closeResources() {
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pst != null) {
+                pst.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            System.err.println("Error closing resources: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }

@@ -27,6 +27,11 @@ public class HelloController implements Initializable {
     Connection cnx;
    private int loggedInUserId;
     @FXML
+    private Button signin;
+
+    @FXML
+    private Button signup;
+    @FXML
     private Label welcomeText;
     @FXML
     private Button btnlogin;
@@ -60,6 +65,8 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        pane_login.setVisible(true);
+        pane_signup.setVisible(false);
 
     }
 
@@ -84,12 +91,14 @@ public class HelloController implements Initializable {
             System.err.println(e.getMessage());
         }
     }
+    @FXML
     public void LoginpaneShow(){
 
         pane_login.setVisible(true);
         pane_signup.setVisible(false);
     }
 
+    @FXML
     public void SignuppaneShow(){
 
         pane_login.setVisible(false);

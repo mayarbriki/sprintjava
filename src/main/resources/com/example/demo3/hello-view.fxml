@@ -5,22 +5,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="861.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.HelloController">
+<AnchorPane prefHeight="391.0" prefWidth="779.0" style="-fx-background-color: #b0bec5; -fx-text-fill: #37474f; -fx-font-size: 14px;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.HelloController">
    <children>
-      <AnchorPane fx:id="pane_login" layoutX="104.0" layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="177.0" prefWidth="207.0">
+      <HBox spacing="20.0" style="-fx-background-color: #b0bec5; -fx-padding: 10px;" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="10.0">
          <children>
-            <TextField fx:id="usenamelogin" layoutX="118.0" layoutY="28.0" prefHeight="26.0" prefWidth="150.0" AnchorPane.bottomAnchor="123.19999999999999" AnchorPane.leftAnchor="118.0" />
-            <TextField fx:id="pwdlogin" layoutX="119.0" layoutY="89.0" />
-            <Button fx:id="login" layoutX="172.0" layoutY="148.0" mnemonicParsing="false" onAction="#Login" text="login" />
+            <Button fx:id="signin" onAction="#LoginpaneShow" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #555555; -fx-text-fill: white; -fx-font-weight: bold;" text="Sign In" />
+            <Button fx:id="signup" onAction="#SignuppaneShow" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #555555; -fx-text-fill: white; -fx-font-weight: bold;" text="Sign Up" />
+         </children>
+      </HBox>
+
+            <AnchorPane fx:id="pane_login" layoutX="22.0" layoutY="76.0" prefHeight="211.0" prefWidth="262.0" style="-fx-background-color: #f5f5f5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-padding: 20px;">
+         <children>
+            <TextField fx:id="usenamelogin" layoutX="30.0" layoutY="40.0" prefWidth="190.0" promptText="Username" style="-fx-background-radius: 5;" />
+            <TextField fx:id="pwdlogin" layoutX="30.0" layoutY="90.0" prefWidth="190.0" promptText="Password" style="-fx-background-radius: 5;" />
+            <Button fx:id="login" layoutX="105.0" layoutY="140.0" mnemonicParsing="false" onAction="#Login" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #555555; -fx-text-fill: white; -fx-font-weight: bold;" text="Login" />
          </children>
       </AnchorPane>
-      <HBox layoutX="21.0" layoutY="262.0" prefHeight="394.0" prefWidth="987.0" />
-      <AnchorPane fx:id="pane_signup" layoutX="482.0" layoutY="75.0" prefHeight="200.0" prefWidth="200.0">
+
+                                                            <AnchorPane fx:id="pane_signup" layoutX="22.0" layoutY="76.0" prefHeight="211.0" prefWidth="262.0" style="-fx-background-color: #ffffff; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-padding: 20px;" AnchorPane.bottomAnchor="325.6" AnchorPane.rightAnchor="619.6" AnchorPane.topAnchor="76.0">
          <children>
-            <TextField fx:id="username" layoutX="26.0" layoutY="43.0" />
-            <TextField fx:id="pwd" layoutX="27.0" layoutY="88.0" />
-            <Button fx:id="btnlogin" layoutX="74.0" layoutY="132.0" mnemonicParsing="false" onAction="#add" text="Button" />
+            <TextField fx:id="username" layoutX="30.0" layoutY="40.0" prefWidth="190.0" promptText="Username" style="-fx-background-radius: 5;" />
+            <TextField fx:id="pwd" layoutX="30.0" layoutY="90.0" prefWidth="190.0" promptText="Password" style="-fx-background-radius: 5;" />
+            <Button fx:id="btnlogin" layoutX="105.0" layoutY="140.0" mnemonicParsing="false" onAction="#add" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: #555555; -fx-text-fill: white; -fx-font-weight: bold;" text="Sign Up" />
          </children>
       </AnchorPane>
-   </children> 
+   </children>
 </AnchorPane>

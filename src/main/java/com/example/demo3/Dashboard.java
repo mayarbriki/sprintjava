@@ -34,6 +34,8 @@ import services.ServicePersonne;
 import utils.MyDatabase;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.TableView;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 
 
 public class Dashboard extends Application implements Initializable {
@@ -182,6 +184,7 @@ public class Dashboard extends Application implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         ObservableList<String> list = FXCollections.observableArrayList("admin", "livreur");
         comb.setItems(list);
         anchorPane1.setVisible(false);
@@ -289,14 +292,20 @@ public class Dashboard extends Application implements Initializable {
             System.out.println("Connection is null!");
             return;
         }
-        //  String imagePath = insertImage();  // Call insertImage to get the path (or null)
-        String imagePath = path;
-        if (imagePath == null) {
-            System.out.println("No image selected!");
+
+        // Check if any of the fields are empty
+        if (nomproduit.getText().isEmpty() || description.getText().isEmpty() || path == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter all fields and select an image.");
+            alert.showAndWait();
             return;
         }
-        Produit produit = new Produit(25, nomproduit.getText(), description.getText(), imagePath);
-        ServiceProduit sp = new ServiceProduit(); // Use connection object
+
+        // All fields are filled, proceed with adding the product
+        Produit produit = new Produit(25, nomproduit.getText(), description.getText(), path);
+        ServiceProduit sp = new ServiceProduit();
 
         try {
             sp.ajouter(produit);
@@ -305,6 +314,8 @@ public class Dashboard extends Application implements Initializable {
             System.err.println(e.getMessage());
         }
     }
+
+    @FXML
     public void modifyProduit(ActionEvent event) {
         Connection connection = MyDatabase.getInstance().getConnection();
         if (connection == null) {
@@ -312,8 +323,14 @@ public class Dashboard extends Application implements Initializable {
             return;
         }
 
+        // Check if selectedProduit is null
         if (selectedProduit == null) {
-            System.out.println("No product selected for modification.");
+            // If no product is selected, show an alert and return early
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select a product to modify.");
+            alert.showAndWait();
             return;
         }
 
@@ -337,7 +354,6 @@ public class Dashboard extends Application implements Initializable {
             System.err.println(e.getMessage());
         }
     }
-
 
 
     private void setupTableColumns() {
@@ -386,6 +402,7 @@ public class Dashboard extends Application implements Initializable {
     }
     @FXML
     private void handleSupprimerButtonClick(ActionEvent event) {
+        // Check if a product is selected for deletion
         Produit selectedProduit = tableViewProduit.getSelectionModel().getSelectedItem();
         if (selectedProduit != null) {
             try {
@@ -397,9 +414,15 @@ public class Dashboard extends Application implements Initializable {
                 e.printStackTrace(); // Handle exception appropriately
             }
         } else {
-            System.out.println("No product selected for deletion.");
+            // If no product is selected, show an alert
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select a product to delete.");
+            alert.showAndWait();
         }
     }
+
     @FXML
     private void handleTableViewSelection() {
         selectedProduit = tableViewProduit.getSelectionModel().getSelectedItem();
