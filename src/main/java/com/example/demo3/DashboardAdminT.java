@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.Transport;
@@ -115,9 +116,9 @@ public class DashboardAdminT extends Application implements Initializable {
         try {
             List<Transport> transportList = new ServiceTransport().recupererT();
 
-            transport_tableview.getItems().clear();
+            ObservableList<Transport> observableList = FXCollections.observableArrayList(transportList);
 
-            transport_tableview.getItems().addAll(transportList);
+            transport_tableview.setItems(observableList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -165,7 +166,8 @@ public class DashboardAdminT extends Application implements Initializable {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("DashboardAdminT.fxml")));
-
+        stage.getIcons().add(new Image("com/example/demo3/images/MediCare (1).png"));
+        stage.setTitle("ParaPharma+");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

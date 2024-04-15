@@ -14,6 +14,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -198,6 +199,8 @@ public class DashboardAccueil extends Application implements Initializable {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("DashboardAccueil.fxml")));
+        stage.getIcons().add(new Image("com/example/demo3/images/MediCare (1).png"));
+        stage.setTitle("ParaPharma+");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

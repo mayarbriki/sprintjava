@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.Livraison;
@@ -323,9 +324,9 @@ public class DashboardController extends Application implements Initializable {
         try {
             List<Transport> transportList = new ServiceTransport().recupererT();
 
-            transport_tableview.getItems().clear();
+            ObservableList<Transport> observableList = FXCollections.observableArrayList(transportList);
 
-            transport_tableview.getItems().addAll(transportList);
+            transport_tableview.setItems(observableList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -377,13 +378,10 @@ public class DashboardController extends Application implements Initializable {
         Livraison selectedLivraison = livraison_tableview.getSelectionModel().getSelectedItem();
         String selectedMatricule = matricule.getValue();
         if (selectedLivraison != null && selectedMatricule != null) {
-            // Retrieve the Transport object associated with the selected matricule
             Transport selectedTransport = getTransportByMatricule(selectedMatricule);
             if (selectedTransport != null) {
-                // Update the selected Livraison with the retrieved Transport object
                 selectedLivraison.setMatricule(String.valueOf(selectedTransport.getId()));
 
-                // Now, update the Livraison in the database
                 try {
                     ServiceLivraison serviceLivraison = new ServiceLivraison();
                     serviceLivraison.modifierL(selectedLivraison);
@@ -408,10 +406,9 @@ public class DashboardController extends Application implements Initializable {
     private void refreshLivraisonTable() {
         try {
             List<Livraison> livraisonList = new ServiceLivraison().recupererL();
+            ObservableList<Livraison> observableList = FXCollections.observableArrayList(livraisonList);
 
-            livraison_tableview.getItems().clear();
-
-            livraison_tableview.getItems().addAll(livraisonList);
+            livraison_tableview.setItems(observableList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -608,6 +605,9 @@ public class DashboardController extends Application implements Initializable {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Dashboard1.fxml")));
 
+        stage.getIcons().add(new Image("com/example/demo3/images/MediCare (1).png"));
+        stage.setTitle("ParaPharma+");
+
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -621,3 +621,4 @@ public class DashboardController extends Application implements Initializable {
     }
 
 }
+// TODO: add better input control

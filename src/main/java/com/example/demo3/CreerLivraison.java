@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import models.Livraison;
 import services.ServiceLivraison;
@@ -71,7 +72,8 @@ public class CreerLivraison extends Application implements Initializable {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("creerLivraison.fxml")));
-
+        stage.getIcons().add(new Image("com/example/demo3/images/MediCare (1).png"));
+        stage.setTitle("ParaPharma+");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

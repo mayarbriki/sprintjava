@@ -161,7 +161,7 @@
                                                 <Insets />
                                              </VBox.margin>
                                           </FontAwesomeIconView>
-                                          <Label stylesheets="@DashbordDesign.css" text="Nombre total de moyens de livraison :">
+                                          <Label stylesheets="@DashbordDesign.css" text="Nombre total de livraison :">
                                              <font>
                                                 <Font size="15.0" />
                                              </font>

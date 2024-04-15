@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import models.Livraison;
 import services.ServiceLivraison;
@@ -183,10 +184,9 @@ public class DashboardAdminL extends Application implements Initializable {
     private void refreshLivraisonTable() {
         try {
             List<Livraison> livraisonList = new ServiceLivraison().recupererL();
+            ObservableList<Livraison> observableList = FXCollections.observableArrayList(livraisonList);
 
-            livraison_tableview.getItems().clear();
-
-            livraison_tableview.getItems().addAll(livraisonList);
+            livraison_tableview.setItems(observableList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -267,7 +267,8 @@ public class DashboardAdminL extends Application implements Initializable {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("DashboardAdminL.fxml")));
-
+        stage.getIcons().add(new Image("com/example/demo3/images/MediCare (1).png"));
+        stage.setTitle("ParaPharma+");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
