@@ -224,6 +224,7 @@
                                                 <Label fx:id="commande" layoutX="85.0" layoutY="320.0" prefHeight="25.0" prefWidth="125.0" styleClass="label-info" text="Label" />
                                                 <ComboBox fx:id="matricule" layoutX="72.0" layoutY="375.0" prefHeight="25.0" prefWidth="142.0" promptText="Choisir" styleClass="textfield" stylesheets="@DashbordDesign.css" />
                                                 <Button fx:id="affecter" layoutX="62.0" layoutY="438.0" mnemonicParsing="false" onAction="#affecterLivraison" prefHeight="40.0" prefWidth="104.0" styleClass="button-save" text="Affecter" />
+                                    <Button fx:id="imprimer_PDF" layoutX="62.0" layoutY="511.0" mnemonicParsing="false" onAction="#imprimerPDFButtonClicked" prefHeight="40.0" prefWidth="104.0" styleClass="button-clear" stylesheets="@DashbordDesign.css" text="Imprimer" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane layoutX="238.0" layoutY="12.0" prefHeight="574.0" prefWidth="859.0" stylesheets="@DashbordDesign.css">

@@ -175,5 +175,4 @@ public class ServiceLivraison implements LService<Livraison> {
 
         return livraisonsByDate;
     }
-
 }

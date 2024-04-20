@@ -21,9 +21,12 @@ import javafx.stage.Stage;
 import models.Livraison;
 import models.Transport;
 import services.ServiceLivraison;
+import services.ServicePDF;
 import services.ServiceTransport;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -172,6 +175,9 @@ public class DashboardController extends Application implements Initializable {
     private Label matriculeErrorLabel;
     @FXML
     private Button maximizeButton;
+
+    @FXML
+    private Button imprimer_PDF;
     private final boolean maximized = false;
 
     private FilteredList<Livraison> filteredLivraisonData;
@@ -544,6 +550,20 @@ public class DashboardController extends Application implements Initializable {
             });
         });
     }
+    @FXML
+    private void imprimerPDFButtonClicked(ActionEvent event) {
+        Livraison selectedLivraison = livraison_tableview.getSelectionModel().getSelectedItem();
+        if (selectedLivraison != null) {
+            try {
+                ServicePDF.generateCommandePDF("Commande.pdf", selectedLivraison);
+            } catch (FileNotFoundException | MalformedURLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("selectedLivraison is NULL");
+        }
+    }
+
     @FXML
     public void switchToDashboardAccueil(javafx.event.ActionEvent event) {
         try {
