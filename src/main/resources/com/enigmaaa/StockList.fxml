@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="800.0" prefWidth="1300.0" spacing="20.0" style="-fx-background-color: #00b9ae;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.enigmaaa.StockController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <AnchorPane prefHeight="444.0" prefWidth="1260.0">
+        <children>
+      
+            <Label fx:id="title" layoutX="-1.0" layoutY="-10.0" text="ENIGMA" textFill="WHITE">
+                <font>
+                    <Font name="Arial Black" size="24.0" />
+                </font>
+            </Label>
+            <TableView fx:id="stockTable" layoutX="96.0" layoutY="76.0" prefHeight="364.0" prefWidth="1070.0">
+                <columns>
+                    <TableColumn fx:id="nomp" prefWidth="340.0" text="Nom du produit " />
+                    <TableColumn fx:id="quantitep" minWidth="6.0" prefWidth="166.0" text="Quantité" />
+                    <TableColumn fx:id="datep" prefWidth="190.0" text="Dernière date d'ajout" />
+                    <TableColumn fx:id="type" prefWidth="210.0" text="Type de produit" />
+                   <TableColumn fx:id="prixx" prefWidth="161.0" text="Prix unité" />
+                </columns>
+            </TableView>
+         <TextField fx:id="nomChoice" layoutX="607.0" layoutY="5.0" prefHeight="37.0" prefWidth="424.0" promptText="Chercher par nom produit" style="-fx-border-color: #22577a;" />
+
+            <ChoiceBox fx:id="typeChoice" layoutX="242.0" layoutY="6.0" prefHeight="37.0" prefWidth="211.0" style="-fx-background-color: white; -fx-border-color: #22577a;" />
+         <ImageView fx:id="imagee" fitHeight="238.0" fitWidth="242.0" layoutX="53.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
+         <Button fx:id="refr" layoutX="1066.0" layoutY="6.0" mnemonicParsing="false" onAction="#refresh" prefHeight="37.0" prefWidth="61.0" style="-fx-background-color: cccccc; -fx-border-color: a5a5a5;" text="Ref" textFill="#22577a">
+            <font>
+               <Font name="Calibri Bold" size="18.0" />
+            </font>
+         </Button>
+         <Button fx:id="retour" layoutX="1176.0" layoutY="5.0" mnemonicParsing="false" onAction="#refresh" prefHeight="37.0" prefWidth="86.0" style="-fx-background-color: cccccc; -fx-border-color: a5a5a5;" text="Retour" textFill="#22577a">
+            <font>
+               <Font name="Calibri Bold" size="18.0" />
+            </font>
+         </Button>
+         <Label fx:id="title1" layoutX="62.0" layoutY="30.0" text="Stocks" textFill="WHITE">
+            <font>
+               <Font name="Arial Black" size="18.0" />
+            </font>
+         </Label>
+        </children>
+    </AnchorPane>
+   <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="710.0" style="-fx-background-color: ebebeb;">
+      <children>
+         <Label layoutX="49.0" layoutY="80.0" text="Nom du produit :" textFill="#22577a">
+            <font>
+               <Font name="Calibri Bold" size="17.0" />
+            </font>
+         </Label>
+         <Label layoutX="531.0" layoutY="79.0" text="Quantité : " textFill="#22577a">
+            <font>
+               <Font name="Calibri Bold" size="17.0" />
+            </font>
+         </Label>
+         <Label layoutX="49.0" layoutY="184.0" text="Type de produit :" textFill="#22577a">
+            <font>
+               <Font name="Calibri Bold" size="17.0" />
+            </font>
+         </Label>
+         <TextField fx:id="tnom" layoutX="206.0" layoutY="71.0" prefHeight="37.0" prefWidth="227.0" style="-fx-border-color: #22577a;" />
+         <TextField fx:id="tquan" layoutX="681.0" layoutY="72.0" prefHeight="37.0" prefWidth="199.0" style="-fx-border-color: #22577a;" />
+         <TextField fx:id="ttype" layoutX="206.0" layoutY="178.0" prefHeight="37.0" prefWidth="227.0" style="-fx-border-color: #22577a;" />
+         <TextField fx:id="tprix" layoutX="681.0" layoutY="178.0" prefHeight="37.0" prefWidth="199.0" style="-fx-border-color: #22577a;" />
+         <Label layoutX="530.0" layoutY="186.0" text="Prix unité :" textFill="#22577a">
+            <font>
+               <Font name="Calibri Bold" size="17.0" />
+            </font>
+         </Label>
+            <Button fx:id="btnDelete" layoutX="1016.0" layoutY="211.0" mnemonicParsing="false" onAction="#delete" prefHeight="51.0" prefWidth="143.0" style="-fx-background-color: cccccc; -fx-border-color: a5a5a5;" text="Supprimer" textFill="#22577a">
+                <font>
+                    <Font name="Calibri Bold" size="24.0" />
+                </font>
+            </Button>
+            <Button fx:id="btnAdd" layoutX="1016.0" layoutY="38.0" mnemonicParsing="false" onAction="#add" prefHeight="51.0" prefWidth="143.0" style="-fx-background-color: cccccc; -fx-border-color: a5a5a5;" text="Ajouter" textFill="#22577a">
+                <font>
+                    <Font name="Calibri Bold" size="24.0" />
+                </font>
+            </Button>
+            <Button fx:id="btnUpdate" layoutX="1016.0" layoutY="125.0" onAction="#update" prefHeight="51.0" prefWidth="143.0" style="-fx-background-color: cccccc; -fx-border-color: a5a5a5;" text="Modifier" textFill="#22577a">
+                <font>
+                    <Font name="Calibri Bold" size="24.0" />
+                </font>
+            </Button>
+      </children>
+   </Pane>
+</VBox>

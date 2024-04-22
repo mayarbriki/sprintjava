@@ -1,0 +1,24 @@
+
+c
+java:S1192n"FDefine a constant instead of duplicating this literal "Title" 3 times.(Ò¯’¾8°Ûç”ğ1
+j
+java:S1192o"HDefine a constant instead of duplicating this literal "Content" 3 times.(¶É»¼şÿÿÿÿ8±Ûç”ğ1
+s	java:S117‚"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ïù°ôıÿÿÿÿ8±Ûç”ğ1
+l
+java:S2095ş"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ĞÜ×88ÓÛç”ğ1
+i
+java:S2095h"GUse try-with-resources or close this "Statement" in a "finally" clause.(é°Áµşÿÿÿÿ8ÓÛç”ğ1
+m
+java:S2095¦"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(é×Ç8ÓÛç”ğ1
+j
+java:S2095©"GUse try-with-resources or close this "Statement" in a "finally" clause.(é°Áµşÿÿÿÿ8ÓÛç”ğ1
+r
+java:S2095Í"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.( Œãõüÿÿÿÿ8ÓÛç”ğ1
+m
+java:S2095†"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(Ò´°8ÓÛç”ğ1
+N
+java:S1602T",Remove useless curly braces around statement(¨ÈíÁùÿÿÿÿ8ØÛç”ğ1
+c
+java:S1128"FRemove this unused import 'javafx.beans.property.SimpleFloatProperty'.(³«°å8îÜ•ğ1
+e
+java:S1128"HRemove this unused import 'javafx.beans.property.SimpleIntegerProperty'.(©Ú¡8îÜ•ğ1

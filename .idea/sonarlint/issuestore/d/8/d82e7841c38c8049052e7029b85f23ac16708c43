@@ -1,0 +1,34 @@
+
+l
+java:S1192\"JDefine a constant instead of duplicating this literal "All Types" 3 times.(ô·±Àûÿÿÿÿ8å å”ğ1
+e
+java:S1192y"IDefine a constant instead of duplicating this literal "quantite" 4 times.(ü†¿a8å å”ğ1
+h
+java:S1192x"LDefine a constant instead of duplicating this literal "nom_produit" 4 times.(ŠÉR8å å”ğ1
+¥
+java:S1192u"‡Define a constant instead of duplicating this literal "SELECT `nom_produit`, `quantite`, `date`, `type` , `prix` FROM `stock`" 3 times.(‹ÒîÛ8å å”ğ1
+r
+java:S2095¶"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(Ûˆ•†şÿÿÿÿ8”¡å”ğ1
+j
+java:S2095ñ"GUse try-with-resources or close this "Statement" in a "finally" clause.(é°Áµşÿÿÿÿ8”¡å”ğ1
+r
+java:S2095Ë"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(•ñé¡ûÿÿÿÿ8”¡å”ğ1
+m
+java:S2095Ç"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÿºÆ…8”¡å”ğ1
+r
+java:S2095—"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÛÏÿøÿÿÿÿ8”¡å”ğ1
+i
+java:S2095t"GUse try-with-resources or close this "Statement" in a "finally" clause.(é°Áµşÿÿÿÿ8”¡å”ğ1
+l
+java:S2095ì"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(—Éç?8”¡å”ğ1
+r
+java:S2095Í"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(™µöäüÿÿÿÿ8”¡å”ğ1
+j
+java:S2095¶"GUse try-with-resources or close this "Statement" in a "finally" clause.(é°Áµşÿÿÿÿ8”¡å”ğ1
+m
+java:S2095"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÌÙİ8”¡å”ğ1
+N
+java:S1602T",Remove useless curly braces around statement(¨ÈíÁùÿÿÿÿ8™¡å”ğ1
+L	java:S106~"+Replace this use of System.out by a logger.(Å­Ëİúÿÿÿÿ8œ¡å”ğ1
+u
+java:S3776µ"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(©”ìîúÿÿÿÿ8¥¡å”ğ1

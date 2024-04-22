@@ -1,0 +1,18 @@
+
+h	java:S116	"NRename this field "URL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( ì‹™ýÿÿÿÿ
+i	java:S116
+"ORename this field "USER" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ­èëüÿÿÿÿ
+d	java:S116"ORename this field "PASS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”³àÅ
+<
+java:S1170	"!Make this final field static too.( ì‹™ýÿÿÿÿ
+<
+java:S1170
+"!Make this final field static too.(õ­èëüÿÿÿÿ
+7
+java:S1170"!Make this final field static too.(”³àÅ
+¯
+java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(‚†÷æ
+D
+java:S2115")Add password protection to this database.(Èï¯ùÿÿÿÿ
+E	java:S106"+Replace this use of System.out by a logger.(´áÀŠÿÿÿÿÿ
+E	java:S106"+Replace this use of System.err by a logger.(ïù¯¯ûÿÿÿÿ

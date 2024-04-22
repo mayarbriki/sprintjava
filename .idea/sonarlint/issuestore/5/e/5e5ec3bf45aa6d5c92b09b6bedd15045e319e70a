@@ -1,0 +1,12 @@
+
+r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(νÿ―δωÿÿÿÿ8Λ‘ξο1
+m	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡Ιΰδ8Λ‘ξο1
+l	java:S1177"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ΛΜ8²½λξο1
+i	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(Να¤8Μ‘ξο1
+w	java:S116"VRename this field "nom_produit" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ΫΝόόÿÿÿÿ8Ο‘ξο1
+H
+java:S1659"&Declare "quantite" on a separate line.(ό†΄ήϋÿÿÿÿ8Π‘ξο1
+D
+java:S1659""Declare "type" on a separate line.(ΫΝόόÿÿÿÿ8Π‘ξο1
+j	java:S1003"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡’£8Σ‘ξο1
+i	java:S1007"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ΛΜ8Σ‘ξο1
