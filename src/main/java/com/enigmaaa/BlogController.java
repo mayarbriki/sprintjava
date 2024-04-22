@@ -85,7 +85,6 @@ public class BlogController {
             rechercher(newValue);
         });
 
-        refresh(null);
 
         retour.setOnAction(event -> loadScene("Home.fxml"));
 
@@ -114,6 +113,7 @@ public class BlogController {
 
                 // Create a new blog object with retrieved data
                 blog blog = new blog(title, content, publicationDate, lastUpdatedDate);
+                //add the blog object to  the blogs list
                 blogs.add(blog);
             }
             // Set the items in the blogTable
@@ -132,7 +132,7 @@ public class BlogController {
         try {
             Connection connection = MyDatabase.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT `Title`, `Content`, `PublicationDate`, `LastUpdatedDate`  FROM `blog` WHERE `Title` LIKE ?");
-            preparedStatement.setString(1, "%" + Title + "%"); // Using LIKE operator
+            preparedStatement.setString(1, "%" + Title + "%");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 blog b = new blog(
@@ -160,6 +160,24 @@ public class BlogController {
             showAlert("Le titre et le contenu ne peuvent pas être vides!", Alert.AlertType.ERROR);
             return;
         }
+
+        // Check if the product already exists in the database
+        try {
+            Connection connection = MyDatabase.getInstance().getConnection();
+            PreparedStatement checkStatement = connection.prepareStatement("SELECT * FROM blog WHERE title = ?");
+            checkStatement.setString(1, title);
+            ResultSet resultSet = checkStatement.executeQuery();
+            if (resultSet.next()) {
+                showAlert("Le blog existe déjà dans la base de données!", Alert.AlertType.ERROR);
+                return;
+            }
+            checkStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert("Une erreur s'est produite lors de la vérification de l'existence du blog!", Alert.AlertType.ERROR);
+            return;
+        }
+
         // Proceed with adding to the database
         try {
             Connection connection = MyDatabase.getInstance().getConnection();
@@ -173,12 +191,11 @@ public class BlogController {
             if (affectedRows > 0) {
                 // Show success message
                 showAlert("Article ajouté avec succès !", Alert.AlertType.CONFIRMATION);
-                // Clear text fields after adding
                 txtTitle.clear();
                 txtContent.clear();
                 // Refresh table view
                 blogTable.getItems().clear(); // Clear table
-                displayBlogs(); // Re-populate table
+                displayBlogs();
             } else {
                 // Show error message
                 showAlert("Échec de l'ajout de l'article !", Alert.AlertType.ERROR);
@@ -290,23 +307,6 @@ public class BlogController {
 
     @FXML
     public void table() {
-        Connection connection = MyDatabase.getInstance().getConnection();
-
-        ObservableList<blog> blogs = FXCollections.observableArrayList();
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT `Title`, `Content` FROM `blog`");
-            while (resultSet.next()) {
-                blog b = new blog(
-                        resultSet.getString("Title"),
-                        resultSet.getString("Content"));
-                blogs.add(b);
-            }
-            statement.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(BlogController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        blogTable.setItems(blogs);
 
         blogTable.setRowFactory(tv -> {
             TableRow<blog> myRow = new TableRow<>();

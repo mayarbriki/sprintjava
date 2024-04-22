@@ -234,26 +234,7 @@ public class StockController {
 
     @FXML
     public void table() {
-        Connection connection = MyDatabase.getInstance().getConnection();
 
-        ObservableList<stock> stocks = FXCollections.observableArrayList();
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT `nom_produit`, `quantite`, `date`, `type` , `prix` FROM `stock`");
-            while (resultSet.next()) {
-                stock s = new stock(
-                        resultSet.getString("nom_produit"),
-                        resultSet.getInt("quantite"),
-                        resultSet.getDate("date"),
-                        resultSet.getString("type"),
-                        resultSet.getFloat("prix"));
-                stocks.add(s);
-            }
-            statement.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(StockController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        stockTable.setItems(stocks);
 
         stockTable.setRowFactory(tv -> {
             TableRow<stock> myRow = new TableRow<>();
@@ -487,6 +468,7 @@ public class StockController {
         tprix.clear();
         nomChoice.clear();
 
+        populateTypeChoice();
 
         stockTable.getItems().clear();
         afficherStocks();
