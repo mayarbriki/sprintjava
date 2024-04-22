@@ -52,12 +52,12 @@ public class CreerLivraison extends Application implements Initializable {
 
         try {
             serviceLivraison.ajouterL(livraison);
-            System.out.println("Livraison added successfully.");
+            System.out.println("Livraison ajoutée avec succès.");
             Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             stage.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            showAlert(AlertType.ERROR, "Error Message", "Failed to add Livraison: " + e.getMessage());
+            showAlert(AlertType.ERROR, "Error Message", "Échec de l'ajout de la livraison: " + e.getMessage());
         }
     }
 

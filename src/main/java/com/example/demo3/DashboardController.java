@@ -1,5 +1,8 @@
 package com.example.demo3;
 
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -183,6 +186,13 @@ public class DashboardController extends Application implements Initializable {
     private FilteredList<Livraison> filteredLivraisonData;
     private FilteredList<Transport> filteredTransportData;
 
+    public static final String ACCOUNT_SID = "ACabe5d1eed1c6f8de1ab6c80123cee667";
+    public static final String AUTH_TOKEN = "0496483a232e1af80a17fac433e63057";
+
+    static {
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+    }
+
 
     public void ajouterT(ActionEvent event) throws SQLException {
 
@@ -208,20 +218,29 @@ public class DashboardController extends Application implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Matricule doit être dans le format ***-TUN-****");
             alert.showAndWait();
-            return; // Exit the function without proceeding further
+            return;
         }
 
         Transport transport = new Transport(0, selectedType, selectedMarque, matriculeValue, selectedEtat, Date.valueOf(selectedDate));
 
         ServiceTransport st = new ServiceTransport();
 
+        if (st.transportExists(transport)) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Transport déjà existant avec les mêmes détails.");
+            alert.showAndWait();
+            return;
+        }
+
         try {
             st.ajouterT(transport);
             refreshTable();
-            System.out.println("Transport added successfully.");
+            System.out.println("Transport ajouté avec succès.");
         } catch (SQLException e) {
             e.printStackTrace();
-            System.err.println("Failed to add transport: " + e.getMessage());
+            System.err.println("Échec de l'ajout du transport: " + e.getMessage());
         }
     }
 
@@ -251,7 +270,7 @@ public class DashboardController extends Application implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("Matricule doit être dans le format ***-TUN-****");
                 alert.showAndWait();
-                return; // Exit the function without proceeding further
+                return;
             }
 
             selectedTransport.setType(selectedType);
@@ -264,10 +283,10 @@ public class DashboardController extends Application implements Initializable {
                 ServiceTransport st = new ServiceTransport();
                 st.modifierT(selectedTransport);
                 refreshTable();
-                System.out.println("Transport updated successfully.");
+                System.out.println("Transport mis à jour avec succès.");
             } catch (SQLException e) {
                 e.printStackTrace();
-                System.err.println("Failed to update transport: " + e.getMessage());
+                System.err.println("Échec de la mise à jour du transport: " + e.getMessage());
             }
         }
     }
@@ -283,22 +302,22 @@ public class DashboardController extends Application implements Initializable {
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Delete Success");
                 alert.setHeaderText(null);
-                alert.setContentText("Transport deleted successfully.");
+                alert.setContentText("Transport supprimé avec succès.");
                 alert.showAndWait();
-                refreshTable(); // refresh after delete
+                refreshTable();
             } catch (SQLException ex) {
 
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Delete Error");
                 alert.setHeaderText(null);
-                alert.setContentText("Error deleting transport: " + ex.getMessage());
+                alert.setContentText("Erreur lors de la suppression du transport: " + ex.getMessage());
                 alert.showAndWait();
             }
         } else {
             Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("No Selection");
+            alert.setTitle("Pas de choix");
             alert.setHeaderText(null);
-            alert.setContentText("Please select a transport to delete.");
+            alert.setContentText("Veuillez sélectionner un transport à supprimer.");
             alert.showAndWait();
         }
     }
@@ -391,21 +410,34 @@ public class DashboardController extends Application implements Initializable {
                 try {
                     ServiceLivraison serviceLivraison = new ServiceLivraison();
                     serviceLivraison.modifierL(selectedLivraison);
-                    System.out.println("Matricule added to Livraison successfully.");
+                    System.out.println("Matricule ajouté à Livraison avec succès.");
 
-                    // Refresh the Livraison table to reflect the changes
                     refreshLivraisonTable();
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    showAlert(Alert.AlertType.ERROR, "Error", "Failed to add matricule to Livraison: " + e.getMessage());
+                    showAlert(Alert.AlertType.ERROR, "Error", "Échec de l'ajout du matricule à la livraison: " + e.getMessage());
                 }
             } else {
-                showAlert(Alert.AlertType.ERROR, "Error", "Selected matricule is not associated with any Transport.");
+                showAlert(Alert.AlertType.ERROR, "Error", "Le matricule sélectionné n'est associé à aucun transport.");
             }
         } else {
-            // Show an error message if no Livraison or matricule is selected
-            showAlert(Alert.AlertType.ERROR, "Error", "Please select a Livraison and a matricule.");
+            showAlert(Alert.AlertType.ERROR, "Error", "Veuillez sélectionner une Livraison et un matricule.");
         }
+        String recipientPhoneNumber = "+21641703090";
+        String messageBody = "Un livreur est affecter pour votre livraison";
+        sendSMS(recipientPhoneNumber, messageBody);
+    }
+
+    public static void sendSMS(String recipientPhoneNumber, String messageBody) {
+        String twilioPhoneNumber = "+19706446501";
+
+        Message message = Message.creator(
+                        new PhoneNumber(recipientPhoneNumber),
+                        new PhoneNumber(twilioPhoneNumber),
+                        messageBody)
+                .create();
+
+        System.out.println("SMS sent successfully. SID: " + message.getSid());
     }
 
     @FXML
@@ -641,4 +673,3 @@ public class DashboardController extends Application implements Initializable {
     }
 
 }
-// TODO: add better input control

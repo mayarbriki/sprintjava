@@ -119,10 +119,10 @@ public class DashboardAdminL extends Application implements Initializable {
                 ServiceLivraison st = new ServiceLivraison();
                 st.modifier_L(selectedLivraison);
                 refreshLivraisonTable();
-                System.out.println("Livraison updated successfully.");
+                System.out.println("Livraison mise à jour avec succès.");
             } catch (SQLException e) {
                 e.printStackTrace();
-                System.err.println("Failed to update livraison: " + e.getMessage());
+                System.err.println("Échec de la mise à jour de la livraison: " + e.getMessage());
             }
 
         }
@@ -138,7 +138,7 @@ public class DashboardAdminL extends Application implements Initializable {
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Delete Success");
                 alert.setHeaderText(null);
-                alert.setContentText("Livraison deleted successfully.");
+                alert.setContentText("Livraison supprimée avec succès.");
                 alert.showAndWait();
                 refreshLivraisonTable();
             } catch (SQLException ex) {
@@ -146,14 +146,14 @@ public class DashboardAdminL extends Application implements Initializable {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Delete Error");
                 alert.setHeaderText(null);
-                alert.setContentText("Error deleting livraison: " + ex.getMessage());
+                alert.setContentText("Erreur lors de la suppression de la livraison: " + ex.getMessage());
                 alert.showAndWait();
             }
         } else {
             Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("No Selection");
+            alert.setTitle("Pas de choix");
             alert.setHeaderText(null);
-            alert.setContentText("Please select a livraison to delete.");
+            alert.setContentText("Veuillez sélectionner une livraison à supprimer.");
             alert.showAndWait();
         }
     }
@@ -292,7 +292,6 @@ public class DashboardAdminL extends Application implements Initializable {
 //                commande.setText(selectedLivraison.getCommande());
 //                matricule.getSelectionModel().select(selectedLivraison.getMatricule());
             } else {
-                // If no item is selected, reset the fields
                 resetLivraisonFields();
             }
         });

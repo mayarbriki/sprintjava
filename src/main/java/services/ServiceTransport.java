@@ -174,4 +174,26 @@ public class ServiceTransport implements IService<Transport>{
         return transportCountsByEtat;
     }
 
+    public boolean transportExists(Transport transport) throws SQLException {
+        String query = "SELECT COUNT(*) FROM transport WHERE type = ? AND marque = ? AND matricule = ? AND etat = ? AND anneefab = ?";
+        int count = 0;
+
+        try (PreparedStatement statement = cnx.prepareStatement(query)) {
+            statement.setString(1, transport.getType());
+            statement.setString(2, transport.getMarque());
+            statement.setString(3, transport.getMatricule());
+            statement.setString(4, transport.getEtat());
+            statement.setDate(5, transport.getAnneefab());
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    count = resultSet.getInt(1);
+                }
+            }
+        }
+
+        return count > 0;
+    }
+
+
 }
