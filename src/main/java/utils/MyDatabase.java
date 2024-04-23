@@ -1,11 +1,12 @@
 package utils;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MyDatabase {
 
-    private final String URL = "jdbc:mysql://localhost:3306/3A60";
+    private final String URL = "jdbc:mysql://localhost:3306/parapharmacy";
     private final String USER = "root";
     private final String PASS = "";
     private Connection connection;
@@ -28,8 +29,5 @@ public class MyDatabase {
 
     public Connection getConnection() {
         return connection;
-    }
-    public static void main(String[] args) {
-        MyDatabase sp = new MyDatabase();
     }
 }

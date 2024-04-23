@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="427.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="contollers.ReclamationC">
+   <left>
+      <AnchorPane prefHeight="427.0" prefWidth="178.0" style="-fx-background-color: #e5f3f4;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="169.0" fitWidth="169.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/MediCare-removebg-preview.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="427.0" prefWidth="429.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="50.0" layoutY="149.0" text="Titre">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="titreTextField" alignment="TOP_LEFT" layoutX="134.0" layoutY="147.0" prefHeight="26.0" prefWidth="255.0" promptText="Insérer le Titre de vottre Réclamation ..." />
+            <Label layoutX="50.0" layoutY="189.0" text="Decription">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="descriptionTextField" alignment="TOP_LEFT" layoutX="135.0" layoutY="189.0" prefHeight="86.0" prefWidth="255.0" promptText="Insérer la description de votre Réclamation ..." />
+            <Button fx:id="soumettreButton" layoutX="28.0" layoutY="307.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="365.0" style="-fx-background-color: #048B9A;" text="Soumettre" textAlignment="CENTER" textFill="#e5f3f4" textOverrun="CLIP">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="20.0" />
+               </font>
+            </Button>
+            <Label layoutX="66.0" layoutY="42.0" prefHeight="54.0" prefWidth="333.0" text="Créer Votre Réclamation ! " textFill="#04636b">
+               <font>
+                  <Font name="News706 BT Bold" size="25.0" />
+               </font>
+            </Label>
+            <Button fx:id="annulerButton" layoutX="28.0" layoutY="355.0" mnemonicParsing="false" onAction="#annulerButtonOneAction" prefHeight="30.0" prefWidth="365.0" style="-fx-background-color: #048B9A;" text="Annuler" textAlignment="CENTER" textFill="#e5f3f4" textOverrun="CLIP">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>
