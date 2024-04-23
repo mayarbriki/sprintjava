@@ -3,52 +3,80 @@ package models;
 import javafx.beans.property.*;
 
 public class Commande {
+    private int panierId;
     private IntegerProperty id;
-    private BooleanProperty sent;
-    private ObjectProperty<Panier> panier;
-    private IntegerProperty totale;
-    private int userId;
+    private IntegerProperty pani_id;  // Updated property name
+    private IntegerProperty total;
+    private IntegerProperty userId;
+    private Panier panier;
 
-    public Commande(int id, int totale, Panier panier) {
+    public Commande(int id, int pani_id, int total, int userId) {
         this.id = new SimpleIntegerProperty(id);
-        this.totale = new SimpleIntegerProperty(totale);
-        this.panier = new SimpleObjectProperty<>(panier);
-        this.sent = new SimpleBooleanProperty(false); // Default value
+        this.pani_id = new SimpleIntegerProperty(pani_id);
+        this.total = new SimpleIntegerProperty(total);
+        this.userId = new SimpleIntegerProperty(userId);
     }
 
-    public Commande(int id, int totale, int userId, Panier panier) {
-        this.id = new SimpleIntegerProperty(id);
-        this.totale = new SimpleIntegerProperty(totale);
-        this.userId = userId;
-        this.panier = new SimpleObjectProperty<>(panier);
-        this.sent = new SimpleBooleanProperty(false); // Default value
+    // Getters and setters for properties
+    public int getId() {
+        return id.get();
     }
-
-    // Getters and setters for id, sent, panier, totale, and userId
-    // These methods are omitted for brevity
 
     public IntegerProperty idProperty() {
         return id;
     }
 
+    public void setId(int id) {
+        this.id.set(id);
+    }
+
+    public int getPani_id() {  // Updated getter method name
+        return pani_id.get();
+    }
+
+    public IntegerProperty pani_idProperty() {
+        return pani_id;
+    }
+
+    public void setPani_id(int pani_id) {  // Updated setter method name
+        this.pani_id.set(pani_id);
+    }
+
+    public int getTotal() {
+        return total.get();
+    }
+
     public IntegerProperty totalProperty() {
-        return totale;
+        return total;
     }
 
-    public BooleanProperty sentProperty() {
-        return sent;
+    public void setTotal(int total) {
+        this.total.set(total);
+    }
+    public int getPanierId() {
+        return panierId;
     }
 
-    public ObjectProperty<Panier> panierProperty() {
-        return panier;
+    public int getUserId() {
+        return userId.get();
+    }
+
+    public IntegerProperty userIdProperty() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId.set(userId);
     }
 
     public Panier getPanier() {
-        return panier.get();
+        return this.panier;
     }
 
     public void setPanier(Panier panier) {
-        this.panier.set(panier);
+        this.panier = panier;
     }
 
+    public Commande() {
+    }
 }

@@ -5,29 +5,30 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="391.0" prefWidth="779.0" style="-fx-background-color: #b0bec5; -fx-text-fill: #37474f; -fx-font-size: 14px;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.HelloController">
+<AnchorPane prefHeight="391.0" prefWidth="779.0" stylesheets="@DashbordDesign.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.HelloController">
    <children>
-      <HBox spacing="20.0" style="-fx-background-color: #b0bec5; -fx-padding: 10px;" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="10.0">
+      <HBox prefHeight="32.0" prefWidth="190.0" spacing="20.0" styleClass="top-form" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="552.0" AnchorPane.topAnchor="10.0">
          <children>
-            <Button fx:id="signin" onAction="#LoginpaneShow" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #555555; -fx-text-fill: white; -fx-font-weight: bold;" text="Sign In" />
-            <Button fx:id="signup" onAction="#SignuppaneShow" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #555555; -fx-text-fill: white; -fx-font-weight: bold;" text="Sign Up" />
+            <Button fx:id="signin" onAction="#LoginpaneShow" styleClass="button-save" text="Sign In" />
+            <Button fx:id="signup" onAction="#SignuppaneShow" prefHeight="31.0" prefWidth="74.0" styleClass="button-save" text="Sign Up" />
          </children>
       </HBox>
 
-            <AnchorPane fx:id="pane_login" layoutX="22.0" layoutY="76.0" prefHeight="211.0" prefWidth="262.0" style="-fx-background-color: #f5f5f5; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-padding: 20px;">
+      <AnchorPane fx:id="pane_login" layoutX="115.0" layoutY="75.0" prefHeight="211.0" prefWidth="262.0" style="-fx-background-radius: 10px; -fx-background-color: rgba(255, 255, 255, 0.8);" styleClass="semi-top-form">
          <children>
-            <TextField fx:id="usenamelogin" layoutX="30.0" layoutY="40.0" prefWidth="190.0" promptText="Username" style="-fx-background-radius: 5;" />
-            <TextField fx:id="pwdlogin" layoutX="30.0" layoutY="90.0" prefWidth="190.0" promptText="Password" style="-fx-background-radius: 5;" />
-            <Button fx:id="login" layoutX="105.0" layoutY="140.0" mnemonicParsing="false" onAction="#Login" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #555555; -fx-text-fill: white; -fx-font-weight: bold;" text="Login" />
+            <TextField fx:id="usenamelogin" layoutX="30.0" layoutY="40.0" prefWidth="190.0" promptText="Username" styleClass="text-field" />
+            <TextField fx:id="pwdlogin" layoutX="30.0" layoutY="90.0" prefWidth="190.0" promptText="Password" styleClass="text-field" />
+            <Button fx:id="login" layoutX="105.0" layoutY="140.0" mnemonicParsing="false" onAction="#Login" styleClass="button-save" text="Login" />
          </children>
       </AnchorPane>
 
-                                                            <AnchorPane fx:id="pane_signup" layoutX="22.0" layoutY="76.0" prefHeight="211.0" prefWidth="262.0" style="-fx-background-color: #ffffff; -fx-border-color: #e0e0e0; -fx-border-radius: 5; -fx-padding: 20px;" AnchorPane.bottomAnchor="325.6" AnchorPane.rightAnchor="619.6" AnchorPane.topAnchor="76.0">
+      <AnchorPane fx:id="pane_signup" layoutX="113.0" layoutY="75.0" prefHeight="211.0" prefWidth="262.0" style="-fx-background-radius: 10px; -fx-background-color: rgba(255, 255, 255, 0.8);" styleClass="semi-top-form" AnchorPane.bottomAnchor="326.6" AnchorPane.rightAnchor="527.2" AnchorPane.topAnchor="75.0">
          <children>
-            <TextField fx:id="username" layoutX="30.0" layoutY="40.0" prefWidth="190.0" promptText="Username" style="-fx-background-radius: 5;" />
-            <TextField fx:id="pwd" layoutX="30.0" layoutY="90.0" prefWidth="190.0" promptText="Password" style="-fx-background-radius: 5;" />
-            <Button fx:id="btnlogin" layoutX="105.0" layoutY="140.0" mnemonicParsing="false" onAction="#add" prefHeight="30.0" prefWidth="85.0" style="-fx-background-color: #555555; -fx-text-fill: white; -fx-font-weight: bold;" text="Sign Up" />
+            <TextField fx:id="username" layoutX="30.0" layoutY="40.0" prefWidth="190.0" promptText="Username" styleClass="text-field" />
+            <TextField fx:id="pwd" layoutX="30.0" layoutY="90.0" prefWidth="190.0" promptText="Password" styleClass="text-field" />
+            <Button fx:id="btnlogin" layoutX="105.0" layoutY="140.0" mnemonicParsing="false" onAction="#add" styleClass="button-save" text="Sign Up" />
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="gradientPane" layoutX="517.0" prefHeight="574.0" prefWidth="385.0" styleClass="nav-form" />
    </children>
 </AnchorPane>

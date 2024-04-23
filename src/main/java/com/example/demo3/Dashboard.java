@@ -2,9 +2,10 @@ package com.example.demo3;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.*;
-import java.util.List;
 
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -18,12 +19,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
+import models.Commande;
 import services.ServiceProduit;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -39,6 +40,24 @@ import javafx.scene.control.Alert;
 
 
 public class Dashboard extends Application implements Initializable {
+    @FXML
+    private TableView<Commande> commandeadmin;
+    @FXML
+    private TextField prix1;
+    @FXML
+    private TextField quantite1;
+
+
+    @FXML
+    private TableColumn<Integer, Commande> pani_id;
+    @FXML
+    private TableColumn<Integer, Commande> totale;
+    @FXML
+    private TableColumn<Integer, Commande> id_user;
+    @FXML
+    private TableColumn<Integer, Commande> id;
+
+
     @FXML
     private Button supprimer;
     public String path;
@@ -188,6 +207,7 @@ public class Dashboard extends Application implements Initializable {
         ObservableList<String> list = FXCollections.observableArrayList("admin", "livreur");
         comb.setItems(list);
         anchorPane1.setVisible(false);
+        commandeadmin.setVisible(false); // Set the TableView to initially invisible
         // Set anchorPane2 invisible initially
         anchorPane2.setVisible(true);
            setupTableColumns();
@@ -199,6 +219,8 @@ public class Dashboard extends Application implements Initializable {
             System.out.println("Selected Product: " + selectedProduit); // Print selected product for debugging
         });
 
+        setupTableColumns1();
+        loadCommandeDataFromDatabase();
 
 // Add similar listeners for other text fields as needed
 
@@ -302,14 +324,16 @@ public class Dashboard extends Application implements Initializable {
             alert.showAndWait();
             return;
         }
-
         // All fields are filled, proceed with adding the product
-        Produit produit = new Produit(25, nomproduit.getText(), description.getText(), path);
+        Produit produit = new Produit(Integer.parseInt(quantite1.getText()), nomproduit.getText(), description.getText(), path, prix1.getText());
         ServiceProduit sp = new ServiceProduit();
 
         try {
             sp.ajouter(produit);
             System.out.println(sp.recuperer());
+
+            // Refresh the TableView after adding the product
+            refreshTable();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
@@ -337,24 +361,37 @@ public class Dashboard extends Application implements Initializable {
         // Get modified data from text fields
         String nom = nomproduit.getText();
         String descriptionText = description.getText();
+        String prix = prix1.getText();
+        int quantite = Integer.parseInt(quantite1.getText());
         // Get other modified fields as needed
 
         // Update selected product with modified data
         selectedProduit.setNom(nom);
         selectedProduit.setDescription(descriptionText);
+        selectedProduit.setPrix(prix);
+        selectedProduit.setQuantite(quantite);
         // Update other fields as needed
+
+        // Check if a new image path is selected
+        if (path != null && !path.isEmpty()) {
+            // Update the product's image path in the selected product object
+            selectedProduit.setImage(path);
+        }
 
         ServiceProduit sp = new ServiceProduit(); // Use connection object
 
         try {
-            // Update the modified product in the database
+            // Update the modified product in the database, including the image path
             sp.modifier(selectedProduit);
+
+            // Refresh the TableView to reflect the changes
+            refreshTable();
+
             System.out.println("Product modified successfully.");
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
     }
-
 
     private void setupTableColumns() {
         // idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -427,6 +464,67 @@ public class Dashboard extends Application implements Initializable {
     private void handleTableViewSelection() {
         selectedProduit = tableViewProduit.getSelectionModel().getSelectedItem();
     }
+    @FXML
+    private void handleGestionCommandeButtonClick(ActionEvent event) {
+        // Set both anchor panes to invisible
+        anchorPane1.setVisible(false);
+        anchorPane2.setVisible(false);
+        tableViewProduit.setVisible(false);
+        modifier.setVisible(false);
+        supprimer.setVisible(false);
+        boolean isVisible = commandeadmin.isVisible();
+        commandeadmin.setVisible(!isVisible);
+
+        // Optionally, you can also close the window or navigate to a different scene
+        // depending on your application's flow
+    }
+    private void loadCommandeDataFromDatabase() {
+        try {
+            // Assuming you have a class MyDatabase with a getConnection() method
+            Connection connection = MyDatabase.getInstance().getConnection();
+
+            // Prepare your SQL statement
+            String sql = "SELECT id, pani_id, user_id , totale FROM commande";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            // Execute the query
+            ResultSet resultSet = statement.executeQuery();
+
+            // Create an observable list to hold Commande objects
+            ObservableList<Commande> commandes = FXCollections.observableArrayList();
+
+            // Iterate over the result set and create Commande objects
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                int pani_id = resultSet.getInt("pani_id");
+                int totale = resultSet.getInt("totale");
+                int id_user = resultSet.getInt("user_id");
+
+                // Create a new Commande object and add it to the list
+                Commande commande = new Commande(id, pani_id, totale, id_user);
+                commandes.add(commande);
+            }
+
+            // Close resources
+            resultSet.close();
+            statement.close();
+
+            // Set the fetched Commande data to the TableView
+            commandeadmin.setItems(commandes);
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle exception appropriately
+        }
+    }
+    private void setupTableColumns1() {
+        id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        pani_id.setCellValueFactory(new PropertyValueFactory<>("pani_id")); // Use paniIdProperty for IntegerProperty
+        totale.setCellValueFactory(new PropertyValueFactory<>("total")); // Use totalProperty for IntegerProperty
+        id_user.setCellValueFactory(new PropertyValueFactory<>("userId")); // Use userIdProperty for IntegerProperty
+    }
+
+
+
+
 
 }
 

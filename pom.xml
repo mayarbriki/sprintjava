@@ -78,12 +78,23 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>21-ea+24</version>
+            <version>17.0.1</version> <!-- Update to the latest version -->
+        </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
-            <version>21-ea+24</version>
+            <version>17.0.1</version> <!-- Update to the latest version -->
+        </dependency>
+
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx-fontawesome</artifactId>
+            <version>4.7.0-9.1.2</version> <!-- Adjust version as needed -->
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>

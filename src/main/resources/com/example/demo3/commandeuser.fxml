@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="gradient-background" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.Commandeuser">
+   <children>
+      <TableView fx:id="tableView1" layoutX="63.0" layoutY="49.0" prefHeight="200.0" prefWidth="488.0" styleClass="gradient-background" stylesheets="@DashboardDesign.css">
+        <columns>
+            <TableColumn fx:id="colId" prefWidth="50" text="ID" />
+          <TableColumn fx:id="colPaniId" minWidth="3.20001220703125" prefWidth="139.20001220703125" text="Reference panier" />
+          <TableColumn fx:id="colUserId" prefWidth="131.20001220703125" text="Votre totale" />
+            <TableColumn fx:id="colTotal" prefWidth="215.20001220703125" text="Votre reference" />
+        </columns>
+      </TableView>
+   </children>
 </AnchorPane>

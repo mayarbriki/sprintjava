@@ -1,6 +1,10 @@
 package com.example.demo3;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import models.Commande;
 import models.Panier;
 import utils.MyDatabase;
 import services.UserSessionService;
@@ -25,8 +30,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
+import utils.MyDatabase;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 public class Paniercontroller implements Initializable {
+    @FXML
+    private TableView<Commande> tableView1;
+    private Commandeuser commandeuser;
+
+    public void setCommandeuser(Commandeuser commandeuser) {
+        this.commandeuser = commandeuser;
+    }
+
+
     @FXML
     private Button confirmer;
     @FXML
@@ -46,6 +64,7 @@ public class Paniercontroller implements Initializable {
     private Button modifier;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         // Configure the cells to display the appropriate data
         panier_id.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getId()));
         produitNom.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getProduitNom()));
@@ -90,6 +109,13 @@ public class Paniercontroller implements Initializable {
 
         // Load panier data from the database
         loadPanierDataFromDatabase();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("commandeuser.fxml"));
+        try {
+            Parent root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        commandeuser = loader.getController();
     }
 
     private void loadPanierDataFromDatabase() {
@@ -173,12 +199,12 @@ public class Paniercontroller implements Initializable {
             }
         });
     }
+
     @FXML
     private void updateQuantityInDatabase() {
         // Get the selected Panier item from the TableView
         Panier selectedPanier = tableView.getSelectionModel().getSelectedItem();
         if (selectedPanier == null) {
-            // No item selected, handle this case if needed
             System.err.println("No item selected.");
             showAlert("Select a Product", "Please select a product first.");
             return;
@@ -199,18 +225,30 @@ public class Paniercontroller implements Initializable {
                 selectedPanier.setQuantite(newQuantity);
 
                 // Update quantite in the database
-                String sql = "UPDATE panier SET quantite = ? WHERE id = ?";
-                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                MyDatabase db = MyDatabase.getInstance();
+                Connection conn = db.getConnection();
+                if (conn == null) {
+                    System.err.println("Failed to obtain database connection.");
+                    return;
+                }
+
+                String updateQuery = "UPDATE panier SET quantite = ? WHERE id = ?";
+                try (PreparedStatement pstmt = conn.prepareStatement(updateQuery)) {
                     pstmt.setInt(1, newQuantity);
                     pstmt.setInt(2, selectedPanier.getId());
+
+                    // Execute update
                     int rowsAffected = pstmt.executeUpdate();
                     if (rowsAffected > 0) {
                         System.out.println("Quantity updated in the database.");
+
+                        // Update TableView items
+                        tableView.refresh(); // Refresh the TableView to reflect changes
                     } else {
                         System.out.println("Failed to update quantity in the database.");
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    System.err.println("Error updating quantity: " + e.getMessage());
                 }
             } catch (NumberFormatException e) {
                 // Handle invalid input
@@ -218,6 +256,25 @@ public class Paniercontroller implements Initializable {
             }
         });
     }
+
+
+    // Method to close PreparedStatement and ResultSet
+    private void closeResources(PreparedStatement pstmt, ResultSet rs) {
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+        } catch (SQLException e) {
+            System.err.println("Error closing database resources: " + e.getMessage());
+        }
+    }
+
+
+
+
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
@@ -261,63 +318,119 @@ public class Paniercontroller implements Initializable {
             }
         }
     }
-    @FXML
-    private void confirmerCommande() {
-        // Get the list of displayed "panier" items in the TableView
-        ObservableList<Panier> paniers = tableView.getItems();
+    public List<Commande> getCommandesFromDatabase(int userId) {
+        List<Commande> commandes = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
 
-        if (paniers.isEmpty()) {
-            showAlert("No Panier", "There are no paniers to confirm.");
-            return;
+        try {
+            conn = MyDatabase.getInstance().getConnection();
+            if (conn == null) {
+                System.err.println("Failed to obtain database connection.");
+                return commandes; // Return empty list if connection is not established
+            }
+
+            String query = "SELECT * FROM commande WHERE user_id = ?";
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, userId);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int paniId = rs.getInt("pani_id");
+                int total = rs.getInt("totale");
+
+                // Create Commande object and add it to the list
+                Commande commande = new Commande(id, paniId, userId, total);
+                commandes.add(commande);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching commandes from database: " + e.getMessage());
+            e.printStackTrace();
         }
 
-        // For simplicity, let's assume the first item in the list is the current "panier"
-        Panier currentPanier = paniers.get(0); // You can adjust this based on your logic
 
-        // Calculate the total sum of product prices in the cart
-        int total = calculateTotalPrice(currentPanier);
+        return commandes;
+    }
+    @FXML
+    private void confirmerCommande() {
+        try {
+            // Obtain a new connection
+            Connection conn = MyDatabase.getInstance().getConnection();
+            if (conn == null) {
+                System.err.println("Failed to obtain database connection.");
+                return; // Exit if connection is not established
+            }
+            if (commandeuser == null) {
+                System.err.println("Commandeuser controller is not initialized.");
+                return;
+            }
 
-        // Get the logged-in user's ID
-        int loggedInUserId = UserSessionService.getInstance().getLoggedInUserId();
+            // Get the list of displayed "panier" items in the TableView
+            ObservableList<Panier> paniers = tableView.getItems();
 
-        // Insert data into the "commande" table
-        String insertCommandeQuery = "INSERT INTO commande (pani_id, user_id, totale) VALUES (?, ?, ?)";
-        try (PreparedStatement pstmt = conn.prepareStatement(insertCommandeQuery)) {
-            pstmt.setInt(1, currentPanier.getId());
-            pstmt.setInt(2, loggedInUserId);
-            pstmt.setInt(3, total);
-            int rowsAffected = pstmt.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Commande inserted into the database.");
-                // Optionally, you can clear the cart or update its status after confirmation
-                // clearCart(currentPanier);
+            if (paniers.isEmpty()) {
+                showAlert("No Panier", "There are no paniers to confirm.");
+                return;
+            }
 
-                // Navigate to the commandeview.fxml scene
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("commandeview.fxml"));
+            // For simplicity, let's assume the first item in the list is the current "panier"
+            Panier currentPanier = paniers.get(0); // You can adjust this based on your logic
+
+            // Calculate the total sum of product prices in the cart
+            int total = calculateTotalPrice(currentPanier);
+
+            // Get the logged-in user's ID
+            int loggedInUserId = UserSessionService.getInstance().getLoggedInUserId();
+
+            // Insert data into the "commande" table
+            String insertCommandeQuery = "INSERT INTO commande (pani_id, user_id, totale) VALUES (?, ?, ?)";
+            try (PreparedStatement pstmt = conn.prepareStatement(insertCommandeQuery)) {
+                pstmt.setInt(1, currentPanier.getId());
+                pstmt.setInt(2, loggedInUserId);
+                pstmt.setInt(3, total);
+
+                // Execute the insertion query
+                int rowsAffected = pstmt.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Commande inserted into the database.");
+
+                    // Load the commandeuser.fxml view
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("commandeuser.fxml"));
                     Parent root = loader.load();
+                    Commandeuser commandeuserController = loader.getController();
+                    commandeuserController.setCommandes(getCommandesFromDatabase(loggedInUserId));
 
-                    // Create a new scene
-                    Scene scene = new Scene(root);
-
-                    // Get the current stage (window)
-                    Stage stage = (Stage) confirmer.getScene().getWindow(); // Assuming confirmer is the Button
-
-                    // Set the new scene on the stage
-                    stage.setScene(scene);
+                    // Show the Commandeuser view
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
                     stage.show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    // Handle any exceptions that may occur during loading
+                } else {
+                    System.out.println("Failed to insert commande into the database.");
                 }
-            } else {
-                System.out.println("Failed to insert commande into the database.");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+        try {
+            // Your existing code to confirm the command and insert into the database
 
+            // Get the recipient's email address (assuming it's retrieved from some source)
+            String recipientEmail = "mayar.briki@esprit.tn";  // Example email address
+
+            // Send email confirmation
+            EmailSender.sendEmailConfirmation(recipientEmail);
+
+            // Load the commandeuser.fxml view and show it
+            // Your existing code...
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+            showAlert("Error", "Failed to send email confirmation.");
+        }
+    }
 
 
 
@@ -328,6 +441,51 @@ public class Paniercontroller implements Initializable {
         }
         return total;
     }
+    /*
+    private Commande fetchCommandFromDatabase() {
+        Commande commande = null;
+        try {
+            Connection connection = MyDatabase.getInstance().getConnection();
+            PreparedStatement pst;
+            pst = connection.prepareStatement("SELECT * FROM commande WHERE user_id = ?");
+            int loggedInUserId = UserSessionService.getInstance().getLoggedInUserId();
+
+            pst.setInt(1, loggedInUserId);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                int user_id = rs.getInt("user_id");
+                int panierId = rs.getInt("pani_id");
+                int total = rs.getInt("totale");
+                commande = new Commande(id, panierId, loggedInUserId, total);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching command from database: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            //closeResources();
+        }
+        return commande;
+    }
+
+    private void displayCommandDetails(Commande commande) {
+        if (commande != null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Command Details");
+            alert.setHeaderText("Your Command:");
+            alert.setContentText("ID: " + commande.getId() + "\n" +
+                    "Panier ID: " + commande.getPanierId() + "\n" +
+                    "Total: $" + commande.getTotal());
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("No command found for this user.");
+            alert.showAndWait();
+        }
+    }*/
+
 
 }
 

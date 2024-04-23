@@ -9,11 +9,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import models.Commande;
 import models.Produit;
 import services.ServicePanier;
 import services.UserSessionService;
@@ -23,11 +25,20 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class Vueuser extends Application implements Initializable {
+    @FXML
+    private Button rechbutton;
+    @FXML
+    private Button tricroissant;
 
+    @FXML
+    private Button tridecroissant;
+    @FXML
+    private TextField rechercher;
     private int loggedInUserId;
     private Produit selectedProduct;
 
@@ -99,6 +110,89 @@ public class Vueuser extends Application implements Initializable {
                 alert.showAndWait();
             }
         });
+        rechbutton.setOnAction(event -> {
+            String searchText = rechercher.getText().trim(); // Get the text from the TextField
+            if (!searchText.isEmpty()) {
+                searchProduct(searchText);
+            } else {
+                // Handle empty search text if needed
+            }
+        });
+
+        // Your existing code continues...
+        tricroissant.setOnAction(event -> {
+            List<Produit> sortedProducts = sortProductsAscending(fetchProductsFromDatabase());
+            updateProductGrid(sortedProducts);
+        });
+
+        // Event handler for sorting in descending order (tridecroissant button)
+        tridecroissant.setOnAction(event -> {
+            List<Produit> sortedProducts = sortProductsDescending(fetchProductsFromDatabase());
+            updateProductGrid(sortedProducts);
+        });
+
+        // Your existing code continues...
+    }
+
+    private List<Produit> sortProductsAscending(List<Produit> products) {
+        List<Produit> sortedProducts = new ArrayList<>(products);
+        sortedProducts.sort(Comparator.comparingDouble(produit -> Double.parseDouble(produit.getPrix())));
+        return sortedProducts;
+    }
+
+    private List<Produit> sortProductsDescending(List<Produit> products) {
+        List<Produit> sortedProducts = new ArrayList<>(products);
+        sortedProducts.sort((produit1, produit2) -> Double.compare(Double.parseDouble(produit2.getPrix()), Double.parseDouble(produit1.getPrix())));
+        return sortedProducts;
+    }
+
+    private void updateProductGrid(List<Produit> products) {
+        // Clear existing products from the grid pane
+        container.getChildren().clear();
+
+        // Create panes for the sorted products and add them to the grid pane
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(50);
+        gridPane.setVgap(50);
+
+        for (int i = 0; i < products.size(); i++) {
+            Produit produit = products.get(i);
+            Pane productPane = createProductPane(produit);
+            gridPane.add(productPane, i % 3, i / 3);
+        }
+
+        container.getChildren().add(gridPane);
+    }
+
+    private void searchProduct(String searchText) {
+        // Perform the search in your list of products
+        List<Produit> matchingProducts = new ArrayList<>();
+        for (Produit produit : fetchProductsFromDatabase()) {
+            if (produit.getNom().toLowerCase().contains(searchText.toLowerCase())) {
+                matchingProducts.add(produit);
+            }
+        }
+
+        // Update the UI with the search results
+        updateSearchResults(matchingProducts);
+    }
+
+    private void updateSearchResults(List<Produit> matchingProducts) {
+        // Clear existing products from the grid pane
+        container.getChildren().clear();
+
+        // Create panes for the matching products and add them to the grid pane
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(50);
+        gridPane.setVgap(50);
+
+        for (int i = 0; i < matchingProducts.size(); i++) {
+            Produit produit = matchingProducts.get(i);
+            Pane productPane = createProductPane(produit);
+            gridPane.add(productPane, i % 3, i / 3);
+        }
+
+        container.getChildren().add(gridPane);
     }
 
     private Pane createProductPane(Produit produit) {
@@ -269,6 +363,9 @@ public class Vueuser extends Application implements Initializable {
             //closeResources();
         }
     }
+
+
+
 
     private int getPanierIdForUser(int userId) throws SQLException {
         String sqlSelect = "SELECT id FROM panier WHERE owner_id = ?";

@@ -68,8 +68,18 @@ public class Commandeview implements Initializable {
                 int total = rs.getInt("totale");
 
                 Panier panier = getPanierById(panierId);
-                Commande commande = new Commande(id, total, loggedInUserId, panier);
-                commandeTableView.getItems().add(commande);
+
+                // Check if panier is not null before creating Commande
+                if (panier != null) {
+                    Commande commande = new Commande();
+                    commande.setId(id);
+                    commande.setTotal(total);
+                    commande.setUserId(loggedInUserId);
+                    commande.setPanier(panier);
+                    commandeTableView.getItems().add(commande);
+                } else {
+                    System.err.println("Failed to load panier for commande with ID: " + id);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
