@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
+import org.controlsfx.control.Rating;  // Import Rating from ControlsFX
 
 public class Vueuser extends Application implements Initializable {
     @FXML
@@ -228,7 +229,14 @@ public class Vueuser extends Application implements Initializable {
         priceLabel.setLayoutY(nameLabel.getLayoutY() + nameLabel.getHeight() + 5);
         priceLabel.setStyle("-fx-font-size: 12px;");
 
-        productPane.getChildren().addAll(imageView, nameLabel, priceLabel);
+        Rating rating = new Rating();
+        rating.setMax(5); // Set the maximum rating value
+        rating.setRating(produit.getRating()); // Set the rating value from your Produit class
+        rating.setLayoutX((productPane.getPrefWidth() - rating.getWidth()) / 2);
+        rating.setLayoutY(priceLabel.getLayoutY() + priceLabel.getHeight() + 5);
+        rating.setDisable(false); // Disable user interaction with the Rating
+
+        productPane.getChildren().addAll(imageView, nameLabel, priceLabel, rating);
 
         productPane.setOnMouseClicked(event -> {
             selectedProduct = produit;

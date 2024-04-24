@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.demo3.StripeConfig"
+      spacing="10" alignment="CENTER" style="-fx-background-color: #f4f4f4; -fx-padding: 20px;">
+
+    <Label text="Payment Details" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="Amount:" style="-fx-font-weight: bold;"/>
+        <TextField fx:id="amountField" promptText="Enter Amount" style="-fx-pref-width: 150px;" />
+    </HBox>
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="Currency:" style="-fx-font-weight: bold;"/>
+        <TextField fx:id="currencyField" promptText="Enter Currency (e.g., USD)" style="-fx-pref-width: 150px;"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Label style="-fx-font-weight: bold;">
+
+            <Label text="Card Number:"/>
+        </Label>
+        <TextField fx:id="cardNumberField" promptText="Enter Card Number" style="-fx-pref-width: 250px;"/>
+    </HBox>
+    <ImageView fitHeight="100" fitWidth="100">
+    </ImageView>
+    <Button text="Pay" onAction="#processPayment" style="-fx-font-size: 16px; -fx-padding: 8px 16px; -fx-background-color: #007bff; -fx-text-fill: white; -fx-border-radius: 5px;"/>
+</VBox>

@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class EmailSender {
     private static final String USERNAME = "mayar.briki@esprit.tn";
-    private static final String PASSWORD = "";
+    private static final String PASSWORD = "Mayarbriki666";
 
     public static void main(String[] args) {
         String toEmail = "recipient@example.com"; // Change to recipient's email address

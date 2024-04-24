@@ -3,7 +3,7 @@ package models;
 public class Produit {
     private int id , quantite ;
     private String nom , description , image , prix ;
-
+    private double rating;  // Add a rating field
     public Produit(int quantite, String nom, String description , String image) {
         this.quantite = quantite;
         this.nom = nom;
@@ -75,7 +75,15 @@ public class Produit {
         this.image = image;
         this.prix = prix;
     }
-
+    public Produit(int id, int quantite, String nom, String description, String image, String prix, double rating) {
+        this.id = id;
+        this.quantite = quantite;
+        this.nom = nom;
+        this.description = description;
+        this.image = image;
+        this.prix = prix;
+        this.rating = rating;
+    }
     @Override
     public String toString() {
         return "Produit{" +
@@ -87,4 +95,8 @@ public class Produit {
                 ", prix='" + prix + '\'' +
                 '}';
     }
+    public double getRating() {
+        return rating;
+    }
+
 }

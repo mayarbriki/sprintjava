@@ -37,6 +37,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.control.TableView;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
+import org.controlsfx.control.Rating;
+
 
 
 public class Dashboard extends Application implements Initializable {
@@ -224,9 +226,8 @@ public class Dashboard extends Application implements Initializable {
 
 // Add similar listeners for other text fields as needed
 
-
-
     }
+
 
     private void setupImageColumn() {
         imageP.setCellFactory(column -> {

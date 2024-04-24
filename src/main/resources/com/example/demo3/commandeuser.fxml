@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,5 +15,6 @@
             <TableColumn fx:id="colTotal" prefWidth="215.20001220703125" text="Votre reference" />
         </columns>
       </TableView>
+      <Button fx:id="payer" layoutX="482.0" layoutY="267.0" mnemonicParsing="false" onAction="#open" text="Button" />
    </children>
 </AnchorPane>

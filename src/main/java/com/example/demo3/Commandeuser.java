@@ -1,15 +1,21 @@
 package com.example.demo3;
-
+import  com.example.demo3.Paniercontroller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 import models.Commande;
 import services.UserSessionService;
 import utils.MyDatabase;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,8 +24,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.scene.control.Button;
+
 
 public class Commandeuser implements Initializable{
+    @FXML
+    private Button payer;
     @FXML
     private TableView<Commande> tableView1;
 
@@ -109,6 +119,23 @@ public class Commandeuser implements Initializable{
         // Add sample data (replace with actual data retrieval logic)
 
         return commandes;
+    }
+    @FXML
+    private void open() {
+        try {
+            // Load the FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PayementForm.fxml"));
+            Parent root = loader.load();
+
+            // Show the loaded scene
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Error loading FXML file: " + e.getMessage());
+            // Handle the error (e.g., show an error dialog)
+        }
     }
 
     // Other methods and event handlers as needed
