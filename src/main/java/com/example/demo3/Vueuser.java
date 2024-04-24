@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -197,7 +198,7 @@ public class Vueuser extends Application implements Initializable {
     }
 
     private Pane createProductPane(Produit produit) {
-        Pane productPane = new Pane();
+        AnchorPane productPane = new AnchorPane(); // Use AnchorPane for flexible layout
         productPane.setPrefSize(200, 250);
         productPane.setStyle("-fx-background-color: #f9f9f9; -fx-border-color: #ccc; -fx-border-width: 1px; -fx-border-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.0, 0, 2);");
 
@@ -212,29 +213,33 @@ public class Vueuser extends Application implements Initializable {
             return productPane;
         }
 
-        double imageX = (productPane.getPrefWidth() - imageView.getFitWidth()) / 2;
-        double imageY = 20;
-        imageView.setLayoutX(imageX);
-        imageView.setLayoutY(imageY);
+        // Position elements using AnchorPane constraints
+        AnchorPane.setTopAnchor(imageView, 20.0);
+        AnchorPane.setLeftAnchor(imageView, (productPane.getPrefWidth() - imageView.getFitWidth()) / 2);
 
         Label nameLabel = new Label(produit.getNom());
         nameLabel.setWrapText(true);
         nameLabel.setMaxWidth(180);
-        nameLabel.setLayoutX((productPane.getPrefWidth() - nameLabel.getMaxWidth()) / 2);
-        nameLabel.setLayoutY(imageY + imageView.getFitHeight() + 10);
-        nameLabel.setStyle("-fx-font-weight: bold;");
 
         Label priceLabel = new Label("Price: $" + produit.getPrix());
-        priceLabel.setLayoutX((productPane.getPrefWidth() - priceLabel.getWidth()) / 2);
-        priceLabel.setLayoutY(nameLabel.getLayoutY() + nameLabel.getHeight() + 5);
         priceLabel.setStyle("-fx-font-size: 12px;");
 
         Rating rating = new Rating();
         rating.setMax(5); // Set the maximum rating value
         rating.setRating(produit.getRating()); // Set the rating value from your Produit class
-        rating.setLayoutX((productPane.getPrefWidth() - rating.getWidth()) / 2);
-        rating.setLayoutY(priceLabel.getLayoutY() + priceLabel.getHeight() + 5);
         rating.setDisable(false); // Disable user interaction with the Rating
+
+        // Position nameLabel below imageView
+        AnchorPane.setTopAnchor(nameLabel, 20 + imageView.getFitHeight() + 10);
+        AnchorPane.setLeftAnchor(nameLabel, (productPane.getPrefWidth() - nameLabel.getMaxWidth()) / 2);
+
+        // Position priceLabel below nameLabel
+        AnchorPane.setTopAnchor(priceLabel, 20 + imageView.getFitHeight() + 10 + nameLabel.getHeight() + 5);
+        AnchorPane.setLeftAnchor(priceLabel, (productPane.getPrefWidth() - priceLabel.getWidth()) / 2);
+
+        // Position rating below priceLabel
+        AnchorPane.setTopAnchor(rating, 20 + imageView.getFitHeight() + 10 + nameLabel.getHeight() + 5 + priceLabel.getHeight() + 5);
+        AnchorPane.setLeftAnchor(rating, (productPane.getPrefWidth() - rating.getWidth()) / 2);
 
         productPane.getChildren().addAll(imageView, nameLabel, priceLabel, rating);
 
@@ -243,7 +248,36 @@ public class Vueuser extends Application implements Initializable {
             highlightProductPane(productPane);
         });
 
+        // Add change listener for rating
+        rating.ratingProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                double newRating = newValue.doubleValue();
+                updateProductRatingInDatabase(produit.getId(), newRating);
+            }
+        });
+
         return productPane;
+    }
+    private void updateProductRatingInDatabase(int productId, double newRating) {
+        String updateRatingSQL = "UPDATE produit SET rate = ? WHERE id = ?";
+
+        try {
+            connection = MyDatabase.getInstance().getConnection();
+            pst = connection.prepareStatement(updateRatingSQL);
+            pst.setDouble(1, newRating);
+            pst.setInt(2, productId);
+            int rowsAffected = pst.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Product rating updated successfully.");
+            } else {
+                System.err.println("Failed to update product rating.");
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error updating product rating: " + ex.getMessage());
+            ex.printStackTrace();
+        } finally {
+            //closeResources(); // Close resources if needed
+        }
     }
 
     private void highlightProductPane(Pane pane) {
