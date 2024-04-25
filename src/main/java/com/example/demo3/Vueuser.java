@@ -1,9 +1,11 @@
 package com.example.demo3;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -32,6 +34,8 @@ import java.util.ResourceBundle;
 import org.controlsfx.control.Rating;  // Import Rating from ControlsFX
 
 public class Vueuser extends Application implements Initializable {
+    @FXML
+    private Button chat;
     @FXML
     private Button rechbutton;
     @FXML
@@ -195,6 +199,19 @@ public class Vueuser extends Application implements Initializable {
         }
 
         container.getChildren().add(gridPane);
+    }
+    @FXML
+    void redirectToChatBotUI(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ChatBotUI.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Print the exception trace for debugging
+        }
     }
 
     private Pane createProductPane(Produit produit) {

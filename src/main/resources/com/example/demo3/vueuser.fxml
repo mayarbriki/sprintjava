@@ -43,5 +43,6 @@
       <Button fx:id="rechbutton" layoutX="438.0" layoutY="659.0" mnemonicParsing="false" styleClass="button-save" stylesheets="@DashbordDesign.css" text="Rechercher" />
       <Button fx:id="tricroissant" layoutX="578.0" layoutY="628.0" mnemonicParsing="false" styleClass="button-save" stylesheets="@DashbordDesign.css" text="Tri par prix croissant" />
       <Button fx:id="tridecroissant" layoutX="578.0" layoutY="674.0" mnemonicParsing="false" styleClass="button-save" stylesheets="@DashbordDesign.css" text="Tri par prix decroissant" />
+      <Button fx:id="chat" layoutX="761.0" layoutY="478.0" mnemonicParsing="false" onAction="#redirectToChatBotUI" text="chat" />
     </children>
 </AnchorPane>
