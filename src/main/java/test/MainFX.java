@@ -20,6 +20,7 @@ public class MainFX extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ReclamationC.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
+
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
