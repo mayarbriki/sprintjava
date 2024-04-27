@@ -37,6 +37,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class DashboardController extends Application implements Initializable {
 
@@ -187,11 +188,20 @@ public class DashboardController extends Application implements Initializable {
     private FilteredList<Transport> filteredTransportData;
 
     public static final String ACCOUNT_SID = "ACabe5d1eed1c6f8de1ab6c80123cee667";
-    public static final String AUTH_TOKEN = "0496483a232e1af80a17fac433e63057";
+    public static final String AUTH_TOKEN = "b010f739d3b37887038eb44b99f5464e";
 
     static {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
     }
+    private ObservableList<Transport> currentPagePosts;
+    private static final int ROWS_PER_PAGE = 7;
+
+    public final ServiceTransport serviceTransport = new ServiceTransport();
+    @FXML
+    private Pagination pagination;
+    private List<Transport> recupererT;
+
+
 
 
     public void ajouterT(ActionEvent event) throws SQLException {
@@ -322,7 +332,16 @@ public class DashboardController extends Application implements Initializable {
         }
     }
 
-    private void setupTableColumns() {
+    private void setupTableColumns() throws SQLException {
+        recupererT = serviceTransport.recupererT();
+
+        // Clear existing items in the TableView
+        transport_tableview.getItems().clear();
+        int pageCount = (int) Math.ceil((double) recupererT.size() / ROWS_PER_PAGE);
+        pagination.setPageCount(pageCount);
+        pagination.setCurrentPageIndex(0);
+        createPage(0);
+
         transport_col_ID.setCellValueFactory(new PropertyValueFactory<>("id"));
         transport_col_Type.setCellValueFactory(new PropertyValueFactory<>("type"));
         transport_col_marque.setCellValueFactory(new PropertyValueFactory<>("marque"));
@@ -343,6 +362,17 @@ public class DashboardController extends Application implements Initializable {
         }
         transport_tableview.setItems(transports);
     }
+    private Node createPage(int pageIndex) {
+        int fromIndex = pageIndex * ROWS_PER_PAGE;
+        int toIndex = Math.min(fromIndex + ROWS_PER_PAGE, recupererT.size());
+        currentPagePosts = FXCollections.observableArrayList(recupererT.subList(fromIndex, toIndex));
+
+        transport_tableview.setItems(currentPagePosts);
+
+        return new AnchorPane();
+    }
+
+
 
     @FXML
     private void refreshTable() {
@@ -560,8 +590,8 @@ public class DashboardController extends Application implements Initializable {
         }
     }
 
-    public void setupTransportSearch() {
-        filteredTransportData = new FilteredList<>(transport_tableview.getItems(), p -> true);
+    private void setupTransportSearch() {
+        filteredTransportData = new FilteredList<>(FXCollections.observableArrayList(), p -> true);
 
         transport_tableview.setItems(filteredTransportData);
 
@@ -582,6 +612,7 @@ public class DashboardController extends Application implements Initializable {
             });
         });
     }
+
     @FXML
     private void imprimerPDFButtonClicked(ActionEvent event) {
         Livraison selectedLivraison = livraison_tableview.getSelectionModel().getSelectedItem();
@@ -613,9 +644,15 @@ public class DashboardController extends Application implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        setupTableColumns();
+
         refreshTable();
         loadDataIntoTableView();
+        pagination.setPageFactory(this::createPage);
+        try {
+            setupTableColumns();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         setupLivraisonTableColumns();
         refreshLivraisonTable();

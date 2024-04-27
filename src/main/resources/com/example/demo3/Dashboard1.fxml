@@ -7,6 +7,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -110,7 +111,7 @@
                     <center>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@DashbordDesign.css" BorderPane.alignment="CENTER">
                             <children>
-                                <AnchorPane fx:id="transport_form" layoutX="98.0" layoutY="63.0" prefHeight="554.4" prefWidth="888.8" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <AnchorPane fx:id="transport_form" layoutX="98.0" layoutY="63.0" prefHeight="554.4" prefWidth="888.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <children>
                                         <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="575.0" prefWidth="1063.0" stylesheets="@DashbordDesign.css">
                                             <children>
@@ -126,6 +127,7 @@
                                                                 <TableColumn fx:id="transport_col_etat" prefWidth="135.99993896484375" text="Etat" />
                                                             </columns>
                                                         </TableView>
+                                          <Pagination fx:id="pagination" layoutX="15.0" layoutY="273.0" prefHeight="44.0" prefWidth="1041.0" />
                                                         <TextField fx:id="transport_search" layoutX="14.0" layoutY="8.0" prefHeight="30.0" prefWidth="277.0" promptText="Rechercher..." styleClass="search" stylesheets="@DashbordDesign.css" />
                                                         <FontAwesomeIconView glyphName="SEARCH" layoutX="22.0" layoutY="29.0" size="18" text="" />
                                                     </children>
@@ -134,15 +136,15 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                                 </AnchorPane>
-                                                <Label layoutX="28.0" layoutY="315.0" text="Type :" />
-                                                <Label layoutX="28.0" layoutY="358.0" text="Marque : " />
-                                                <Label layoutX="26.0" layoutY="396.0" text="Matricule :" />
-                                                <Label layoutX="26.0" layoutY="440.0" text="Année Fabrication :" />
-                                                <Label layoutX="26.0" layoutY="484.0" text="Etat :" />
-                                                <TextField fx:id="transport_matricule" layoutX="149.0" layoutY="392.0" styleClass="textfield" stylesheets="@DashbordDesign.css" />
+                                                <Label layoutX="30.0" layoutY="328.0" text="Type :" />
+                                                <Label layoutX="30.0" layoutY="371.0" text="Marque : " />
+                                                <Label layoutX="28.0" layoutY="409.0" text="Matricule :" />
+                                                <Label layoutX="28.0" layoutY="453.0" text="Année Fabrication :" />
+                                                <Label layoutX="28.0" layoutY="497.0" text="Etat :" />
+                                                <TextField fx:id="transport_matricule" layoutX="151.0" layoutY="405.0" styleClass="textfield" stylesheets="@DashbordDesign.css" />
                                                 <Label fx:id="matriculeErrorLabel" textFill="red" />
-                                                <DatePicker fx:id="transport_date" layoutX="149.0" layoutY="436.0" promptText="Entrer une date" />
-                                                <ComboBox fx:id="transport_type" layoutX="149.0" layoutY="311.0" prefWidth="150.0" promptText="Choisir" styleClass="textfield" stylesheets="@DashbordDesign.css">
+                                                <DatePicker fx:id="transport_date" layoutX="151.0" layoutY="449.0" promptText="Entrer une date" />
+                                                <ComboBox fx:id="transport_type" layoutX="151.0" layoutY="324.0" prefWidth="150.0" promptText="Choisir" styleClass="textfield" stylesheets="@DashbordDesign.css">
                                                     <items>
                                                         <FXCollections fx:factory="observableArrayList">
                                                             <String fx:value="SUV/4X4" />
@@ -153,7 +155,7 @@
                                                         </FXCollections>
                                                     </items>
                                                 </ComboBox>
-                                                <ComboBox fx:id="transport_marque" layoutX="149.0" layoutY="354.0" prefWidth="150.0" promptText="Choisir" styleClass="textfield" stylesheets="@DashbordDesign.css">
+                                                <ComboBox fx:id="transport_marque" layoutX="151.0" layoutY="367.0" prefWidth="150.0" promptText="Choisir" styleClass="textfield" stylesheets="@DashbordDesign.css">
                                                     <items>
                                                         <FXCollections fx:factory="observableArrayList">
                                                             <String fx:value="Hyundai" />
@@ -167,7 +169,7 @@
                                                         </FXCollections>
                                                     </items>
                                                 </ComboBox>
-                                                <ComboBox fx:id="transport_etat" layoutX="148.0" layoutY="480.0" prefWidth="150.0" promptText="Choisir" styleClass="textfield" stylesheets="@DashbordDesign.css">
+                                                <ComboBox fx:id="transport_etat" layoutX="150.0" layoutY="493.0" prefWidth="150.0" promptText="Choisir" styleClass="textfield" stylesheets="@DashbordDesign.css">
                                                     <items>
                                                         <FXCollections fx:factory="observableArrayList">
                                                             <String fx:value="Opérationnel" />
@@ -176,7 +178,7 @@
                                                         </FXCollections>
                                                     </items>
                                                 </ComboBox>
-                                                <AnchorPane layoutX="500.0" layoutY="302.0" prefHeight="206.0" prefWidth="524.0" stylesheets="@DashbordDesign.css">
+                                                <AnchorPane layoutX="500.0" layoutY="336.0" prefHeight="206.0" prefWidth="524.0" stylesheets="@DashbordDesign.css">
                                                     <styleClass>
                                                         <String fx:value="creer-main" />
                                                         <String fx:value="shadow" />
@@ -201,7 +203,7 @@
                                         </AnchorPane>
                                     </children>
                                 </AnchorPane>
-                                <AnchorPane fx:id="Livraison_form" layoutX="207.0" layoutY="90.0" prefHeight="554.4" prefWidth="888.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <AnchorPane fx:id="Livraison_form" layoutX="207.0" layoutY="90.0" prefHeight="554.4" prefWidth="888.8" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <children>
                                         <AnchorPane layoutX="7.0" layoutY="11.0" prefHeight="576.0" prefWidth="222.0" stylesheets="@DashbordDesign.css">
                                             <styleClass>
