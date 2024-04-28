@@ -141,6 +141,19 @@ public class DashboardAccueil extends Application implements Initializable {
         }
     }
 
+    @FXML
+    public void switchToDashboardWeather(javafx.event.ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DashboardWeather.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private void populateLivraisonByDateChart() {
         try {
             ServiceLivraison serviceLivraison = new ServiceLivraison();
@@ -215,8 +228,6 @@ public class DashboardAccueil extends Application implements Initializable {
         populateLivraisonByDateChart();
         populateTransportByEtatChart();
         setupPieChartMouseEvents(transportbyetat);
-
-
     }
 
     /**

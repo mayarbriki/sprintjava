@@ -2,11 +2,12 @@ package com.example.demo3;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,13 +19,16 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class WeatherApp extends Application {
+public class WeatherApp extends Application implements Initializable {
+
     @FXML
     private Button acceuil_btn;
 
@@ -47,22 +51,10 @@ public class WeatherApp extends Application {
     private Label humidityLabel;
 
     @FXML
-    private Button logout;
-
-    @FXML
-    private Label matriculeErrorLabel;
-
-    @FXML
     private Label maxTempLabel;
 
     @FXML
-    private Button maximizeButton;
-
-    @FXML
     private Label minTempLabel;
-
-    @FXML
-    private FontAwesomeIconView minimize;
 
     @FXML
     private Label name;
@@ -75,6 +67,9 @@ public class WeatherApp extends Application {
 
     @FXML
     private ImageView weatherDescriptionImage;
+
+    @FXML
+    private Button weather_button;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -171,6 +166,65 @@ public class WeatherApp extends Application {
             System.err.println("Failed to load image: " + imagePath);
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void switchToDashboardAccueil(javafx.event.ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DashboardAccueil.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    public void switchToDashboard1_livraison(javafx.event.ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard1.fxml"));
+            Parent root = loader.load();
+
+            // Access the controller instance
+            DashboardController dashboard1Controller = loader.getController();
+
+            // Call a method on the controller to navigate to the desired form
+            dashboard1Controller.navigateToLivraisonForm();
+
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    public void switchToDashboard1_transport(javafx.event.ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard1.fxml"));
+            Parent root = loader.load();
+
+            // Access the controller instance
+            DashboardController dashboard1Controller = loader.getController();
+
+            // Call a method on the controller to navigate to the desired form
+            dashboard1Controller.navigateToTransportForm();
+
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        weather_button.setStyle("-fx-background-color:linear-gradient(to bottom right, #08b4c7 , #007fff);");
     }
 }
 

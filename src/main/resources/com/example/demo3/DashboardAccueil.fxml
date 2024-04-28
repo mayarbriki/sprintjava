@@ -84,6 +84,11 @@
                                                 <FontAwesomeIconView fill="WHITE" glyphName="TRUCK" size="18" />
                                             </graphic>
                                         </Button>
+                                        <Button layoutX="14.0" layoutY="290.0" mnemonicParsing="false" onAction="#switchToDashboardWeather" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@DashbordDesign.css" text=" Météo">
+                                            <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="CLOUD" size="18" />
+                                            </graphic>
+                                        </Button>
                                         <Button fx:id="logout" layoutX="14.0" layoutY="542.0" mnemonicParsing="false" stylesheets="@DashbordDesign.css">
                                             <graphic>
                                                 <FontAwesomeIconView glyphName="SIGN_OUT" size="24" />

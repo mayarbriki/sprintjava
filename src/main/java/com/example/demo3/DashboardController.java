@@ -199,7 +199,13 @@ public class DashboardController extends Application implements Initializable {
     public final ServiceTransport serviceTransport = new ServiceTransport();
     @FXML
     private Pagination pagination;
+
+    @FXML
+    private Pagination pagination1;
     private List<Transport> recupererT;
+    private List<Livraison> recupererL;
+    public final ServiceLivraison serviceLivraison = new ServiceLivraison();
+    private ObservableList<Livraison> currentPagePosts1;
 
 
 
@@ -371,7 +377,15 @@ public class DashboardController extends Application implements Initializable {
 
         return new AnchorPane();
     }
+    private Node createPage1(int pageIndex) {
+        int fromIndex = pageIndex * ROWS_PER_PAGE;
+        int toIndex = Math.min(fromIndex + ROWS_PER_PAGE, recupererL.size());
+        currentPagePosts1 = FXCollections.observableArrayList(recupererL.subList(fromIndex, toIndex));
 
+        livraison_tableview.setItems(currentPagePosts1);
+
+        return new AnchorPane();
+    }
 
 
     @FXML
@@ -387,7 +401,15 @@ public class DashboardController extends Application implements Initializable {
         }
     }
 
-    private void setupLivraisonTableColumns() {
+    private void setupLivraisonTableColumns() throws SQLException {
+        recupererL = serviceLivraison.recupererL();
+
+        livraison_tableview.getItems().clear();
+        int pageCount = (int) Math.ceil((double) recupererL.size() / ROWS_PER_PAGE);
+        pagination1.setPageCount(pageCount);
+        pagination1.setCurrentPageIndex(0);
+        createPage1(0);
+
         livraison_col_ID.setCellValueFactory(new PropertyValueFactory<>("id"));
         livraison_col_DateLiv.setCellValueFactory(new PropertyValueFactory<>("dateLiv"));
         livraison_col_AdresseLiv.setCellValueFactory(new PropertyValueFactory<>("adresseLiv"));
@@ -590,28 +612,23 @@ public class DashboardController extends Application implements Initializable {
         }
     }
 
-    private void setupTransportSearch() {
-        filteredTransportData = new FilteredList<>(FXCollections.observableArrayList(), p -> true);
+    private void filterTransports(String query) throws SQLException {
+        List<Transport> filteredList = recupererT.stream()
+                .filter(transport -> {
+                    String searchString = query.toLowerCase();
+                    return transport.getMatricule().toLowerCase().contains(searchString) ||
+                            transport.getMarque().toLowerCase().contains(searchString) ||
+                            transport.getType().toLowerCase().contains(searchString) ||
+                            transport.getEtat().toLowerCase().contains(searchString) ||
+                            String.valueOf(transport.getId()).contains(query) ||
+                            transport.getAnneefab().toString().toLowerCase().contains(searchString);
+                })
+                .collect(Collectors.toList());
 
-        transport_tableview.setItems(filteredTransportData);
-
-        transport_search.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredTransportData.setPredicate(transport -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                return transport.getType().toLowerCase().contains(lowerCaseFilter)
-                        || transport.getMarque().toLowerCase().contains(lowerCaseFilter)
-                        || transport.getMatricule().toLowerCase().contains(lowerCaseFilter)
-                        || transport.getEtat().toLowerCase().contains(lowerCaseFilter)
-                        || transport.getAnneefab().toString().toLowerCase().contains(lowerCaseFilter)
-                        || String.valueOf(transport.getId()).toLowerCase().contains(lowerCaseFilter);
-            });
-        });
+        transport_tableview.getItems().clear();
+        transport_tableview.getItems().addAll(filteredList);
     }
+
 
     @FXML
     private void imprimerPDFButtonClicked(ActionEvent event) {
@@ -640,6 +657,19 @@ public class DashboardController extends Application implements Initializable {
             e.printStackTrace();
         }
     }
+    @FXML
+    public void switchToDashboardWeather(javafx.event.ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DashboardWeather.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -653,13 +683,25 @@ public class DashboardController extends Application implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-        setupLivraisonTableColumns();
         refreshLivraisonTable();
         loadDataIntoLivraisonTableView();
+        pagination1.setPageFactory(this::createPage1);
+        try {
+            setupLivraisonTableColumns();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        refreshLivraisonTable();
+
 
         loadDataIntoComboBox();
-        setupTransportSearch();
+        transport_search.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                filterTransports(newValue);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
 
         transport_tableview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
