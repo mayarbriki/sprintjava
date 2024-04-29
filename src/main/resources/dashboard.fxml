@@ -19,7 +19,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="777.0" type="StackPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="contollers.dashboard">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="contollers.dashboard">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -39,6 +39,8 @@
                                     <Image url="@img/MediCare-removebg-preview.png" />
                                  </image>
                               </ImageView>
+                              <Button layoutX="705.0" layoutY="4.0" mnemonicParsing="false" onAction="#close" prefHeight="26.0" prefWidth="42.0" styleClass="close" stylesheets="@design.css" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0" />
+                              <FontAwesomeIconView glyphName="CLOSE" layoutX="748.0" layoutY="21.0" />
                            </children>
                            <styleClass>
                               <String fx:value="top-form" />
@@ -66,11 +68,11 @@
                                  </font>
                               </Label>
                               <Line endX="100.0" layoutX="76.0" layoutY="163.0" startX="-52.5000114440918" startY="1.52587890625E-5" stroke="WHITE" />
-                              <Button fx:id="nav_rep" contentDisplay="CENTER" layoutX="43.0" layoutY="240.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="106.0" styleClass="nav-btn" stylesheets="@design.css" text="Les réponses" textAlignment="CENTER" />
-                              <Button fx:id="nav_rec" contentDisplay="CENTER" layoutX="42.0" layoutY="190.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="138.0" styleClass="nav-btn" stylesheets="@design.css" text="Les réclamations" textAlignment="CENTER" />
+                              <Button fx:id="nav_rep" contentDisplay="CENTER" layoutX="7.0" layoutY="240.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="42.0" prefWidth="142.0" styleClass="nav-btn" stylesheets="@design.css" text="         Les réponses" textAlignment="CENTER" />
+                              <Button fx:id="nav_rec" contentDisplay="CENTER" layoutX="9.0" layoutY="190.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="42.0" prefWidth="171.0" styleClass="nav-btn" stylesheets="@design.css" text="         Les réclamations" textAlignment="CENTER" />
                               <FontAwesomeIconView fill="WHITE" glyphName="BELL" layoutX="12.0" layoutY="219.0" size="2em" tabSize="3" wrappingWidth="20.800018310546875" />
                               <FontAwesomeIconView fill="WHITE" glyphName="CHECK" layoutX="12.0" layoutY="269.0" size="2em" tabSize="3" wrappingWidth="20.800018310546875" />
-                              <Button fx:id="nav_acc" contentDisplay="CENTER" layoutX="41.0" layoutY="282.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="138.0" styleClass="nav-btn" stylesheets="@design.css" text="Acceuil" textAlignment="CENTER" />
+                              <Button fx:id="nav_acc" contentDisplay="CENTER" layoutX="5.0" layoutY="282.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="42.0" prefWidth="174.0" styleClass="nav-btn" stylesheets="@design.css" text="         Acceuil" textAlignment="CENTER" />
                               <FontAwesomeIconView fill="WHITE" glyphName="HOME" layoutX="12.0" layoutY="311.0" size="2em" tabSize="3" wrappingWidth="20.800018310546875" />
                            </children>
                         </AnchorPane>
@@ -80,7 +82,7 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="home" layoutX="14.0" layoutY="-8.8" prefHeight="438.0" prefWidth="514.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-9.0">
+                        <AnchorPane fx:id="home" layoutX="14.0" layoutY="-8.8" prefHeight="438.0" prefWidth="514.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-9.0">
                            <children>
                               <AnchorPane layoutX="8.0" layoutY="6.0" prefHeight="536.0" prefWidth="561.0" stylesheets="@design.css">
                                  <styleClass>
@@ -139,7 +141,7 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="reclamationss" layoutX="194.0" layoutY="71.0" prefHeight="422.4" prefWidth="514.4" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="reclamationss" layoutX="194.0" layoutY="71.0" prefHeight="422.4" prefWidth="514.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="8.0" layoutY="7.0" prefHeight="524.0" prefWidth="559.0" stylesheets="@design.css">
                                  <children>
@@ -149,7 +151,7 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <TableView layoutX="4.0" layoutY="60.0" prefHeight="302.0" prefWidth="552.0" stylesheets="@design.css">
+                                          <TableView fx:id="rectable" layoutX="4.0" layoutY="60.0" onMouseClicked="#addReclamationSelect" prefHeight="302.0" prefWidth="552.0" stylesheets="@design.css">
                                             <columns>
                                               <TableColumn fx:id="idrec" prefWidth="36.0" text=" ID" />
                                               <TableColumn fx:id="titrerec" prefWidth="106.39996337890625" text="Titre" />
@@ -257,4 +259,4 @@
          </children>
       </AnchorPane>
    </children>
-</fx:root>
+</StackPane>

@@ -29,7 +29,7 @@ public class MyDatabase {
         return instance;
     }
 
-    public Connection getConnection() {
+    public  Connection getConnection() {
         return connection;
     }
     public static void main(String[] args) {

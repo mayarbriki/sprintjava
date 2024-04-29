@@ -18,12 +18,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import models.reclamation;
+import utils.MyDatabase;
 
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -54,19 +55,19 @@ public class dashboard implements Initializable {
     private TableColumn<?, ?> colstat;
 
     @FXML
-    private TableColumn<?, ?> coltitre;
+    private TableColumn<reclamation, String> coltitre;
 
     @FXML
-    private TableColumn<?, ?> daterec;
+    private TableColumn<reclamation, Date> daterec;
 
     @FXML
-    private TableColumn<?, ?> descrec;
+    private TableColumn<reclamation, String> descrec;
 
     @FXML
     private AnchorPane home;
 
     @FXML
-    private TableColumn<?, ?> idrec;
+    private TableColumn<reclamation, String> idrec;
 
     @FXML
     private Button modstatus;
@@ -90,18 +91,25 @@ public class dashboard implements Initializable {
     private AnchorPane reclamationss;
 
     @FXML
-    private TableColumn<?, ?> rep;
+    private TableColumn<reclamation, String> rep;
 
     @FXML
-    private TableColumn<?, ?> statrec;
+    private TableColumn<reclamation, String> statrec;
 
     @FXML
-    private TableColumn<?, ?> titrerec;
+    private TableColumn<reclamation, String> titrerec;
 
     @FXML
     private TableView<?> viewreprec;
+
+    @FXML
+    private TableView<reclamation> rectable;
     @FXML
     private AnchorPane rep_page;
+    private Connection connect;
+    private Statement statement;
+    private PreparedStatement prepare;
+    private ResultSet result;
 
 
     public void switchForm(ActionEvent event) {
@@ -148,7 +156,61 @@ public class dashboard implements Initializable {
 
         }
 
-   // public static void main(String[] args) {
+
+    public ObservableList<reclamation> addReclamationListData() {
+
+        ObservableList<reclamation> listData = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM reclamation";
+
+        connect = MyDatabase.getInstance().getConnection();
+
+        try {
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+            reclamation reclamat;
+
+            while (result.next()) {
+                reclamat = new reclamation(result.getString("titre"), result.getString("status_r"), result.getString("description_r"), result.getDate("date_r"));
+                listData.add(reclamat);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listData;
+    }
+
+    private ObservableList<reclamation> addReclamationList;
+
+    public  void addReclamationShowListData() {
+        addReclamationList = addReclamationListData();
+
+
+        titrerec.setCellValueFactory(new PropertyValueFactory<>("Titre"));
+        descrec.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        daterec.setCellValueFactory(new PropertyValueFactory<>("Date"));
+        statrec.setCellValueFactory(new PropertyValueFactory<>("Status"));
+
+        rectable.setItems(addReclamationList);
+
+    }
+    public void addReclamationSelect() {
+        reclamation reclamationD = rectable.getSelectionModel().getSelectedItem();
+        int num = rectable.getSelectionModel().getSelectedIndex();
+
+        if ((num - 1) < -1) {
+            return;
+        }
+
+        titrerec.setText(String.valueOf(reclamationD.getTitre()));
+        descrec.setText(reclamationD.getDescription_r());
+
+
+    }
+
+
+    // public static void main(String[] args) {
     //    launch(args);
   //  }
 
@@ -165,6 +227,10 @@ public class dashboard implements Initializable {
           //  System.err.println(e.getMessage());
         //}
     //}
+
+    public void close() {
+        System.exit(0);
+    }
 
 
     @Override
