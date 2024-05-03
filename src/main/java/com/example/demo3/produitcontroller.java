@@ -1,6 +1,4 @@
 package com.example.demo3;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextArea;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -9,18 +7,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.scene.layout.BorderPane;
-import java.io.File;
-import java.sql.Connection;
-import java.sql.SQLException;
-
 import models.Produit;
 import services.ServiceProduit;
 import utils.MyDatabase;
+
+import java.io.File;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class produitcontroller extends Application {
     Connection cnx;
@@ -43,6 +43,7 @@ public class produitcontroller extends Application {
     private TextArea description;
     @FXML
     Label label = new Label();
+
     public void insertImage() {
 
         // String chosenImagePath;
@@ -71,13 +72,14 @@ public class produitcontroller extends Application {
 
         }
     }
+
     public void addproduit(ActionEvent event) throws SQLException {
         Connection connection = MyDatabase.getInstance().getConnection();
         if (connection == null) {
             System.out.println("Connection is null!");
             return;
         }
-      //  String imagePath = insertImage();  // Call insertImage to get the path (or null)
+        //  String imagePath = insertImage();  // Call insertImage to get the path (or null)
         String imagePath = path;
         if (imagePath == null) {
             System.out.println("No image selected!");
@@ -93,10 +95,6 @@ public class produitcontroller extends Application {
             System.err.println(e.getMessage());
         }
     }
-
-
-
-
 
 
     public static void main(String[] args) {

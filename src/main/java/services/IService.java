@@ -1,12 +1,17 @@
 package services;
 
-import javafx.event.ActionEvent;
-import models.Personne;
-
 import java.sql.SQLException;
 import java.util.List;
 
 public interface IService<T> {
+
+    void ajouterT(T t) throws SQLException;
+
+    void modifierT(T t) throws SQLException;
+    void supprimerT(int id) throws SQLException;
+    List<T> recupererT() throws SQLException;
+
+    List<String> Matriculescombobox() throws SQLException;
 
     void ajouter(T t) throws SQLException;
 

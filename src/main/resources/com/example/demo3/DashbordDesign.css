@@ -1,127 +1,3 @@
-/* DashboardDesign.css */
-
-.gradient-background{
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #048b9a, #44ccff);
-}
-
-.top-form{
-    -fx-background-color: #fff;
-    -fx-border-color: #000;
-    -fx-border-width: 0.4px 0.4px 0.2px 0.4px;
-}
-
-.semi-top-form{
-    -fx-background-color: #efefef;
-    -fx-border-color: #000;
-    -fx-border-width: 0.2px 0.4px 0.8px 0.4px;
-}
-
-.button-primary {
-    -fx-border-radius: 10px;
-    -fx-border-width: 0;
-    -fx-font-size: 15px;
-    -fx-text-fill: white;
-    -fx-effect: dropshadow(gaussian, #1899D6, 0, 10, 0, 10);
-    -fx-cursor: hand;
-}
-
-.button-primary:hover {
-    -fx-effect: dropshadow(gaussian, #1899D6, 0, 10, 0, 7);
-    -fx-background-color: #35b7fc;
-}
-
-.button-secondary {
-    -fx-border-radius: 10px;
-    -fx-border-width: 0;
-    -fx-font-size: 15px;
-    -fx-text-fill: white;
-    -fx-effect: dropshadow(gaussian, #2e8644, 0, 10, 0, 10);
-    -fx-cursor: hand;
-}
-
-.button-secondary:hover {
-    -fx-effect: dropshadow(gaussian, #2e8644, 0, 10, 0, 7);
-    -fx-background-color: #489a55;
-}
-
-.text-field {
-    -fx-background-color: linear-gradient(to bottom, #efefef, #eee);
-    -fx-border-color: linear-gradient(to bottom right, #272b3f, #048b9a);
-    -fx-border-width: 0.8px;
-    -fx-font-family: "Tahoma";
-    -fx-border-radius: 4px;
-}
-.text-field:focused {
-    -fx-border-width: 1.8px;
-    -fx-background-color: #fff;
-}
-/* DashboardDesign.css */
-
-.root {
-    -fx-background-color: #f0f0f0; /* Light gray background color */
-}
-
-.gradient-background {
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #048b9a, #44ccff);
-}
-
-.top-form {
-    -fx-background-color: #fff;
-    -fx-border-color: #000;
-    -fx-border-width: 0.4px 0.4px 0.2px 0.4px;
-}
-
-.semi-top-form {
-    -fx-background-color: #efefef;
-    -fx-border-color: #000;
-    -fx-border-width: 0.2px 0.4px 0.8px 0.4px;
-}
-
-.text-field {
-    -fx-background-color: linear-gradient(to bottom, #efefef, #eee);
-    -fx-border-color: linear-gradient(to bottom right, #272b3f, #048b9a);
-    -fx-border-width: 0.8px;
-    -fx-font-family: "Tahoma";
-    -fx-border-radius: 4px;
-}
-
-.text-field:focused {
-    -fx-border-width: 1.8px;
-    -fx-background-color: #fff;
-}
-/******** Dashboard Design **********/
-
-.gradient-background {
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #048b9a, #44ccff);
-}
-
-/* Other styles here */
-
-.top-form {
-    -fx-background-color: #fff;
-    -fx-border-color: #000;
-    -fx-border-width: .4px .4px .2px .4px;
-}
-
-.semi-top-form {
-    -fx-background-color: #efefef;
-    -fx-border-color: #000;
-    -fx-border-width: .2px .4px .8px .4px;
-}
-
-/* Other styles continue */
-.button-primary {
-    -fx-background-color: #008080; /* Color for primary buttons */
-    -fx-text-fill: white; /* Text color for primary buttons */
-}
-
-.button-secondary {
-    -fx-background-color: #008080; /* Color for secondary buttons */
-    -fx-text-fill: white; /* Text color for secondary buttons */
-}
-.gradient-pane {
-    -fx-background-color: linear-gradient(to bottom, #008080, #004040);
-}
 /******** Dashboard Design **********/
 
 .gradient-background{
@@ -390,4 +266,37 @@
     transparent rgba(0,168,355,0.3);
     -fx-background-radius: 1;
     -fx-background-position: left center;
+}
+
+/* Remove spacing */
+.pagination > .pagination-control > .control-box {
+    -fx-spacing: 0;
+}
+
+/* You can control the actual button sizes here */
+.pagination > .pagination-control > .control-box > .number-button,
+.pagination > .pagination-control > .control-box > .bullet-button,
+.pagination > .pagination-control > .control-box > .left-arrow-button,
+.pagination > .pagination-control > .control-box > .right-arrow-button {
+    -fx-background-insets: 0, 1;
+    -fx-background-color: lightgray, #FAFAFA;
+    -fx-min-width: 30;
+    -fx-min-height: 30;
+}
+
+/* Colors on hover */
+.pagination > .pagination-control > .control-box > .number-button:hover,
+.pagination > .pagination-control > .control-box > .bullet-button:hover,
+.pagination > .pagination-control > .control-box > .left-arrow-button:hover,
+.pagination > .pagination-control > .control-box > .right-arrow-button:hover {
+    -fx-background-insets: 0;
+    -fx-background-color: lightgray;
+}
+
+/* Selected toggle color */
+.pagination > .pagination-control > .control-box > .number-button:selected,
+.pagination > .pagination-control > .control-box > .bullet-button:selected{
+    -fx-background-insets: 0;
+    -fx-background-color: #048b9a;
+    -fx-text-fill: white;
 }

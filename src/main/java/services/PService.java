@@ -1,6 +1,4 @@
 package services;
-import javafx.event.ActionEvent;
-import models.Produit;
 
 import java.sql.SQLException;
 import java.util.List;

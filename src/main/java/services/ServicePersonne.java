@@ -16,6 +16,31 @@ public class ServicePersonne implements IService<Personne>{
     }
 
     @Override
+    public void ajouterT(Personne personne) throws SQLException {
+
+    }
+
+    @Override
+    public void modifierT(Personne personne) throws SQLException {
+
+    }
+
+    @Override
+    public void supprimerT(int id) throws SQLException {
+
+    }
+
+    @Override
+    public List<Personne> recupererT() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public List<String> Matriculescombobox() throws SQLException {
+        return null;
+    }
+
+    @Override
     public void ajouter(Personne personne) throws SQLException {
         String sql = "INSERT INTO user (nom, prenom, age, password) VALUES (?, ?, ?, ?)";
         PreparedStatement ps = cnx.prepareStatement(sql);

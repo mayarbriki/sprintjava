@@ -1,19 +1,20 @@
 package models;
 
-public class Personne {
+public class User {
 
     private int id, age;
     private String nom, prenom, password , role;
 
-    public Personne(int id, int age, String nom, String password) {
+    public User(int id, int age, String nom,String prenom, String password, String role) {
         this.id = id;
         this.age = age;
         this.nom = nom;
         this.prenom = prenom;
-        this.password=password;
+        this.password= password;
+        this.role = role;
     }
 
-    public Personne(int age, String nom, String prenom, String password, String role) {
+    public User(int age, String nom, String prenom, String password, String role) {
         this.age = age;
         this.nom = nom;
         this.prenom = prenom;
@@ -21,7 +22,7 @@ public class Personne {
         this.role = role;
     }
 
-    public Personne(int age, String nom, String prenom) {
+    public User(int age, String nom, String prenom) {
         this.age = age;
         this.nom = nom;
         this.prenom = prenom;
@@ -29,7 +30,7 @@ public class Personne {
     }
 
 
-    public Personne() {
+    public User() {
 
     }
 
@@ -84,7 +85,7 @@ public class Personne {
 
     @Override
     public String toString() {
-        return "Personne{" +
+        return "User{" +
                 "id=" + id +
                 ", age=" + age +
                 ", nom='" + nom + '\'' +
