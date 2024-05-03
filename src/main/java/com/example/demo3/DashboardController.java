@@ -188,7 +188,7 @@ public class DashboardController extends Application implements Initializable {
     private FilteredList<Transport> filteredTransportData;
 
     public static final String ACCOUNT_SID = "ACabe5d1eed1c6f8de1ab6c80123cee667";
-    public static final String AUTH_TOKEN = "b010f739d3b37887038eb44b99f5464e";
+    public static final String AUTH_TOKEN = "ddef3e57f45c63cb893f741ace527770";
 
     static {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);

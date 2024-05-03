@@ -106,10 +106,8 @@ public class DashboardAccueil extends Application implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard1.fxml"));
             Parent root = loader.load();
 
-            // Access the controller instance
             DashboardController dashboard1Controller = loader.getController();
 
-            // Call a method on the controller to navigate to the desired form
             dashboard1Controller.navigateToLivraisonForm();
 
             Scene scene = new Scene(root);
@@ -126,10 +124,8 @@ public class DashboardAccueil extends Application implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard1.fxml"));
             Parent root = loader.load();
 
-            // Access the controller instance
             DashboardController dashboard1Controller = loader.getController();
 
-            // Call a method on the controller to navigate to the desired form
             dashboard1Controller.navigateToTransportForm();
 
             Scene scene = new Scene(root);

@@ -46,10 +46,10 @@ public class ServicePDF {
         float threecol = 190f;
         float twocol = 285f;
         float twocol150 = twocol + 150f;
-        float twocolumnWidth[] = {twocol150, twocol};
-        float fullwidth[] = {threecol * 3};
+        float[] twocolumnWidth = {twocol150, twocol};
+        float[] fullwidth = {threecol * 3};
         Paragraph onesp = new Paragraph("\n");
-        float twoColumnWidth1[] = {twocol, twocol};
+        float[] twoColumnWidth1 = {twocol, twocol};
 
 //        String name = livraison.getNom();
         String address = livraison.getAdresseLiv();
@@ -95,7 +95,7 @@ public class ServicePDF {
         twocolTable3.addCell(getCell10Left(address, false));
         document.add(twocolTable3);
 
-        float oneColumnWidth[] = {twocol150};
+        float[] oneColumnWidth = {twocol150};
 
         Table oneColTable1 = new Table(oneColumnWidth);
         oneColTable1.addCell(getCell10Left("Adresse", true));

@@ -24,6 +24,7 @@ import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -86,11 +87,11 @@ public class WeatherApp extends Application implements Initializable {
 
     @FXML
     public void handleSearchButtonClicked(ActionEvent event) {
-        // Get the city name from the TextField
+
         String city = transport_search.getText();
 
         try {
-            String encodedCity = URLEncoder.encode(city, "UTF-8");
+            String encodedCity = URLEncoder.encode(city, StandardCharsets.UTF_8);
 
             String apiKey = "1c3a76a7609a1b37f16259d09a818058";
             URI uri = URI.create("http://api.openweathermap.org/data/2.5/weather?q=" + encodedCity + "&appid=" + apiKey + "&units=metric");
@@ -113,11 +114,11 @@ public class WeatherApp extends Application implements Initializable {
                 double humidity = jsonResponse.getAsJsonObject("main").get("humidity").getAsDouble();
                 String weatherDescription = jsonResponse.getAsJsonArray("weather").get(0).getAsJsonObject().get("description").getAsString();
 
-                minTempLabel.setText("Min Temp: " + minTemp + "°C");
-                maxTempLabel.setText("Max Temp: " + maxTemp + "°C");
-                currentTempLabel.setText("Current Temp: " + currentTemp + "°C");
-                humidityLabel.setText("Humidity: " + humidity + "%");
-                weatherDescriptionLabel.setText("Weather: " + weatherDescription);
+                minTempLabel.setText("Température minimale: " + minTemp + "°C");
+                maxTempLabel.setText("Température maximale: " + maxTemp + "°C");
+                currentTempLabel.setText("Température actuelle: " + currentTemp + "°C");
+                humidityLabel.setText("Humidité: " + humidity + "%");
+                weatherDescriptionLabel.setText("Météo: " + weatherDescription);
 
                 displayWeatherImage(weatherDescription);
             } else {
@@ -187,10 +188,8 @@ public class WeatherApp extends Application implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard1.fxml"));
             Parent root = loader.load();
 
-            // Access the controller instance
             DashboardController dashboard1Controller = loader.getController();
 
-            // Call a method on the controller to navigate to the desired form
             dashboard1Controller.navigateToLivraisonForm();
 
             Scene scene = new Scene(root);
@@ -207,10 +206,8 @@ public class WeatherApp extends Application implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard1.fxml"));
             Parent root = loader.load();
 
-            // Access the controller instance
             DashboardController dashboard1Controller = loader.getController();
 
-            // Call a method on the controller to navigate to the desired form
             dashboard1Controller.navigateToTransportForm();
 
             Scene scene = new Scene(root);
