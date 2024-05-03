@@ -20,7 +20,7 @@ public class ServiceLivraison implements LService<Livraison> {
 
     @Override
     public void ajouterL(Livraison livraison) throws SQLException {
-        String requete1 = "INSERT INTO livraison (dateLiv, adresseLiv, description, etat) VALUES (?, ?, ?, ?)";
+        String requete1 = "INSERT INTO livraison (date_liv, adresseLiv, description, etat) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = cnx.prepareStatement(requete1)) {
 
@@ -36,7 +36,7 @@ public class ServiceLivraison implements LService<Livraison> {
     }
     @Override
     public void modifier_L(Livraison livraison) throws SQLException {
-        String requete2 = "UPDATE livraison SET dateLiv=?, adresseLiv=?, description=?, etat=? WHERE id=?";
+        String requete2 = "UPDATE livraison SET date_liv=?, adresseLiv=?, description=?, etat=? WHERE id=?";
 
         try (PreparedStatement preparedStatement = cnx.prepareStatement(requete2)) {
 
@@ -80,7 +80,7 @@ public class ServiceLivraison implements LService<Livraison> {
     @Override
     public List<Livraison> recupererL() throws SQLException {
         List<Livraison> livraisons = new ArrayList<>();
-        String sql = "SELECT l.id, l.adresseLiv, l.description, l.etat, l.dateLiv, t.matricule AS transport_matricule " +
+        String sql = "SELECT l.id, l.adresse_liv, l.description, l.etat, l.date_liv, t.matricule AS transport_matricule " +
                 "FROM livraison l LEFT JOIN transport t ON l.matricule_id = t.id";
         try (PreparedStatement preparedStatement = cnx.prepareStatement(sql)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -91,7 +91,7 @@ public class ServiceLivraison implements LService<Livraison> {
                     livraison.setAdresseLiv(resultSet.getString("adresseLiv"));
                     livraison.setDescription(resultSet.getString("description"));
                     livraison.setEtat(resultSet.getString("etat"));
-                    livraison.setDateLiv(resultSet.getDate("dateLiv"));
+                    livraison.setDateLiv(resultSet.getDate("date_liv"));
                     String matricule = resultSet.getString("transport_matricule");
                     if (matricule != null) {
                         livraison.setMatricule(matricule);
@@ -120,7 +120,7 @@ public class ServiceLivraison implements LService<Livraison> {
                     livraison.setAdresseLiv(resultSet.getString("adresseLiv"));
                     livraison.setDescription(resultSet.getString("description"));
                     livraison.setEtat(resultSet.getString("etat"));
-                    livraison.setDateLiv(resultSet.getDate("dateLiv"));
+                    livraison.setDateLiv(resultSet.getDate("date_liv"));
                     livraison.setMatricule(String.valueOf(new Transport(resultSet.getString("transport_matricule")).getId()));
 
                     livraisons.add(livraison);
@@ -161,13 +161,13 @@ public class ServiceLivraison implements LService<Livraison> {
 
     public Map<String, Integer> countLivraisonsByDate() throws SQLException {
         Map<String, Integer> livraisonsByDate = new HashMap<>();
-        String query = "SELECT dateLiv, COUNT(*) AS count FROM livraison GROUP BY dateLiv";
+        String query = "SELECT date_liv, COUNT(*) AS count FROM livraison GROUP BY date_liv";
 
         try (PreparedStatement statement = cnx.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
-                Date date = resultSet.getDate("dateLiv");
+                Date date = resultSet.getDate("date_liv");
                 int count = resultSet.getInt("count");
                 livraisonsByDate.put(date.toString(), count);
             }
