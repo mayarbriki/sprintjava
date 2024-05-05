@@ -187,6 +187,10 @@ public class Dashboard extends Application implements Initializable {
         // This method is already the event handler for the button click,
         // so you don't need to define another event handler inside it.
         // Simply put your logic directly here.
+        tableViewProduit.setVisible(true);
+        modifier.setVisible(true);
+        supprimer.setVisible(true);
+        commandeadmin.setVisible(false); // Set the TableView to initially invisible
 
         anchorPane1.setVisible(false);
         anchorPane2.setVisible(true);
