@@ -11,4 +11,5 @@ public interface LService<L> {
     void modifier_L(L L) throws SQLException;
     void supprimerL(int id) throws SQLException;
     List<L> recupererL() throws SQLException;
+    List<L> recupererL(int livreur_id) throws SQLException;
 }

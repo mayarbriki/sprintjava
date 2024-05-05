@@ -19,8 +19,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import models.Transport;
 import services.ServiceLivraison;
 import services.ServiceTransport;
+import services.UserSessionService;
 
 import javax.imageio.IIOParam;
 import java.io.IOException;
@@ -70,9 +72,12 @@ public class DashboardAccueil extends Application implements Initializable {
     private PieChart transportbyetat;
 
     private void displayTransportCount() {
+
+        int livreur_id = UserSessionService.getInstance().getLoggedInUserId();
+
         try {
             ServiceTransport serviceTransport = new ServiceTransport();
-            int transportCount = serviceTransport.countTransports();
+            int transportCount = serviceTransport.countTransports(livreur_id);
             transport_count.setText("" + transportCount);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,9 +85,12 @@ public class DashboardAccueil extends Application implements Initializable {
         }
     }
     private void displayLivraisonCount() {
+
+        int livreur_id = UserSessionService.getInstance().getLoggedInUserId();
+
         try {
             ServiceLivraison serviceLivraison = new ServiceLivraison();
-            int livraisonCount = serviceLivraison.countLivraisons();
+            int livraisonCount = serviceLivraison.countLivraisons(livreur_id);
             livraison_count.setText("" + livraisonCount);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,9 +98,12 @@ public class DashboardAccueil extends Application implements Initializable {
         }
     }
     private void displayLivraisonAaffecter() {
+
+        int livreur_id = UserSessionService.getInstance().getLoggedInUserId();
+
         try {
             ServiceLivraison serviceLivraison = new ServiceLivraison();
-            int livraisonAaffecter = serviceLivraison.livraisons_Aaffecter();
+            int livraisonAaffecter = serviceLivraison.livraisons_Aaffecter(livreur_id);
             livraison_Aaffecter.setText("" + livraisonAaffecter);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -151,9 +162,12 @@ public class DashboardAccueil extends Application implements Initializable {
         }
     }
     private void populateLivraisonByDateChart() {
+
+        int livreur_id = UserSessionService.getInstance().getLoggedInUserId();
+
         try {
             ServiceLivraison serviceLivraison = new ServiceLivraison();
-            Map<String, Integer> livraisonsByDate = serviceLivraison.countLivraisonsByDate();
+            Map<String, Integer> livraisonsByDate = serviceLivraison.countLivraisonsByDate(livreur_id);
             XYChart.Series<String, Integer> series = new XYChart.Series<>();
             series.setName("Livraisons");
 
@@ -168,9 +182,12 @@ public class DashboardAccueil extends Application implements Initializable {
     }
 
     private void populateTransportByEtatChart() {
+
+        int livreur_id = UserSessionService.getInstance().getLoggedInUserId();
+
         try {
             ServiceTransport serviceTransport = new ServiceTransport();
-            Map<String, Long> transportsByEtat = serviceTransport.countTransportsByEtat();
+            Map<String, Long> transportsByEtat = serviceTransport.countTransportsByEtat(livreur_id);
 
             List<PieChart.Data> chartData = transportsByEtat.entrySet().stream()
                     .map(entry -> new PieChart.Data(entry.getKey(), entry.getValue()))

@@ -9,26 +9,50 @@ public class Livraison {
     private String description;
     private String etat;
     private Date date_liv;
-//    private User livreur;
-    private String  matricule;
-//  private Commande reference;
+    private int livreur_id;
+    private String livreur;
+    private String matricule;
+    private int reference_id;
 //    private boolean sent;
 
     public Livraison() {
     }
 
-    public Livraison(int id, String aresseLiv, String description, String etat, Date date_liv, String  matricule) {
+    public Livraison(int id, String adresse_liv, String description, String etat, Date date_liv, int livreur_id, String livreur, String matricule, int reference_id) {
         this.id = id;
-        this.adresse_liv = aresseLiv;
+        this.adresse_liv = adresse_liv;
+        this.description = description;
+        this.etat = etat;
+        this.date_liv = date_liv;
+        this.livreur_id = livreur_id;
+        this.livreur = livreur;
+        this.matricule = matricule;
+        this.reference_id = reference_id;
+    }
+
+    public Livraison(int id, String adresse_liv, String description, String etat, Date date_liv, int livreur_id, String matricule, int reference_id) {
+        this.id = id;
+        this.adresse_liv = adresse_liv;
+        this.description = description;
+        this.etat = etat;
+        this.date_liv = date_liv;
+        this.livreur_id = livreur_id;
+        this.matricule = matricule;
+        this.reference_id = reference_id;
+    }
+
+    public Livraison(int id, String adresse_liv, String description, String etat, Date date_liv, String  matricule) {
+        this.id = id;
+        this.adresse_liv = adresse_liv;
         this.description = description;
         this.etat = etat;
         this.date_liv = date_liv;
         this.matricule = matricule;
     }
 
-    public Livraison(int id, String aresseLiv, String description, String etat, Date date_liv, User livreur, String  matricule, boolean sent) {
+    public Livraison(int id, String adresse_liv, String description, String etat, Date date_liv, User livreur, String  matricule, boolean sent) {
         this.id = id;
-        this.adresse_liv = aresseLiv;
+        this.adresse_liv = adresse_liv;
         this.description = description;
         this.etat = etat;
         this.date_liv = date_liv;
@@ -37,8 +61,8 @@ public class Livraison {
 //        this.sent = sent;
     }
 
-    public Livraison(String aresseLiv, String description, String etat, Date date_liv, User livreur, String  matricule, boolean sent) {
-        this.adresse_liv = aresseLiv;
+    public Livraison(String adresse_liv, String description, String etat, Date date_liv, User livreur, String  matricule, boolean sent) {
+        this.adresse_liv = adresse_liv;
         this.description = description;
         this.etat = etat;
         this.date_liv = date_liv;
@@ -47,10 +71,10 @@ public class Livraison {
 //        this.sent = sent;
     }
 
-    public Livraison(int id, Date date_liv, String adresseLiv, String description, String etat) {
+    public Livraison(int id, Date date_liv, String adresse_liv, String description, String etat) {
         this.id = id;
         this.date_liv = date_liv;
-        this.adresse_liv = adresseLiv;
+        this.adresse_liv = adresse_liv;
         this.description = description;
         this.etat = etat;
     }
@@ -92,15 +116,6 @@ public class Livraison {
     public void setDateLiv(Date date_liv) {
         this.date_liv = date_liv;
     }
-
-//    public User getLivreur() {
-//        return livreur;
-//    }
-//
-//    public void setLivreur(User livreur) {
-//        this.livreur = livreur;
-//    }
-
     public String  getMatricule() {
         return matricule;
     }
@@ -109,25 +124,41 @@ public class Livraison {
         this.matricule = matricule;
     }
 
-//    public boolean isSent() {
-//        return sent;
-//    }
-//
-//    public void setSent(boolean sent) {
-//        this.sent = sent;
-//    }
+    public int getLivreur_id() {
+        return livreur_id;
+    }
 
+    public void setLivreur_id(int livreur_id) {
+        this.livreur_id = livreur_id;
+    }
+
+    public String getLivreur() {
+        return livreur;
+    }
+
+    public void setLivreur(String livreur) {
+        this.livreur = livreur;
+    }
+
+    public int getReference_id() {
+        return reference_id;
+    }
+
+    public void setReference_id(int reference_id) {
+        this.reference_id = reference_id;
+    }
     @Override
     public String toString() {
         return "Livraison{" +
                 "id=" + id +
-                ", aresseLiv='" + adresse_liv + '\'' +
+                ", adresse_liv='" + adresse_liv + '\'' +
                 ", description='" + description + '\'' +
                 ", etat='" + etat + '\'' +
                 ", date_liv=" + date_liv +
-//                ", livreur=" + livreur +
+                ", livreur=" + livreur_id +
                 ", matricule=" + matricule +
-//                ", sent=" + sent +
+                ", reference=" + reference_id +
+//               ", sent=" + sent +
                 '}';
     }
 }

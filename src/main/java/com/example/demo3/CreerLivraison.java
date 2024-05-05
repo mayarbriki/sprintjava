@@ -1,6 +1,7 @@
 package com.example.demo3;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -31,6 +33,9 @@ public class CreerLivraison extends Application implements Initializable {
 
     @FXML
     private ComboBox<String> description;
+
+    @FXML
+    private ComboBox<String> livreur;
 
     @FXML
     private TextField etat;
@@ -69,6 +74,15 @@ public class CreerLivraison extends Application implements Initializable {
         alert.showAndWait();
     }
 
+    private void populateLivreurComboBox() {
+        try {
+            List<String> livreurs = new ServiceLivraison().getAllLivreur();
+            livreur.setItems(FXCollections.observableArrayList(livreurs));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("creerLivraison.fxml")));
@@ -83,7 +97,7 @@ public class CreerLivraison extends Application implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        populateLivreurComboBox();
     }
 
     /**

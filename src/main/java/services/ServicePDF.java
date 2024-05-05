@@ -51,10 +51,11 @@ public class ServicePDF {
         Paragraph onesp = new Paragraph("\n");
         float[] twoColumnWidth1 = {twocol, twocol};
 
-//        String name = livraison.getNom();
+        String name = livraison.getLivreur();
         String address = livraison.getAdresseLiv();
         String description = livraison.getDescription();
         String dateLiv = String.valueOf(livraison.getDateLiv());
+        String commande = String.valueOf(livraison.getReference_id());
 
 
 
@@ -62,7 +63,7 @@ public class ServicePDF {
         table.addCell(new Cell().add("Commande").setFontSize(20f).setBorder(Border.NO_BORDER));
         Table nestedtable = new Table(new float[]{twocol / 2, twocol / 2});
         nestedtable.addCell(getHeaderTextCell("Commande N°."));
-        nestedtable.addCell(getHeaderTextValue("#21165"));
+        nestedtable.addCell(getHeaderTextValue(commande));
         nestedtable.addCell(getHeaderTextCell("Date Commande"));
         nestedtable.addCell(getHeaderTextValue(getCurrentDate()));
 
@@ -85,7 +86,7 @@ public class ServicePDF {
         twocolTable2.addCell(getCell10Left("Entreprise", true));
         twocolTable2.addCell(getCell10Left("Nom de livreur", true));
         twocolTable2.addCell(getCell10Left("Parapharma+", false));
-        twocolTable2.addCell(getCell10Left("livreur", false));
+        twocolTable2.addCell(getCell10Left(name, false));
         document.add(twocolTable2);
 
         Table twocolTable3 = new Table(twocolumnWidth);

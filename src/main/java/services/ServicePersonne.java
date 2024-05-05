@@ -15,19 +15,28 @@ public class ServicePersonne implements IService<Personne>{
         cnx = MyDatabase.getInstance().getConnection();
     }
 
+
+
     @Override
-    public void ajouterT(Personne personne) throws SQLException {
+    public void ajouterT(Personne personne, int id) throws SQLException {
 
     }
 
     @Override
-    public void modifierT(Personne personne) throws SQLException {
+    public void modifierT(Personne personne, int id) throws SQLException {
 
     }
+
+
 
     @Override
     public void supprimerT(int id) throws SQLException {
 
+    }
+
+    @Override
+    public List<Personne> recupererT(int livreur_id) throws SQLException {
+        return null;
     }
 
     @Override
@@ -36,7 +45,7 @@ public class ServicePersonne implements IService<Personne>{
     }
 
     @Override
-    public List<String> Matriculescombobox() throws SQLException {
+    public List<String> Matriculescombobox(int livreur_id) throws SQLException {
         return null;
     }
 

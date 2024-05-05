@@ -69,7 +69,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox layoutX="421.0" layoutY="175.0" prefWidth="150.0" promptText="Choisir" styleClass="textfield" stylesheets="@DashbordDesign.css" />
+                        <ComboBox fx:id="livreur" layoutX="421.0" layoutY="175.0" prefWidth="150.0" promptText="Choisir" styleClass="textfield" stylesheets="@DashbordDesign.css" />
                         <Label layoutX="25.0" layoutY="105.0" text="Date de Livraison :">
                            <font>
                               <Font size="14.0" />

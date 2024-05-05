@@ -114,7 +114,7 @@ public class HelloController implements Initializable {
             return;
         }
 
-        String sql = "SELECT * FROM user WHERE nom = ? AND password = ?";
+        String sql = "SELECT * FROM user WHERE name = ? AND password = ?";
         try (PreparedStatement pst = connection.prepareStatement(sql)) { // Use prepared statement with try-with-resources
             pst.setString(1, usenamelogin.getText());
             pst.setString(2, pwdlogin.getText());
@@ -122,18 +122,20 @@ public class HelloController implements Initializable {
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
-                String role = rs.getString("role");
+                String role = rs.getString("roles");
                 // Assuming the role column is named "role" in your database
                 loggedInUserId = rs.getInt("id");
                 UserSessionService.getInstance().setLoggedInUserId(loggedInUserId); // Set logged-in user ID
                 System.out.println("Logged-in User ID: " + loggedInUserId);
                 FXMLLoader loader = new FXMLLoader();
 
-                if ("admin".equals(role)) {
+                if ("[\"ROLE_ADMIN\"]".equals(role)) {
                     loader.setLocation(getClass().getResource("dashboard.fxml"));
-                } else if ("user".equals(role)) {
+                } else if ("[\"ROLE_USER\"]".equals(role)) {
                     loader.setLocation(getClass().getResource("vueuser.fxml"));
-                } else {
+                } else if ("[\"ROLE_LIVREUR\"]".equals(role)) {
+                    loader.setLocation(getClass().getResource("Dashboard1.fxml"));
+                }else {
                     // Handle unrecognized roles
                     System.out.println("Unrecognized role: " + role);
                     return;
@@ -163,6 +165,7 @@ public class HelloController implements Initializable {
             alert.showAndWait();
         }
     }
+
 
 
 }

@@ -26,6 +26,7 @@ import models.Transport;
 import services.ServiceLivraison;
 import services.ServicePDF;
 import services.ServiceTransport;
+import services.UserSessionService;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -58,8 +59,8 @@ public class DashboardController extends Application implements Initializable {
     @FXML
     private Button close;
 
-//    @FXML
-//    private Label commande;
+    @FXML
+    private Label commande;
 
     @FXML
     private Label dateLiv;
@@ -143,6 +144,9 @@ public class DashboardController extends Application implements Initializable {
     private TableColumn<Transport, String> transport_col_matricule;
 
     @FXML
+    private TableColumn<Transport, String> livraison_col_Commande;
+
+    @FXML
     private DatePicker transport_date;
 
     @FXML
@@ -188,7 +192,7 @@ public class DashboardController extends Application implements Initializable {
     private FilteredList<Transport> filteredTransportData;
 
     public static final String ACCOUNT_SID = "ACabe5d1eed1c6f8de1ab6c80123cee667";
-    public static final String AUTH_TOKEN = "ddef3e57f45c63cb893f741ace527770";
+    public static final String AUTH_TOKEN = "1f9e0dd99560aaf60d6754e825ecdd96";
 
     static {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
@@ -211,6 +215,8 @@ public class DashboardController extends Application implements Initializable {
 
 
     public void ajouterT(ActionEvent event) throws SQLException {
+
+        int livreur_id = UserSessionService.getInstance().getLoggedInUserId();
 
         String selectedType = transport_type.getSelectionModel().getSelectedItem();
         String selectedMarque = transport_marque.getSelectionModel().getSelectedItem();
@@ -251,7 +257,7 @@ public class DashboardController extends Application implements Initializable {
         }
 
         try {
-            st.ajouterT(transport);
+            st.ajouterT(transport, livreur_id);
             refreshTable();
             System.out.println("Transport ajouté avec succès.");
         } catch (SQLException e) {
@@ -262,6 +268,9 @@ public class DashboardController extends Application implements Initializable {
 
     @FXML
     public void modifierT() {
+
+        int livreur_id = UserSessionService.getInstance().getLoggedInUserId();
+
         Transport selectedTransport = transport_tableview.getSelectionModel().getSelectedItem();
         if (selectedTransport != null) {
 
@@ -297,7 +306,7 @@ public class DashboardController extends Application implements Initializable {
 
             try {
                 ServiceTransport st = new ServiceTransport();
-                st.modifierT(selectedTransport);
+                st.modifierT(selectedTransport, livreur_id);
                 refreshTable();
                 System.out.println("Transport mis à jour avec succès.");
             } catch (SQLException e) {
@@ -339,9 +348,10 @@ public class DashboardController extends Application implements Initializable {
     }
 
     private void setupTableColumns() throws SQLException {
-        recupererT = serviceTransport.recupererT();
+        int livreur_id = UserSessionService.getInstance().getLoggedInUserId();
 
-        // Clear existing items in the TableView
+        recupererT = serviceTransport.recupererT(livreur_id);
+
         transport_tableview.getItems().clear();
         int pageCount = (int) Math.ceil((double) recupererT.size() / ROWS_PER_PAGE);
         pagination.setPageCount(pageCount);
@@ -359,10 +369,13 @@ public class DashboardController extends Application implements Initializable {
 
     @FXML
     private void loadDataIntoTableView() {
+
+        int livreur_id = UserSessionService.getInstance().getLoggedInUserId();
+
         ServiceTransport sp = new ServiceTransport();
         ObservableList<Transport> transports = null;
         try {
-            transports = FXCollections.observableArrayList(sp.recupererT());
+            transports = FXCollections.observableArrayList(sp.recupererT(livreur_id));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -390,8 +403,11 @@ public class DashboardController extends Application implements Initializable {
 
     @FXML
     private void refreshTable() {
+
+        int livreur_id = UserSessionService.getInstance().getLoggedInUserId();
+
         try {
-            List<Transport> transportList = new ServiceTransport().recupererT();
+            List<Transport> transportList = new ServiceTransport().recupererT(livreur_id);
 
             ObservableList<Transport> observableList = FXCollections.observableArrayList(transportList);
 
@@ -402,7 +418,10 @@ public class DashboardController extends Application implements Initializable {
     }
 
     private void setupLivraisonTableColumns() throws SQLException {
-        recupererL = serviceLivraison.recupererL();
+
+        int livreur_id = UserSessionService.getInstance().getLoggedInUserId();
+
+        recupererL = serviceLivraison.recupererL(livreur_id);
 
         livraison_tableview.getItems().clear();
         int pageCount = (int) Math.ceil((double) recupererL.size() / ROWS_PER_PAGE);
@@ -415,16 +434,20 @@ public class DashboardController extends Application implements Initializable {
         livraison_col_AdresseLiv.setCellValueFactory(new PropertyValueFactory<>("adresseLiv"));
         livraison_col_Description.setCellValueFactory(new PropertyValueFactory<>("description"));
         livraison_col_Etat.setCellValueFactory(new PropertyValueFactory<>("etat"));
-//        livraison_col_Commande.setCellValueFactory(new PropertyValueFactory<>("commande"));
+        livraison_col_Commande.setCellValueFactory(new PropertyValueFactory<>("reference_id"));
         livraison_col_Matricule.setCellValueFactory(new PropertyValueFactory<>("matricule"));
+        livraison_col_Nom.setCellValueFactory(new PropertyValueFactory<>("livreur"));
     }
 
     @FXML
     private void loadDataIntoLivraisonTableView() {
+
+        int livreur_id = UserSessionService.getInstance().getLoggedInUserId();
+
         ServiceLivraison serviceLivraison = new ServiceLivraison();
         ObservableList<Livraison> livraisons = null;
         try {
-            livraisons = FXCollections.observableArrayList(serviceLivraison.recupererL());
+            livraisons = FXCollections.observableArrayList(serviceLivraison.recupererL(livreur_id));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -432,9 +455,12 @@ public class DashboardController extends Application implements Initializable {
     }
 
     private Transport getTransportByMatricule(String matricule) {
+
+        int livreur_id = UserSessionService.getInstance().getLoggedInUserId();
+
         try {
             ServiceTransport serviceTransport = new ServiceTransport();
-            return serviceTransport.getTransportByMatricule(matricule);
+            return serviceTransport.getTransportByMatricule(matricule,livreur_id);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -494,8 +520,11 @@ public class DashboardController extends Application implements Initializable {
 
     @FXML
     private void refreshLivraisonTable() {
+
+        int livreur_id = UserSessionService.getInstance().getLoggedInUserId();
+
         try {
-            List<Livraison> livraisonList = new ServiceLivraison().recupererL();
+            List<Livraison> livraisonList = new ServiceLivraison().recupererL(livreur_id);
             ObservableList<Livraison> observableList = FXCollections.observableArrayList(livraisonList);
 
             livraison_tableview.setItems(observableList);
@@ -593,15 +622,18 @@ public class DashboardController extends Application implements Initializable {
         adresseLiv.setText("");
         description.setText("");
         etat.setText("");
-//        commande.setText("");
+        commande.setText("");
 //        matricule.getSelectionModel().clearSelection();
     }
 
     private void loadDataIntoComboBox() {
+
+        int livreur_id = UserSessionService.getInstance().getLoggedInUserId();
+
         ServiceTransport sp = new ServiceTransport();
         List<String> matricules = null;
         try {
-            matricules = sp.Matriculescombobox();
+            matricules = sp.Matriculescombobox(livreur_id);
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle the exception
@@ -723,7 +755,7 @@ public class DashboardController extends Application implements Initializable {
                 adresseLiv.setText(selectedLivraison.getAdresseLiv());
                 description.setText(selectedLivraison.getDescription());
                 etat.setText(selectedLivraison.getEtat());
-//                commande.setText(selectedLivraison.getCommande());
+                commande.setText(String.valueOf(selectedLivraison.getReference_id()));
 //                matricule.getSelectionModel().select(selectedLivraison.getMatricule());
             } else {
                 resetLivraisonFields();
