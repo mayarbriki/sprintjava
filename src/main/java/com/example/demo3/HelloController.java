@@ -133,7 +133,9 @@ public class HelloController implements Initializable {
                     loader.setLocation(getClass().getResource("dashboard.fxml"));
                 } else if ("[\"ROLE_USER\"]".equals(role)) {
                     loader.setLocation(getClass().getResource("vueuser.fxml"));
-                } else {
+                } else if ("[\"ROLE_LIVREUR\"]".equals(role)) {
+                    loader.setLocation(getClass().getResource("Dashboard1.fxml"));
+                }else {
                     // Handle unrecognized roles
                     System.out.println("Unrecognized role: " + role);
                     return;
@@ -163,6 +165,7 @@ public class HelloController implements Initializable {
             alert.showAndWait();
         }
     }
+
 
 
 }

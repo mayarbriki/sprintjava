@@ -46,6 +46,9 @@ public class DashboardAdminL extends Application implements Initializable {
     private ComboBox<String> description;
 
     @FXML
+    private ComboBox<String> livreur;
+
+    @FXML
     private TextField etat;
 
     @FXML
@@ -95,6 +98,9 @@ public class DashboardAdminL extends Application implements Initializable {
 
     @FXML
     private Label name;
+
+    @FXML
+    private Label commande;
     private FilteredList<Livraison> filteredLivraisonData;
 
     public void modifier_L() {
@@ -104,8 +110,9 @@ public class DashboardAdminL extends Application implements Initializable {
             String adresseLivValue = adresseLiv.getText();
             String descriptionValue = description.getSelectionModel().getSelectedItem();
             String etatValue = etat.getText();
+            String livreurValue = livreur.getSelectionModel().getSelectedItem();
 
-            if (selectedDate == null || adresseLivValue.isEmpty() || descriptionValue.isEmpty() || etatValue.isEmpty()) {
+            if (selectedDate == null || adresseLivValue.isEmpty() || descriptionValue.isEmpty() || etatValue.isEmpty() || livreurValue.isEmpty()) {
                 showAlert(AlertType.ERROR, "Error Message", "Veuillez remplir tous les champs vides");
                 return;
             }
@@ -114,6 +121,7 @@ public class DashboardAdminL extends Application implements Initializable {
             selectedLivraison.setAdresseLiv(adresseLivValue);
             selectedLivraison.setDescription(descriptionValue);
             selectedLivraison.setEtat(etatValue);
+            selectedLivraison.setLivreur(livreurValue);
 
             try {
                 ServiceLivraison st = new ServiceLivraison();
@@ -164,12 +172,14 @@ public class DashboardAdminL extends Application implements Initializable {
         livraison_col_AdresseLiv.setCellValueFactory(new PropertyValueFactory<>("adresseLiv"));
         livraison_col_Description.setCellValueFactory(new PropertyValueFactory<>("description"));
         livraison_col_Etat.setCellValueFactory(new PropertyValueFactory<>("etat"));
-//        livraison_col_Commande.setCellValueFactory(new PropertyValueFactory<>("commande"));
+        livraison_col_Commande.setCellValueFactory(new PropertyValueFactory<>("reference_id"));
         livraison_col_Matricule.setCellValueFactory(new PropertyValueFactory<>("matricule"));
+        livraison_col_Nom.setCellValueFactory(new PropertyValueFactory<>("livreur"));
     }
 
     @FXML
     private void loadDataIntoLivraisonTableView() {
+
         ServiceLivraison serviceLivraison = new ServiceLivraison();
         ObservableList<Livraison> livraisons = null;
         try {
@@ -182,6 +192,7 @@ public class DashboardAdminL extends Application implements Initializable {
 
     @FXML
     private void refreshLivraisonTable() {
+
         try {
             List<Livraison> livraisonList = new ServiceLivraison().recupererL();
             ObservableList<Livraison> observableList = FXCollections.observableArrayList(livraisonList);
@@ -197,20 +208,33 @@ public class DashboardAdminL extends Application implements Initializable {
         dateLiv.setValue(null);
         adresseLiv.setText("");
         description.getSelectionModel().clearSelection();
-        setComboBoxPromptText(description, "Choisir");
+        setComboBoxPromptText(description);
         etat.setText("");
-//        commande.setText("");
+        commande.setText("");
+        livreur.getSelectionModel().clearSelection();
+        setComboBoxPromptText(livreur);
 //        matricule.getSelectionModel().clearSelection();
     }
 
-    private void setComboBoxPromptText(ComboBox<String> comboBox, String promptText) {
-        comboBox.setPromptText(promptText);
+    private void populateLivreurComboBox() {
+        try {
+            List<String> livreurs = new ServiceLivraison().getAllLivreur();
+            livreur.setItems(FXCollections.observableArrayList(livreurs));
+            setComboBoxPromptText(livreur);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void setComboBoxPromptText(ComboBox<String> comboBox) {
+        comboBox.setPromptText("Choisir");
         comboBox.setButtonCell(new ListCell<String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
-                    setText(promptText);
+                    setText("Choisir");
                 } else {
                     setText(item);
                 }
@@ -244,6 +268,7 @@ public class DashboardAdminL extends Application implements Initializable {
                         || livraison.getMatricule().toLowerCase().contains(lowerCaseFilter)
                         || livraison.getEtat().toLowerCase().contains(lowerCaseFilter)
                         || livraison.getDateLiv().toString().toLowerCase().contains(lowerCaseFilter)
+                        || livraison.getLivreur().toLowerCase().contains(lowerCaseFilter)
                         || String.valueOf(livraison.getId()).toLowerCase().contains(lowerCaseFilter);
             });
         });
@@ -281,6 +306,7 @@ public class DashboardAdminL extends Application implements Initializable {
         refreshLivraisonTable();
         loadDataIntoLivraisonTableView();
         setupLivraisonSearch();
+        populateLivreurComboBox();
 
         livraison_tableview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
@@ -289,7 +315,8 @@ public class DashboardAdminL extends Application implements Initializable {
                 adresseLiv.setText(selectedLivraison.getAdresseLiv());
                 description.setValue(selectedLivraison.getDescription());
                 etat.setText(selectedLivraison.getEtat());
-//                commande.setText(selectedLivraison.getCommande());
+                commande.setText(String.valueOf(selectedLivraison.getReference_id()));
+                livreur.setValue(selectedLivraison.getLivreur());
 //                matricule.getSelectionModel().select(selectedLivraison.getMatricule());
             } else {
                 resetLivraisonFields();

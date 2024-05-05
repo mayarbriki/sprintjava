@@ -19,9 +19,8 @@ public class ServiceTransport implements IService<Transport>{
     }
 
     @Override
-    public void ajouterT(Transport transport) throws SQLException {
-
-        String requete1 = "INSERT INTO transport (type, marque, matricule, etat, anneefab) VALUES (?, ?, ?, ?, ?)";
+    public void ajouterT(Transport transport, int livreur_id) throws SQLException {
+        String requete1 = "INSERT INTO transport (type, marque, matricule, etat, anneefab, livreur_id) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = cnx.prepareStatement(requete1)) {
             // Set the parameters of the query using the attributes of the Transport object
@@ -30,34 +29,32 @@ public class ServiceTransport implements IService<Transport>{
             preparedStatement.setString(3, transport.getMatricule());
             preparedStatement.setString(4, transport.getEtat());
             preparedStatement.setDate(5, transport.getAnneefab());
+            preparedStatement.setInt(6, livreur_id); // Set the user ID
 
             // Execute the query to insert the new record
             preparedStatement.executeUpdate();
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-
     }
 
     @Override
-    public void modifierT(Transport transport) throws SQLException {
-
-        String requete2 = "UPDATE transport SET type=?, marque=?, matricule=?, etat=?, anneefab=? WHERE id=?";
+    public void modifierT(Transport transport, int livreur_id) throws SQLException {
+        String requete2 = "UPDATE transport SET type=?, marque=?, matricule=?, etat=?, anneefab=? WHERE id=? AND livreur_id=?";
 
         try (PreparedStatement preparedStatement = cnx.prepareStatement(requete2)) {
-
             preparedStatement.setString(1, transport.getType());
             preparedStatement.setString(2, transport.getMarque());
             preparedStatement.setString(3, transport.getMatricule());
             preparedStatement.setString(4, transport.getEtat());
             preparedStatement.setDate(5, transport.getAnneefab());
             preparedStatement.setInt(6, transport.getId());
+            preparedStatement.setInt(7, livreur_id); // Set the user ID
 
             preparedStatement.executeUpdate();
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-
     }
 
     @Override
@@ -76,11 +73,12 @@ public class ServiceTransport implements IService<Transport>{
     }
 
     @Override
-    public  List<Transport> recupererT() throws SQLException {
+    public List<Transport> recupererT(int livreur_id) throws SQLException {
         List<Transport> transports = new ArrayList<>();
-        String sql = "SELECT * FROM transport";
+        String sql = "SELECT * FROM transport WHERE livreur_id = ?";
 
-        try ( PreparedStatement preparedStatement = cnx.prepareStatement(sql)) {
+        try (PreparedStatement preparedStatement = cnx.prepareStatement(sql)) {
+            preparedStatement.setInt(1, livreur_id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     Transport transport = new Transport();
@@ -95,30 +93,59 @@ public class ServiceTransport implements IService<Transport>{
                     transports.add(transport);
                 }
             }
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+        }
 
+        return transports;
+    }
+    @Override
+    public List<Transport> recupererT() throws SQLException {
+        List<Transport> transports = new ArrayList<>();
+        String sql = "SELECT t.*, u.name AS livreur_name " +
+                "FROM transport t " +
+                "LEFT JOIN user u ON t.livreur_id = u.id";
+
+        try (PreparedStatement preparedStatement = cnx.prepareStatement(sql)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Transport transport = new Transport();
+                    transport.setId(resultSet.getInt("id"));
+                    transport.setType(resultSet.getString("type"));
+                    transport.setMarque(resultSet.getString("marque"));
+                    transport.setMatricule(resultSet.getString("matricule"));
+                    transport.setEtat(resultSet.getString("etat"));
+                    transport.setAnneefab(resultSet.getDate("anneefab"));
+                    transport.setLivreur(resultSet.getString("livreur_name"));
+
+                    transports.add(transport);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
 
         return transports;
     }
 
+
     @Override
-    public List<String> Matriculescombobox() throws SQLException {
+    public List<String> Matriculescombobox(int livreur_id) throws SQLException {
         List<String> matriculeList = new ArrayList<>();
-        String query = "SELECT DISTINCT matricule FROM transport";
-        try (PreparedStatement preparedStatement = cnx.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
-            while (resultSet.next()) {
-                matriculeList.add(resultSet.getString("matricule"));
+        String query = "SELECT DISTINCT matricule FROM transport WHERE livreur_id = ?";
+        try (PreparedStatement preparedStatement = cnx.prepareStatement(query)) {
+            preparedStatement.setInt(1, livreur_id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    matriculeList.add(resultSet.getString("matricule"));
+                }
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            // Handle the exception
         }
-
         return matriculeList;
     }
+
 
     @Override
     public void ajouter(Transport transport) throws SQLException {
@@ -140,11 +167,12 @@ public class ServiceTransport implements IService<Transport>{
         return null;
     }
 
-    public Transport getTransportByMatricule(String matricule) throws SQLException {
+    public Transport getTransportByMatricule(String matricule, int livreur_id) throws SQLException {
         Transport transport = null;
-        String sql = "SELECT * FROM transport WHERE matricule = ?";
+        String sql = "SELECT * FROM transport WHERE matricule = ? AND livreur_id = ?";
         try (PreparedStatement preparedStatement = cnx.prepareStatement(sql)) {
             preparedStatement.setString(1, matricule);
+            preparedStatement.setInt(2, livreur_id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     // Retrieve the transport details from the ResultSet
@@ -162,32 +190,37 @@ public class ServiceTransport implements IService<Transport>{
         return transport;
     }
 
-    public int countTransports() throws SQLException {
-        String query = "SELECT COUNT(*) FROM transport";
+
+    public int countTransports(int livreur_id) throws SQLException {
+        String query = "SELECT COUNT(*) FROM transport WHERE livreur_id = ?";
         int count = 0;
 
-        try (PreparedStatement statement = cnx.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = cnx.prepareStatement(query)) {
+            statement.setInt(1, livreur_id);
 
-            if (resultSet.next()) {
-                count = resultSet.getInt(1);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    count = resultSet.getInt(1);
+                }
             }
         }
 
         return count;
     }
 
-    public Map<String, Long> countTransportsByEtat() throws SQLException {
-        String query = "SELECT etat, COUNT(*) AS count FROM transport GROUP BY etat";
+    public Map<String, Long> countTransportsByEtat(int livreur_id) throws SQLException {
+        String query = "SELECT etat, COUNT(*) AS count FROM transport WHERE livreur_id = ? GROUP BY etat";
         Map<String, Long> transportCountsByEtat = new HashMap<>();
 
-        try (PreparedStatement statement = cnx.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = cnx.prepareStatement(query)) {
+            statement.setInt(1, livreur_id);
 
-            while (resultSet.next()) {
-                String etat = resultSet.getString("etat");
-                long count = resultSet.getLong("count");
-                transportCountsByEtat.put(etat, count);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    String etat = resultSet.getString("etat");
+                    long count = resultSet.getLong("count");
+                    transportCountsByEtat.put(etat, count);
+                }
             }
         }
 

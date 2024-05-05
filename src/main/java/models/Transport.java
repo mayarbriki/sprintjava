@@ -7,21 +7,34 @@ public class Transport {
     private int id;
     private String type, marque, matricule, etat;
     private Date anneefab;
-    private User livreur;
+    private int livreur_id;
+    private String livreur;
     private Livraison livraison;
 
 
     public Transport() {
     }
 
-    public Transport(int id, String type, String marque, String matricule, String etat, Date anneefab, User livreur) {
+    public Transport(int id, String type, String marque, String matricule, String etat, Date anneefab, int livreur_id, String livreur, Livraison livraison) {
         this.id = id;
         this.type = type;
         this.marque = marque;
         this.matricule = matricule;
         this.etat = etat;
         this.anneefab = anneefab;
+        this.livreur_id = livreur_id;
         this.livreur = livreur;
+        this.livraison = livraison;
+    }
+
+    public Transport(int id, String type, String marque, String matricule, String etat, Date anneefab, int livreur_id) {
+        this.id = id;
+        this.type = type;
+        this.marque = marque;
+        this.matricule = matricule;
+        this.etat = etat;
+        this.anneefab = anneefab;
+        this.livreur_id = livreur_id;
     }
 
     public Transport(int id, String type, String marque, String matricule, String etat, Date anneefab) {
@@ -41,13 +54,13 @@ public class Transport {
         this.anneefab = anneefab;
     }
 
-    public Transport(String type, String marque, String matricule, String etat, Date anneefab, User livreur) {
+    public Transport(String type, String marque, String matricule, String etat, Date anneefab, int livreur_id) {
         this.type = type;
         this.marque = marque;
         this.matricule = matricule;
         this.etat = etat;
         this.anneefab = anneefab;
-        this.livreur = livreur;
+        this.livreur_id = livreur_id;
     }
 
     public Transport(String transportMatricule) {
@@ -102,14 +115,21 @@ public class Transport {
         this.anneefab = anneefab;
     }
 
+    public String getLivreur() {
+        return livreur;
+    }
 
-//    public User getLivreur() {
-//        return livreur;
-//    }
-//
-//    public void setLivreur(User livreur) {
-//        this.livreur = livreur;
-//    }
+    public void setLivreur(String livreur) {
+        this.livreur = livreur;
+    }
+
+    public int getLivreur_id() {
+        return livreur_id;
+    }
+
+    public void setLivreur(int livreur_id) {
+        this.livreur_id = livreur_id;
+    }
 
     @Override
     public String toString() {
@@ -120,7 +140,7 @@ public class Transport {
                 ", matricule='" + matricule + '\'' +
                 ", etat='" + etat + '\'' +
                 ", anneefab=" + anneefab +
-//                ", livreur=" + livreur +
+                ", livreur=" + livreur_id +
                 '}';
     }
 }

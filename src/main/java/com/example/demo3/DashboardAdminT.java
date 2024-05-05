@@ -80,6 +80,9 @@ public class DashboardAdminT extends Application implements Initializable {
     private TableColumn<Transport, String> transport_col_matricule;
 
     @FXML
+    private TableColumn<Transport, String> transport_col_nom;
+
+    @FXML
     private AnchorPane transport_form;
 
     @FXML
@@ -96,6 +99,7 @@ public class DashboardAdminT extends Application implements Initializable {
         transport_col_matricule.setCellValueFactory(new PropertyValueFactory<>("matricule"));
         transport_col_annefab.setCellValueFactory(new PropertyValueFactory<>("anneefab"));
         transport_col_etat.setCellValueFactory(new PropertyValueFactory<>("etat"));
+        transport_col_nom.setCellValueFactory(new PropertyValueFactory<>("livreur"));
 
     }
 
@@ -142,6 +146,7 @@ public class DashboardAdminT extends Application implements Initializable {
                         || transport.getMatricule().toLowerCase().contains(lowerCaseFilter)
                         || transport.getEtat().toLowerCase().contains(lowerCaseFilter)
                         || transport.getAnneefab().toString().toLowerCase().contains(lowerCaseFilter)
+                        || transport.getLivreur().toLowerCase().contains(lowerCaseFilter)
                         || String.valueOf(transport.getId()).toLowerCase().contains(lowerCaseFilter);
             });
         });

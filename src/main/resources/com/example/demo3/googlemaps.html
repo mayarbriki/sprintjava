@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delivery Tracking</title>
+  <style>
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+<div id="map"></div>
+
+<script>
+
+  function initMap() {
+    const map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: 36.8065, lng: 10.1815 },
+      zoom: 12, // Adjust zoom level as needed
+    });
+
+    // Define start and end locations
+    const startLocation = new google.maps.LatLng(36.7932334, 10.1494574);
+    const endLocation = new google.maps.LatLng(36.724801, 10.1966184);
+
+    // Create a DirectionsService object to get route details
+    const directionsService = new google.maps.DirectionsService();
+
+    // Request directions from start to end location
+    const request = {
+      origin: startLocation,
+      destination: endLocation,
+      travelMode: google.maps.TravelMode.DRIVING, // You can also use WALKING, BICYCLING, or TRANSIT
+    };
+
+    // Get directions and handle response
+    directionsService.route(request, function (response, status) {
+      if (status === google.maps.DirectionsStatus.OK) {
+        const directionsRenderer = new google.maps.DirectionsRenderer({
+          map: map,
+          directions: response,
+          suppressMarkers: true, // Suppress default markers
+        });
+
+        // Create a marker at the start location
+        const marker = new google.maps.Marker({
+          position: startLocation,
+          map: map,
+          title: "Delivery Driver",
+        });
+
+        // Animate marker along the route
+        const path = response.routes[0].overview_path;
+        let step = 0;
+        const numSteps = path.length;
+
+        function animateMarker() {
+          step++;
+          if (step < numSteps) {
+            marker.setPosition(path[step]);
+            setTimeout(animateMarker, 50); // Adjust animation speed as needed
+          }
+        }
+        animateMarker();
+      } else {
+        // Handle error
+        console.error("Directions request failed. Status:", status);
+      }
+    });
+  }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
+</script>
+</body>
+</html>

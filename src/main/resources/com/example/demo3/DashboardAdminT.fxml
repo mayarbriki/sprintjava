@@ -139,10 +139,11 @@
                                                             <columns>
                                                                 <TableColumn fx:id="transport_col_ID" prefWidth="92.80000686645508" text="ID" />
                                                                 <TableColumn fx:id="transport_col_Type" prefWidth="137.59996032714844" text="Type" />
-                                                                <TableColumn fx:id="transport_col_marque" prefWidth="213.59999084472656" text="Marque" />
-                                                                <TableColumn fx:id="transport_col_matricule" prefWidth="215.20001220703125" text="Matricule" />
-                                                                <TableColumn fx:id="transport_col_annefab" prefWidth="245.60009765625" text="Année Fabrication" />
-                                                                <TableColumn fx:id="transport_col_etat" prefWidth="135.99993896484375" text="Etat" />
+                                                                <TableColumn fx:id="transport_col_marque" prefWidth="156.0" text="Marque" />
+                                                                <TableColumn fx:id="transport_col_matricule" prefWidth="212.00003051757812" text="Matricule" />
+                                                                <TableColumn fx:id="transport_col_annefab" prefWidth="208.0" text="Année Fabrication" />
+                                                                <TableColumn fx:id="transport_col_etat" prefWidth="116.7999267578125" text="Etat" />
+                                                <TableColumn fx:id="transport_col_nom" prefWidth="134.4000244140625" text="Nom" />
                                                             </columns>
                                                         </TableView>
                                                         <TextField fx:id="transport_search" layoutX="14.0" layoutY="8.0" prefHeight="30.0" prefWidth="277.0" promptText="Rechercher..." styleClass="search" stylesheets="@DashbordDesign.css" />

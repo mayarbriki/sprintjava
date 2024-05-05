@@ -163,7 +163,7 @@
                                                           <Font size="14.0" />
                                                       </font>
                                                   </Label>
-                                                  <ComboBox layoutX="484.0" layoutY="505.0" prefWidth="150.0" promptText="Choisir" styleClass="textfield" stylesheets="@DashbordDesign.css" />
+                                                  <ComboBox fx:id="livreur" layoutX="484.0" layoutY="505.0" prefWidth="150.0" promptText="Choisir" styleClass="textfield" stylesheets="@DashbordDesign.css" />
                                                   <Label layoutX="45.0" layoutY="445.0" text="Date de Livraison :">
                                                       <font>
                                                           <Font size="14.0" />
@@ -174,7 +174,7 @@
                                                           <Font size="14.0" />
                                                       </font>
                                                   </Label>
-                                                  <Label layoutX="188.0" layoutY="385.0" text="Label">
+                                                  <Label fx:id="commande" layoutX="188.0" layoutY="385.0" text="Label">
                                                       <font>
                                                           <Font size="14.0" />
                                                       </font>
