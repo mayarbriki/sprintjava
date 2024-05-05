@@ -80,7 +80,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="165.0" layoutY="35.0" text="Label">
+                        <Label fx:id="commande" layoutX="165.0" layoutY="35.0" text="Label">
                            <font>
                               <Font size="14.0" />
                            </font>

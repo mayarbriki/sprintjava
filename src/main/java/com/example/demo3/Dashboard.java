@@ -1,6 +1,7 @@
 package com.example.demo3;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 
 import java.sql.*;
@@ -123,6 +124,9 @@ public class Dashboard extends Application implements Initializable {
     @FXML
     private ImageView imgview;
 
+    @FXML
+    private Button Creer_Liv;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
@@ -194,6 +198,7 @@ public class Dashboard extends Application implements Initializable {
 
         anchorPane1.setVisible(false);
         anchorPane2.setVisible(true);
+        Creer_Liv.setVisible(false);
     }
     @FXML
     private void handleProduitButtonClick1(ActionEvent event) {
@@ -203,6 +208,7 @@ public class Dashboard extends Application implements Initializable {
 
         anchorPane1.setVisible(true);
         anchorPane2.setVisible(false);
+        Creer_Liv.setVisible(false);
     }
 
 
@@ -217,7 +223,7 @@ public class Dashboard extends Application implements Initializable {
         // Set anchorPane2 invisible initially
         anchorPane2.setVisible(true);
            setupTableColumns();
-
+        Creer_Liv.setVisible(false);
         loadDataIntoTableView();
         setupImageColumn();
         tableViewProduit.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -477,8 +483,8 @@ public class Dashboard extends Application implements Initializable {
         tableViewProduit.setVisible(false);
         modifier.setVisible(false);
         supprimer.setVisible(false);
-        boolean isVisible = commandeadmin.isVisible();
-        commandeadmin.setVisible(!isVisible);
+        commandeadmin.setVisible(true);
+        Creer_Liv.setVisible(true);
 
         // Optionally, you can also close the window or navigate to a different scene
         // depending on your application's flow
@@ -527,6 +533,38 @@ public class Dashboard extends Application implements Initializable {
         id_user.setCellValueFactory(new PropertyValueFactory<>("userId")); // Use userIdProperty for IntegerProperty
     }
 
+    @FXML
+    private void handleCreerLivraisonButtonClick(ActionEvent event) {
+        Commande selectedCommande = commandeadmin.getSelectionModel().getSelectedItem();
+        if (selectedCommande != null) {
+            try {
+                // Load the CreerLivraison.fxml file
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("creerLivraison.fxml"));
+                Parent root = loader.load();
+
+                // Access the controller and pass the selected commande_id
+                CreerLivraison controller = loader.getController();
+                controller.setCommandeId(selectedCommande.getId());
+
+                // Create a new stage
+                Stage stage = new Stage();
+                stage.setTitle("Create Delivery");
+                stage.setScene(new Scene(root));
+
+                // Show the stage
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // Show an alert if no commande is selected
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select a commande to create a delivery.");
+            alert.showAndWait();
+        }
+    }
 
 
 

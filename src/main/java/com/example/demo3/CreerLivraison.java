@@ -39,7 +39,14 @@ public class CreerLivraison extends Application implements Initializable {
 
     @FXML
     private TextField etat;
+    private int commandeId;
 
+    @FXML
+    private Label commande;
+
+
+
+    @FXML
     public void ajouterL(ActionEvent event) throws SQLException {
         LocalDate selectedDate = dateLiv.getValue();
         String adresseLivValue = adresseLiv.getText();
@@ -53,10 +60,14 @@ public class CreerLivraison extends Application implements Initializable {
 
         Livraison livraison = new Livraison(0, Date.valueOf(selectedDate), adresseLivValue, descriptionValue, etatValue);
 
+        int livreurId = getSelectedLivreurId();
+
+        // Create an instance of ServiceLivraison
         ServiceLivraison serviceLivraison = new ServiceLivraison();
 
         try {
-            serviceLivraison.ajouterL(livraison);
+            // Call the ajouterL method of ServiceLivraison with the Livraison object, commande_id, and livreur_id
+            serviceLivraison.ajouterL(livraison, commandeId, livreurId);
             System.out.println("Livraison ajoutée avec succès.");
             Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             stage.close();
@@ -65,6 +76,25 @@ public class CreerLivraison extends Application implements Initializable {
             showAlert(AlertType.ERROR, "Error Message", "Échec de l'ajout de la livraison: " + e.getMessage());
         }
     }
+
+    private int getSelectedLivreurId() {
+        // Get the selected item from the livreur ComboBox
+        String selectedLivreur = livreur.getValue();
+
+        // Initialize a variable to store the livreur_id
+        int livreurId = -1; // Default value if no livreur is selected
+
+        try {
+            // Call the existing method from your ServiceLivraison class to retrieve the livreur_id by name
+            livreurId = new ServiceLivraison().getLivreurIdByName(selectedLivreur);
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle the exception appropriately
+        }
+
+        return livreurId;
+    }
+
+
 
     private void showAlert(AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
@@ -81,6 +111,11 @@ public class CreerLivraison extends Application implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setCommandeId(int commandeId) {
+        this.commandeId = commandeId;
+        commande.setText(String.valueOf(commandeId));
     }
 
     @Override

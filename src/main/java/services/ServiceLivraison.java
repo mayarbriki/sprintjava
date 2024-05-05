@@ -19,21 +19,24 @@ public class ServiceLivraison implements LService<Livraison> {
     }
 
     @Override
-    public void ajouterL(Livraison livraison) throws SQLException {
-        String requete1 = "INSERT INTO livraison (date_liv, adresseLiv, description, etat) VALUES (?, ?, ?, ?)";
+    public void ajouterL(Livraison livraison, int reference_id, int livreur_id) throws SQLException {
+        String requete1 = "INSERT INTO livraison (date_liv, adresse_liv, description, etat, reference_id, livreur_id) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = cnx.prepareStatement(requete1)) {
-
             preparedStatement.setDate(1, livraison.getDateLiv());
             preparedStatement.setString(2, livraison.getAdresseLiv());
             preparedStatement.setString(3, livraison.getDescription());
             preparedStatement.setString(4, livraison.getEtat());
+            preparedStatement.setInt(5, reference_id);
+            preparedStatement.setInt(6, livreur_id);
 
             preparedStatement.executeUpdate();
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
+
+
     @Override
     public void modifier_L(Livraison livraison) throws SQLException {
         String requete2 = "UPDATE livraison SET date_liv=?, adresse_Liv=?, description=?, etat=?, livreur_id=? WHERE id=?";
@@ -184,7 +187,7 @@ public class ServiceLivraison implements LService<Livraison> {
 //        return livraisons;
 //    }
 
-    private int getLivreurIdByName(String livreur) throws SQLException {
+    public int getLivreurIdByName(String livreur) throws SQLException {
         int livreurId = -1;
 
         String query = "SELECT id FROM user WHERE name=?";
