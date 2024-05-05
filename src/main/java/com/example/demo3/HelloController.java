@@ -130,7 +130,7 @@ public class HelloController implements Initializable {
                 FXMLLoader loader = new FXMLLoader();
 
                 if ("[\"ROLE_ADMIN\"]".equals(role)) {
-                    loader.setLocation(getClass().getResource("dashboard.fxml"));
+                    loader.setLocation(getClass().getResource("dashboard2.fxml"));
                 } else if ("[\"ROLE_USER\"]".equals(role)) {
                     loader.setLocation(getClass().getResource("vueuser.fxml"));
                 } else if ("[\"ROLE_LIVREUR\"]".equals(role)) {

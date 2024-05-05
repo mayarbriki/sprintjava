@@ -73,12 +73,12 @@
                                                 <FontAwesomeIconView fill="WHITE" glyphName="HOME" size="18" text="" />
                                             </graphic>
                                         </Button>
-                                        <Button fx:id="gestionProduit_btn" layoutX="11.0" layoutY="220.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@DashbordDesign.css" text="  Gestion Produits">
+                                        <Button fx:id="gestionProduit_btn" layoutX="11.0" layoutY="220.0" mnemonicParsing="false" onAction="#switchToDashboard" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@DashbordDesign.css" text="  Gestion Produits">
                                             <graphic>
                                                 <FontAwesomeIconView fill="WHITE" />
                                             </graphic>
                                         </Button>
-                                        <Button fx:id="gestionCommande_btn" layoutX="11.0" layoutY="255.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@DashbordDesign.css" text="  Gestion Commandes">
+                                        <Button fx:id="gestionCommande_btn" layoutX="11.0" layoutY="255.0" mnemonicParsing="false" onAction="#switchToDashboard" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@DashbordDesign.css" text="  Gestion Commandes">
                                             <graphic>
                                                 <FontAwesomeIconView fill="WHITE" glyphName="MOBILE" selectionEnd="0" size="14" text="">
                                                     <font>

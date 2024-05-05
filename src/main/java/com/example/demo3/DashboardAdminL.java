@@ -289,6 +289,21 @@ public class DashboardAdminL extends Application implements Initializable {
         }
     }
 
+    @FXML
+    public void switchToDashboard(javafx.event.ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard2.fxml"));
+            Parent root = loader.load();
+            Dashboard controller = loader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("DashboardAdminL.fxml")));

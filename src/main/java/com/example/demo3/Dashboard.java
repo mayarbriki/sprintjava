@@ -1,6 +1,7 @@
 package com.example.demo3;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 
@@ -127,6 +128,22 @@ public class Dashboard extends Application implements Initializable {
     @FXML
     private Button Creer_Liv;
 
+    @FXML
+    private Button gestionCommande_btn;
+
+    @FXML
+    private Button gestionProduit_btn;
+
+    @FXML
+    private AnchorPane commande_form;
+
+    @FXML
+    private AnchorPane produit_form;
+
+    @FXML
+    private Button acceuil_btn;
+
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
@@ -186,44 +203,43 @@ public class Dashboard extends Application implements Initializable {
     // Existing code...
 
 
-    @FXML
-    private void handleProduitButtonClick(ActionEvent event) {
-        // This method is already the event handler for the button click,
-        // so you don't need to define another event handler inside it.
-        // Simply put your logic directly here.
-        tableViewProduit.setVisible(true);
-        modifier.setVisible(true);
-        supprimer.setVisible(true);
-        commandeadmin.setVisible(false); // Set the TableView to initially invisible
-
-        anchorPane1.setVisible(false);
-        anchorPane2.setVisible(true);
-        Creer_Liv.setVisible(false);
-    }
-    @FXML
-    private void handleProduitButtonClick1(ActionEvent event) {
-        // This method is already the event handler for the button click,
-        // so you don't need to define another event handler inside it.
-        // Simply put your logic directly here.
-
-        anchorPane1.setVisible(true);
-        anchorPane2.setVisible(false);
-        Creer_Liv.setVisible(false);
-    }
+//    @FXML
+//    private void handleProduitButtonClick(ActionEvent event) {
+//        // This method is already the event handler for the button click,
+//        // so you don't need to define another event handler inside it.
+//        // Simply put your logic directly here.
+//        tableViewProduit.setVisible(true);
+//        modifier.setVisible(true);
+//        supprimer.setVisible(true);
+//        commandeadmin.setVisible(false); // Set the TableView to initially invisible
+//
+//        anchorPane1.setVisible(false);
+//        anchorPane2.setVisible(true);
+//        Creer_Liv.setVisible(false);
+//    }
+//    @FXML
+//    private void handleProduitButtonClick1(ActionEvent event) {
+//        // This method is already the event handler for the button click,
+//        // so you don't need to define another event handler inside it.
+//        // Simply put your logic directly here.
+//
+//        anchorPane1.setVisible(true);
+//        anchorPane2.setVisible(false);
+//        Creer_Liv.setVisible(false);
+//    }
 
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        ObservableList<String> list = FXCollections.observableArrayList("admin", "livreur");
-        comb.setItems(list);
-        anchorPane1.setVisible(false);
-        commandeadmin.setVisible(false); // Set the TableView to initially invisible
+
+        //anchorPane1.setVisible(false);
+       // commandeadmin.setVisible(false); // Set the TableView to initially invisible
         // Set anchorPane2 invisible initially
-        anchorPane2.setVisible(true);
+       // anchorPane2.setVisible(true);
            setupTableColumns();
-        Creer_Liv.setVisible(false);
+       // Creer_Liv.setVisible(false);
         loadDataIntoTableView();
         setupImageColumn();
         tableViewProduit.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -232,7 +248,7 @@ public class Dashboard extends Application implements Initializable {
         });
 
         setupTableColumns1();
-        loadCommandeDataFromDatabase();
+       loadCommandeDataFromDatabase();
 
 // Add similar listeners for other text fields as needed
 
@@ -475,20 +491,20 @@ public class Dashboard extends Application implements Initializable {
     private void handleTableViewSelection() {
         selectedProduit = tableViewProduit.getSelectionModel().getSelectedItem();
     }
-    @FXML
-    private void handleGestionCommandeButtonClick(ActionEvent event) {
-        // Set both anchor panes to invisible
-        anchorPane1.setVisible(false);
-        anchorPane2.setVisible(false);
-        tableViewProduit.setVisible(false);
-        modifier.setVisible(false);
-        supprimer.setVisible(false);
-        commandeadmin.setVisible(true);
-        Creer_Liv.setVisible(true);
-
-        // Optionally, you can also close the window or navigate to a different scene
-        // depending on your application's flow
-    }
+//    @FXML
+//    private void handleGestionCommandeButtonClick(ActionEvent event) {
+//        // Set both anchor panes to invisible
+//        anchorPane1.setVisible(false);
+//        anchorPane2.setVisible(false);
+//        tableViewProduit.setVisible(false);
+//        modifier.setVisible(false);
+//        supprimer.setVisible(false);
+//        commandeadmin.setVisible(true);
+//        Creer_Liv.setVisible(true);
+//
+//        // Optionally, you can also close the window or navigate to a different scene
+//        // depending on your application's flow
+//    }
     private void loadCommandeDataFromDatabase() {
         try {
             // Assuming you have a class MyDatabase with a getConnection() method
@@ -521,11 +537,12 @@ public class Dashboard extends Application implements Initializable {
             statement.close();
 
             // Set the fetched Commande data to the TableView
-            commandeadmin.setItems(commandes);
+           commandeadmin.setItems(commandes);
         } catch (SQLException e) {
             e.printStackTrace(); // Handle exception appropriately
         }
     }
+
     private void setupTableColumns1() {
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         pani_id.setCellValueFactory(new PropertyValueFactory<>("pani_id")); // Use paniIdProperty for IntegerProperty
@@ -566,7 +583,72 @@ public class Dashboard extends Application implements Initializable {
         }
     }
 
+    @FXML
+    public void switchToDashboardAdminL(javafx.event.ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DashboardAdminL.fxml"));
+            Parent root = loader.load();
+            DashboardAdminL controller = loader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void switchForm(ActionEvent event) {
+        /*if (event.getSource() == acceuil_btn) {
+            home_form.setVisible(true);
+            addEmployee_form.setVisible(false);
+            salary_form.setVisible(false);
+
+            home_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #3a4368, #28966c);");
+            addEmployee_btn.setStyle("-fx-background-color:transparent");
+            salary_btn.setStyle("-fx-background-color:transparent");
+
+            homeTotalEmployees();
+            homeEmployeeTotalPresent();
+            homeTotalInactive();
+            homeChart();
+
+        } else */
+        if (event.getSource() == gestionProduit_btn) {
+
+            produit_form.setVisible(true);
+            commande_form.setVisible(false);
+
+            gestionProduit_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #08b4c7 , #007fff);");
+            acceuil_btn.setStyle("-fx-background-color:transparent");
+            gestionCommande_btn.setStyle("-fx-background-color:transparent");
+
+        } else if (event.getSource() == gestionCommande_btn) {
+            produit_form.setVisible(false);
+            commande_form.setVisible(true);
+
+            gestionCommande_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #08b4c7 , #007fff);");
+            gestionProduit_btn.setStyle("-fx-background-color:transparent");
+            acceuil_btn.setStyle("-fx-background-color:transparent");
+
+        }
+
+
+    }
+    @FXML
+    public void switchToDashboardAdminT(javafx.event.ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DashboardAdminT.fxml"));
+            Parent root = loader.load();
+            DashboardAdminT controller = loader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }
