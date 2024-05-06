@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="800.0" prefWidth="1300.0" spacing="20.0" style="-fx-background-color: #00b9ae;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.BlogController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <AnchorPane prefHeight="491.0" prefWidth="1300.0">
+        <children>
+
+            <Label fx:id="title" layoutX="-6.0" layoutY="-11.0" text="ENIGMA" textFill="WHITE">
+                <font>
+                    <Font name="Arial Black" size="24.0" />
+                </font>
+            </Label>
+            <TableView fx:id="blogTable" layoutX="17.0" layoutY="76.0" prefHeight="364.0" prefWidth="1227.0">
+                <columns>
+                    <TableColumn fx:id="titleColumn" prefWidth="331.0" text="Titre" />
+                    <TableColumn fx:id="contentColumn" minWidth="6.0" prefWidth="528.0" text="Contenu" />
+                    <TableColumn fx:id="publicationDateColumn" minWidth="0.0" prefWidth="187.0" text="Date de publication" />
+                    <TableColumn fx:id="lastUpdatedDateColumn" prefWidth="180.0" text="Dernière MAJ" />
+                </columns>
+            </TableView>
+         <Button fx:id="refr" layoutX="984.0" layoutY="15.0" mnemonicParsing="false" onAction="#refresh" prefHeight="37.0" prefWidth="61.0" style="-fx-background-color: cccccc; -fx-border-color: a5a5a5;" text="Ref" textFill="#22577a">
+            <font>
+               <Font name="Calibri Bold" size="18.0" />
+            </font>
+         </Button>
+         <TextField fx:id="nomChoice" layoutX="331.0" layoutY="15.0" prefHeight="37.0" prefWidth="598.0" promptText="Chercher par titre" style="-fx-border-color: #22577a;" />
+         <Button fx:id="retour" layoutX="1160.0" layoutY="15.0" mnemonicParsing="false" onAction="#refresh" prefHeight="37.0" prefWidth="86.0" style="-fx-background-color: cccccc; -fx-border-color: a5a5a5;" text="Retour" textFill="#22577a">
+            <font>
+               <Font name="Calibri Bold" size="18.0" />
+            </font>
+         </Button>
+         <Label fx:id="title1" layoutX="54.0" layoutY="27.0" text="Blogs" textFill="WHITE">
+            <font>
+               <Font name="Arial Black" size="18.0" />
+            </font>
+         </Label>
+        </children>
+    </AnchorPane>
+    <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="710.0" style="-fx-background-color: ebebeb;">
+        <children>
+            <Label layoutX="48.0" layoutY="64.0" text="Titre :" textFill="#22577a">
+                <font>
+                    <Font name="Calibri Bold" size="18.0" />
+                </font>
+            </Label>
+            <Label layoutX="48.0" layoutY="172.0" text="Contenu :" textFill="#22577a">
+                <font>
+                    <Font name="Calibri Bold" size="18.0" />
+                </font>
+            </Label>
+            <TextField fx:id="txtTitle" layoutX="175.0" layoutY="56.0" prefHeight="37.0" prefWidth="319.0" />
+            <TextField fx:id="txtContent" layoutX="175.0" layoutY="123.0" prefHeight="145.0" prefWidth="319.0" />
+         <Button fx:id="btnAdd1" layoutX="605.0" layoutY="40.0" mnemonicParsing="false" onAction="#add" prefHeight="51.0" prefWidth="151.0" style="-fx-background-color: cccccc; -fx-border-color: a5a5a5;" text="Ajouter" textFill="#22577a">
+            <font>
+               <Font name="Calibri Bold" size="24.0" />
+            </font>
+         </Button>
+         <Button fx:id="btnAdd11" layoutX="605.0" layoutY="124.0" mnemonicParsing="false" onAction="#update" prefHeight="51.0" prefWidth="151.0" style="-fx-background-color: cccccc; -fx-border-color: a5a5a5;" text="Modifier" textFill="#22577a">
+            <font>
+               <Font name="Calibri Bold" size="24.0" />
+            </font>
+         </Button>
+         <Button fx:id="btnAdd12" layoutX="605.0" layoutY="209.0" mnemonicParsing="false" onAction="#delete" prefHeight="51.0" prefWidth="151.0" style="-fx-background-color: cccccc; -fx-border-color: a5a5a5;" text="Supprimer" textFill="#22577a">
+            <font>
+               <Font name="Calibri Bold" size="24.0" />
+            </font>
+         </Button>
+         <ImageView fx:id="iv" fitHeight="248.0" fitWidth="339.0" layoutX="882.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@images/alimentaire.jpeg" />
+            </image></ImageView>
+        </children>
+    </Pane>
+</VBox>

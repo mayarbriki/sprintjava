@@ -1,0 +1,31 @@
+
+Z
+java:S6208"CMerge the previous cases into this one using comma-separated label.(á¯ıî
+_
+java:S6208’"CMerge the previous cases into this one using comma-separated label.(ø™›ıÿÿÿÿ
+k	java:S116""VRename this field "acceuil_btn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±ƒÇ‡
+s	java:S116+"_Rename this field "gestionlivraison_btn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äÆ¿s
+t	java:S116."_Rename this field "gestiontransport_btn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎÖ¹Â
+u	java:S1161"`Rename this field "gestiontransport_btn1" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ì¬°ò
+p	java:S116@"[Rename this field "transport_search" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬ï´
+s	java:S116I"YRename this field "weather_button" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(»¼È×üÿÿÿÿ
+t
+java:S2142"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ò¶È
+@	java:S106}"+Replace this use of System.out by a logger.(òì…Ù
+]
+java:S1075‰"ARefactor your code to get this URI from a customizable parameter.(ÈÓÿ•ûÿÿÿÿ
+X
+java:S1075"ARefactor your code to get this URI from a customizable parameter.(Öƒø
+]
+java:S1075“"ARefactor your code to get this URI from a customizable parameter.(”¨øÌûÿÿÿÿ
+]
+java:S1075–"ARefactor your code to get this URI from a customizable parameter.(èùâ§ÿÿÿÿÿ
+]
+java:S1075™"ARefactor your code to get this URI from a customizable parameter.(äŒ……úÿÿÿÿ
+X
+java:S1075œ"ARefactor your code to get this URI from a customizable parameter.(­úÎ˜
+]
+java:S1075Ÿ"ARefactor your code to get this URI from a customizable parameter.(ÈÓÿ•ûÿÿÿÿ
+F	java:S106§"+Replace this use of System.err by a logger.(çúÒ˜şÿÿÿÿ
+d	java:S100º"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Å×¸
+i	java:S100Ì"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍÔÙªùÿÿÿÿ

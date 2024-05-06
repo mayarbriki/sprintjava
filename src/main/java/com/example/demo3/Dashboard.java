@@ -1,6 +1,7 @@
 package com.example.demo3;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 
 import java.sql.*;
@@ -59,6 +60,11 @@ public class Dashboard extends Application implements Initializable {
     @FXML
     private TableColumn<Integer, Commande> id;
 
+
+    @FXML
+    private Button stock;
+    @FXML
+    private Button blog;
 
     @FXML
     private Button supprimer;
@@ -229,7 +235,8 @@ public class Dashboard extends Application implements Initializable {
         loadCommandeDataFromDatabase();
 
 // Add similar listeners for other text fields as needed
-
+        stock.setOnAction(event -> loadstock("StockList.fxml"));
+        blog.setOnAction(event -> loadblog("BlogList.fxml"));
     }
 
 
@@ -530,6 +537,31 @@ public class Dashboard extends Application implements Initializable {
 
 
 
+
+    private void loadblog(String fxmlFileName) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(fxmlFileName));
+            Stage stage = (Stage) blog.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void loadstock(String fxmlFileName) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(fxmlFileName));
+            Stage stage = (Stage) stock.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
 

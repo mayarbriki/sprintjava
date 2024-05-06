@@ -1,0 +1,37 @@
+
+
+java:S1192m"dDefine a constant instead of duplicating this literal "Product added to cart successfully." 3 times.(áìÿÏûÿÿÿÿ
+x
+java:S14500"]Remove the "loggedInUserId" field and declare it as a local variable in the relevant methods.(×±õ®þÿÿÿÿ
+\
+java:S1854W"ARemove this useless assignment to local variable "servicePanier".(úªˆ˜øÿÿÿÿ
+M
+java:S1481W"2Remove this unused "servicePanier" local variable.(úªˆ˜øÿÿÿÿ
+E	java:S106m"+Replace this use of System.out by a logger.(áìÿÏûÿÿÿÿ
+@	java:S106p"+Replace this use of System.out by a logger.(‡ÒÞ§
+A	java:S106¤"+Replace this use of System.out by a logger.(ÓØ¡¾
+F	java:S106¦"+Replace this use of System.err by a logger.(ûÝÀÄýÿÿÿÿ
+A	java:S106©"+Replace this use of System.err by a logger.(µœ„Ö
+A	java:S106Å"+Replace this use of System.err by a logger.(Ò‘¸‹
+A	java:S106Þ"+Replace this use of System.err by a logger.(ŽÖÜ®
+R	java:S125á"<This block of commented-out lines of code should be removed.(§ ì°
+^
+java:S1117é"BRename "loggedInUserId" which hides the field declared at line 48.(Ý§Èòüÿÿÿÿ
+A	java:S106ë"+Replace this use of System.err by a logger.(¤òÉ
+A	java:S106ò"+Replace this use of System.out by a logger.(ŸãÙ
+F	java:S106õ"+Replace this use of System.out by a logger.(áìÿÏûÿÿÿÿ
+@	java:S106˜"+Replace this use of System.err by a logger.(ó¢
+F	java:S106¢"+Replace this use of System.out by a logger.(áìÿÏûÿÿÿÿ
+F	java:S106¤"+Replace this use of System.err by a logger.(ˆ§â¸ùÿÿÿÿ
+@	java:S106§"+Replace this use of System.err by a logger.(Äîó 
+R	java:S125ª"<This block of commented-out lines of code should be removed.(§ ì°
+A	java:S106Ì"+Replace this use of System.err by a logger.(À‡ó
+F	java:S106à"+Replace this use of System.err by a logger.(ó‘½¢ÿÿÿÿÿ
+R	java:S125ã"<This block of commented-out lines of code should be removed.(§ ì°
+F	java:S106ô"+Replace this use of System.err by a logger.(ðô¿øÿÿÿÿ
+N
+java:S1128",Remove this unused import 'models.Commande'.(’ë²¼ûÿÿÿÿ8óŽ×Úô1
+S
+java:S1144±"7Remove this unused private "getPanierIdForUser" method.(”¥›ˆøÿÿÿÿ
+J
+java:S1144è"3Remove this unused private "closeResources" method.(¤Éýå

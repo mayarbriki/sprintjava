@@ -1,0 +1,25 @@
+
+k	java:S116 "VRename this field "acceuil_btn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±ƒÇ‡
+s	java:S116&"^Rename this field "gestionCommande_btn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§®ô§
+r	java:S116)"]Rename this field "gestionProduit_btn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(°ŠÛ
+s	java:S116,"_Rename this field "gestionlivraison_btn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äÆ¿s
+t	java:S116/"_Rename this field "gestiontransport_btn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎÖ¹Â
+i	java:S1165"TRename this field "main_form" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ûÔ³Ö
+u	java:S116A"[Rename this field "transport_col_ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Å¢œñüÿÿÿÿ
+w	java:S116D"]Rename this field "transport_col_Type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öËã”ùÿÿÿÿ
+u	java:S116G"`Rename this field "transport_col_annefab" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£­À¹
+q	java:S116J"]Rename this field "transport_col_etat" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜™q
+y	java:S116M"_Rename this field "transport_col_marque" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«äÀÚøÿÿÿÿ
+v	java:S116P"bRename this field "transport_col_matricule" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ô€Å.
+q	java:S116S"\Rename this field "transport_col_nom" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·À¾
+s	java:S116V"YRename this field "transport_form" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(úÍÇõþÿÿÿÿ
+p	java:S116Y"[Rename this field "transport_search" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬ï´
+r	java:S116\"^Rename this field "transport_tableview" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×ò¿}
+
+java:S1450]"dRemove the "filteredTransportData" field and declare it as a local variable in the relevant methods.(…³Úüÿÿÿÿ
+H
+java:S1602ˆ",Remove useless curly braces around statement(·±ðÖýÿÿÿÿ
+Z
+java:S1854¡">Remove this useless assignment to local variable "controller".(ÆùŒüýÿÿÿÿ
+K
+java:S1481¡"/Remove this unused "controller" local variable.(ÆùŒüýÿÿÿÿ

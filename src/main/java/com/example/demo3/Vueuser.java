@@ -52,6 +52,10 @@ public class Vueuser extends Application implements Initializable {
     private Button panier;
 
     @FXML
+    private Button blog;
+
+
+    @FXML
     private Button addtocart;
 
     @FXML
@@ -497,4 +501,23 @@ public class Vueuser extends Application implements Initializable {
             e.printStackTrace();
         }
     }
+
+
+
+    @FXML
+    private void loadblog() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ClientBlog.fxml"));
+            Parent blogRoot = loader.load();
+            Scene panierScene = new Scene(blogRoot);
+            Stage primaryStage = (Stage) blog.getScene().getWindow();
+            primaryStage.setScene(panierScene);
+            primaryStage.setTitle("blog");
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

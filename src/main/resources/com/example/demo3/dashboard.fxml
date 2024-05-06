@@ -20,6 +20,8 @@
             <Button fx:id="produit" mnemonicParsing="false" onAction="#handleProduitButtonClick" prefHeight="75.0" prefWidth="244.0" styleClass="nav-btn" text="Gestion Produit" />
             <Button fx:id="commande" mnemonicParsing="false" onAction="#handleGestionCommandeButtonClick" prefHeight="81.0" prefWidth="270.0" styleClass="nav-btn" text="Gestion commandes" />
             <Button fx:id="livraison" mnemonicParsing="false" prefHeight="83.0" prefWidth="239.0" styleClass="nav-btn" text="Gestion livraison" />
+            <Button fx:id="stock" mnemonicParsing="false" prefHeight="83.0" prefWidth="239.0" styleClass="nav-btn" text="Gestion Stock" />
+            <Button fx:id="blog" mnemonicParsing="false" prefHeight="83.0" prefWidth="239.0" styleClass="nav-btn" text="Gestion Blog" />
          </children>
       </VBox>
       <AnchorPane fx:id="anchorPane1" layoutX="323.0" layoutY="55.0" prefHeight="546.0" prefWidth="474.0" styleClass="white-bg" visible="false">

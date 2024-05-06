@@ -1,0 +1,21 @@
+
+l	java:S117Œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ïù°ôıÿÿÿÿ
+i
+java:S2095s"GUse try-with-resources or close this "Statement" in a "finally" clause.(é°Áµşÿÿÿÿ8¨»ùÚô1
+m
+java:S2095"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(Ò´°8¨»ùÚô1
+V	java:S125\"<This block of commented-out lines of code should be removed.(à¨“óüÿÿÿÿ
+G
+java:S1602`",Remove useless curly braces around statement(¨ÈíÁùÿÿÿÿ
+u
+java:S2142¿"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(”ı¾
+F	java:S106Ò"+Replace this use of System.out by a logger.(¨¡´ûÿÿÿÿÿ
+d	java:S100é"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ôÎ’Ÿ
+_
+java:S1075‹"ARefactor your code to get this URI from a customizable parameter.(­¡Ü8îÆ³Ûô1
+d
+java:S1075"ARefactor your code to get this URI from a customizable parameter.(µ×¥ëüÿÿÿÿ8ïÆ³Ûô1
+_
+java:S1075‘"ARefactor your code to get this URI from a customizable parameter.(¹•ñı8ïÆ³Ûô1
+M	java:S106–"+Replace this use of System.out by a logger.(öêóµøÿÿÿÿ8ïÆ³Ûô1
+M	java:S106›"+Replace this use of System.err by a logger.(çúÒ˜şÿÿÿÿ8óÆ³Ûô1

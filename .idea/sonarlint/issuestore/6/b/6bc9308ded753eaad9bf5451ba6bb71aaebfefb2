@@ -1,0 +1,96 @@
+
+a	java:S112Ì"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112Ô"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+}
+java:S1192®"aDefine a constant instead of duplicating this literal "-fx-background-color:transparent" 8 times.(è²ÒÙÿÿÿÿÿ
+_
+java:S1192Ó"HDefine a constant instead of duplicating this literal "Choisir" 3 times.(±œô™
+§
+java:S1192­"ŠDefine a constant instead of duplicating this literal "-fx-background-color:linear-gradient(to bottom right, #08b4c7 , #007fff);" 4 times.(„éæÖùÿÿÿÿ
+]
+java:S1192ğ"FDefine a constant instead of duplicating this literal "Error" 3 times.(ÛÌ…¸
+e
+java:S1192å"NDefine a constant instead of duplicating this literal "Error Message" 5 times.(ö‡
+l	java:S117Û"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚…‡¿ıÿÿÿÿ
+l	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚…‡¿ıÿÿÿÿ
+l	java:S117ß"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚…‡¿ıÿÿÿÿ
+l	java:S117õ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚…‡¿ıÿÿÿÿ
+l	java:S117—"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚…‡¿ıÿÿÿÿ
+l	java:S117¦"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚…‡¿ıÿÿÿÿ
+l	java:S117½"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚…‡¿ıÿÿÿÿ
+l	java:S117Ë"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚…‡¿ıÿÿÿÿ
+l	java:S117Œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚…‡¿ıÿÿÿÿ
+l	java:S117÷"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚…‡¿ıÿÿÿÿ
+n	java:S116."TRename this field "main_form" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™‡¯ˆùÿÿÿÿ
+s	java:S1160"YRename this field "Livraison_form" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹Õœùÿÿÿÿ
+k	java:S1163"VRename this field "acceuil_btn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±ƒÇ‡
+s	java:S116K"_Rename this field "gestionlivraison_btn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äÆ¿s
+t	java:S116N"_Rename this field "gestiontransport_btn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎÖ¹Â
+l	java:S116Q"WRename this field "id_livraison" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ß”æĞ
+}	java:S116T"cRename this field "livraison_col_AdresseLiv" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Îİæÿÿÿÿÿ
+u	java:S116Z"`Rename this field "livraison_col_DateLiv" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿¸œÙ
+~	java:S116]"dRename this field "livraison_col_Description" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€‰Âüÿÿÿÿ
+q	java:S116`"]Rename this field "livraison_col_Etat" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(åÎá
+p	java:S116c"[Rename this field "livraison_col_ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(şÏ±æ
+|	java:S116f"bRename this field "livraison_col_Matricule" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ñİñ¯ùÿÿÿÿ
+v	java:S116i"\Rename this field "livraison_col_Nom" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İÑŞøÿÿÿÿ
+s	java:S116l"^Rename this field "livraison_tableview" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œ÷ÌÜ
+t	java:S116{"`Rename this field "transport_ajouter_btn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éé÷V
+x	java:S116~"^Rename this field "transport_clear_btn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İÿêŞşÿÿÿÿ
+v	java:S116"[Rename this field "transport_col_ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ëÀâıÿÿÿÿ
+x	java:S116„"]Rename this field "transport_col_Type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öËã”ùÿÿÿÿ
+v	java:S116‡"`Rename this field "transport_col_annefab" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£­À¹
+r	java:S116Š"]Rename this field "transport_col_etat" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜™q
+z	java:S116"_Rename this field "transport_col_marque" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«äÀÚøÿÿÿÿ
+w	java:S116"bRename this field "transport_col_matricule" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ô€Å.
+|	java:S116“"aRename this field "livraison_col_Commande" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İ“‰†şÿÿÿÿ
+t	java:S116–"YRename this field "transport_date" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹ô¡·øÿÿÿÿ
+}	java:S116™"bRename this field "transport_demontrer_btn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Å­ûÿÿÿÿ
+t	java:S116œ"YRename this field "transport_etat" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ôù‰©üÿÿÿÿ
+t	java:S116Ÿ"YRename this field "transport_form" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(úÍÇõşÿÿÿÿ
+q	java:S116¢"[Rename this field "transport_marque" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öú¿
+t	java:S116¥"^Rename this field "transport_matricule" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”ÆÙÒ
+|	java:S116¨"aRename this field "transport_modifier_btn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥í’ûÿÿÿÿ
+q	java:S116«"[Rename this field "transport_search" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬ï´
+x	java:S116®"bRename this field "transport_supprimer_btn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×Á½é
+s	java:S116±"^Rename this field "transport_tableview" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×ò¿}
+t	java:S116´"YRename this field "transport_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İ¥¢âıÿÿÿÿ
+m	java:S116¼"WRename this field "imprimer_PDF" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®éäÑ
+8
+java:S1170½"!Make this final field static too.(ùìØò
+v
+java:S1450È"_Remove the "currentPagePosts" field and declare it as a local variable in the relevant methods.(è‹ˆ
+w
+java:S1450Ô"`Remove the "currentPagePosts1" field and declare it as a local variable in the relevant methods.(¬—“
+V	java:S125W"<This block of commented-out lines of code should be removed.(Òô¥ïùÿÿÿÿ
+H
+java:S1172Ù",Remove this unused method parameter "event".(¿æ‰®üÿÿÿÿ
+A	java:S106†"+Replace this use of System.out by a logger.(ÙŠ¥
+F	java:S106‰"+Replace this use of System.err by a logger.(ê¾Ã²øÿÿÿÿ
+F	java:S106·"+Replace this use of System.out by a logger.(”¦áÜşÿÿÿÿ
+A	java:S106º"+Replace this use of System.err by a logger.(ß¸—ø
+H
+java:S1172À",Remove this unused method parameter "event".(ª ×·øÿÿÿÿ
+a
+java:S1117¿"ERename "serviceLivraison" which hides the field declared at line 211.(¿ŞÛ˜øÿÿÿÿ
+\
+java:S1117Î"ERename "serviceTransport" which hides the field declared at line 203.(àâã·
+a
+java:S1117é"ERename "serviceLivraison" which hides the field declared at line 211.(¿ŞÛ˜øÿÿÿÿ
+A	java:S106ë"+Replace this use of System.out by a logger.(ô‹ÌÑ
+F	java:S106†"+Replace this use of System.out by a logger.(ñã¯àıÿÿÿÿ
+W	java:S125™"<This block of commented-out lines of code should be removed.(Ùçßøÿÿÿÿ
+d	java:S100Ğ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÓŒëĞ
+W	java:S125ò"<This block of commented-out lines of code should be removed.(¡À¼µıÿÿÿÿ
+Š
+java:S1130‡"nRemove the declaration of thrown exception 'java.sql.SQLException', as it cannot be thrown from method's body.(”»§èıÿÿÿÿ
+i
+java:S6204’"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹
+F	java:S106£"+Replace this use of System.out by a logger.(à’·şÿÿÿÿ
+W	java:S125÷"<This block of commented-out lines of code should be removed.(ï§Éäÿÿÿÿÿ
+D
+java:S1068½"-Remove this unused "maximized" private field.(ùìØò
+P
+java:S1068¿"9Remove this unused "filteredLivraisonData" private field.(ó¡òŒ
+U
+java:S1068À"9Remove this unused "filteredTransportData" private field.(…³Úüÿÿÿÿ

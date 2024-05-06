@@ -1,0 +1,42 @@
+
+e
+java:S1192o"JDefine a constant instead of duplicating this literal "All Types" 3 times.(ô·±Àûÿÿÿÿ
+j
+java:S1192ÿ"SDefine a constant instead of duplicating this literal "pas de fournisseur" 3 times.(¤·ùŒ
+_
+java:S1192•"IDefine a constant instead of duplicating this literal "quantite" 3 times.(ü†¿a
+]
+java:S1192—"FDefine a constant instead of duplicating this literal "email" 4 times.(Æòéƒ
+b
+java:S1192’"LDefine a constant instead of duplicating this literal "nom_produit" 3 times.(ŠÉR
+l	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õû¼¼úÿÿÿÿ
+f	java:S117ó"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Å´
+k
+java:S2095®"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(¸äÆüÿÿÿÿ
+k
+java:S2095ä"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÿáŞÂıÿÿÿÿ
+f
+java:S2095Ì"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÌâÌö
+c
+java:S2095è"GUse try-with-resources or close this "Statement" in a "finally" clause.(é°Áµşÿÿÿÿ
+k
+java:S2095Ó"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(Ûˆ•†şÿÿÿÿ
+c
+java:S2095ˆ"GUse try-with-resources or close this "Statement" in a "finally" clause.(é°Áµşÿÿÿÿ
+f
+java:S2095€"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÄúÁ¼
+c
+java:S2095ú"GUse try-with-resources or close this "Statement" in a "finally" clause.(é°Áµşÿÿÿÿ
+f
+java:S2095Ê"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(°¯à¶
+f
+java:S2095°"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÌÙİ
+G
+java:S1602f",Remove useless curly braces around statement(¨ÈíÁùÿÿÿÿ
+I
+java:S6126‰"2Replace this String concatenation with Text block.(û”×¡
+F	java:S106™"+Replace this use of System.out by a logger.(Å­Ëİúÿÿÿÿ
+n
+java:S3776È"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(©”ìîúÿÿÿÿ
+=
+java:S3398ó"'Move this method into "StockCheckTask".(Å´

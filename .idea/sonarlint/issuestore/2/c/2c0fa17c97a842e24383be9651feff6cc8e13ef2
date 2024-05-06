@@ -1,0 +1,54 @@
+
+c	java:S116"NRename this field "URL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îÃ‰Å
+i	java:S116"ORename this field "USER" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ­èëüÿÿÿÿ
+d	java:S116"ORename this field "PASS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”³àÅ
+7
+java:S1170"!Make this final field static too.(îÃ‰Å
+<
+java:S1170"!Make this final field static too.(õ­èëüÿÿÿÿ
+7
+java:S1170"!Make this final field static too.(”³àÅ
+¯
+java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(‚†÷æ
+D
+java:S2115")Add password protection to this database.(Èï¯ùÿÿÿÿ
+E	java:S106"+Replace this use of System.out by a logger.(´áÀŠÿÿÿÿÿ
+E	java:S106"+Replace this use of System.err by a logger.(ïù¯¯ûÿÿÿÿ
+\
+java:S1854/"ARemove this useless assignment to local variable "servicepanier".(©£æ¾ÿÿÿÿÿ
+]
+java:S1854."BRemove this useless assignment to local variable "serviceProduit".(ý£‡Þÿÿÿÿÿ
+Q
+java:S1854,"6Remove this useless assignment to local variable "db".(¡¥¥úÿÿÿÿ
+Q
+java:S18542";Remove this useless assignment to local variable "produit".(‰Ÿ‘”
+B
+java:S1481,"'Remove this unused "db" local variable.(¡¥¥úÿÿÿÿ
+N
+java:S1481."3Remove this unused "serviceProduit" local variable.(ý£‡Þÿÿÿÿÿ
+M
+java:S1481/"2Remove this unused "servicepanier" local variable.(©£æ¾ÿÿÿÿÿ
+Q	java:S1251"<This block of commented-out lines of code should be removed.(Š‡Íù
+B
+java:S14812",Remove this unused "produit" local variable.(‰Ÿ‘”
+E	java:S106="+Replace this use of System.out by a logger.(¼à½Êÿÿÿÿÿ
+Q	java:S1257"<This block of commented-out lines of code should be removed.(îü½Ñ
+Q	java:S125;"<This block of commented-out lines of code should be removed.(  ³ª
+V	java:S125@"<This block of commented-out lines of code should be removed.(ñâ°©øÿÿÿÿ
+Q	java:S125E"<This block of commented-out lines of code should be removed.(øÐ
+E	java:S106K"+Replace this use of System.err by a logger.( Ý·½øÿÿÿÿ
+V	java:S125J"<This block of commented-out lines of code should be removed.(ÎÀÐ‡ùÿÿÿÿ
+P
+java:S1128";Remove this unused import 'javafx.application.Application'.(í™þj
+N
+java:S1128"3Remove this unused import 'javafx.fxml.FXMLLoader'.(À‡ô³úÿÿÿÿ
+E
+java:S1128"/Remove this unused import 'javafx.scene.Scene'.(Õü²
+J
+java:S1128"/Remove this unused import 'javafx.stage.Stage'.(æÄ¸²úÿÿÿÿ
+B
+java:S1128",Remove this unused import 'models.Personne'.(® Ý¦
+E
+java:S1128"*Remove this unused import 'models.Panier'.(Ì²¿®ûÿÿÿÿ
+K
+java:S1128"0Remove this unused import 'java.io.IOException'.(ªº»Úýÿÿÿÿ

@@ -36,13 +36,14 @@
 
         </GridPane>
         <!-- Styling for the Add to Cart button -->
-        <Button fx:id="addtocart" layoutX="85.0" layoutY="644.0" mnemonicParsing="false" styleClass="button-save" text="Ajouter au panier" />
+        <Button fx:id="addtocart" layoutX="115.0" layoutY="644.0" mnemonicParsing="false" styleClass="button-save" text="Ajouter au panier" />
         <!-- Styling for the Panier button -->
-        <Button fx:id="panier" layoutX="231.0" layoutY="644.0" mnemonicParsing="false" onAction="#redirectToPanier" styleClass="button-save" text="Panier" />
+        <Button fx:id="panier" layoutX="261.0" layoutY="644.0" mnemonicParsing="false" onAction="#redirectToPanier" styleClass="button-save" text="Panier" />
       <TextField fx:id="rechercher" layoutX="352.0" layoutY="631.0" prefHeight="25.0" prefWidth="182.0" />
       <Button fx:id="rechbutton" layoutX="438.0" layoutY="659.0" mnemonicParsing="false" styleClass="button-save" stylesheets="@DashbordDesign.css" text="Rechercher" />
       <Button fx:id="tricroissant" layoutX="578.0" layoutY="628.0" mnemonicParsing="false" styleClass="button-save" stylesheets="@DashbordDesign.css" text="Tri par prix croissant" />
       <Button fx:id="tridecroissant" layoutX="578.0" layoutY="674.0" mnemonicParsing="false" styleClass="button-save" stylesheets="@DashbordDesign.css" text="Tri par prix decroissant" />
       <Button fx:id="chat" layoutX="761.0" layoutY="478.0" mnemonicParsing="false" onAction="#redirectToChatBotUI" text="chat" />
+      <Button fx:id="blog" layoutX="21.0" layoutY="644.0" mnemonicParsing="false" onAction="#loadblog" prefHeight="31.0" prefWidth="75.0" styleClass="button-save" text="Blog" />
     </children>
 </AnchorPane>

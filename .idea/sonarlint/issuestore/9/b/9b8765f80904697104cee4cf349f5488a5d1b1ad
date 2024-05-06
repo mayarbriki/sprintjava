@@ -1,0 +1,18 @@
+
+k	java:S117}"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ïù°ôıÿÿÿÿ
+k
+java:S2095Ù"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.( Œãõüÿÿÿÿ
+f
+java:S2095"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(Ò´°
+f
+java:S2095³"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(é×Ç
+b
+java:S2095b"GUse try-with-resources or close this "Statement" in a "finally" clause.(é°Áµşÿÿÿÿ
+e
+java:S2095Š"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ĞÜ×8
+f
+java:S2095¢"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(²²ò 
+G
+java:S1602O",Remove useless curly braces around statement(¨ÈíÁùÿÿÿÿ
+R
+java:S1128"5Remove this unused import 'javafx.scene.image.Image'.(‰¿½Ç8é½âÙô1

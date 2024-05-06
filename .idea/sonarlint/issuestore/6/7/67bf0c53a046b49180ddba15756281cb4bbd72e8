@@ -1,0 +1,68 @@
+
+w
+java:S1192"TDefine a constant instead of duplicating this literal "Connection is null!" 3 times.(±ïñ»ûÿÿÿÿ8”…¹Ùô1
+d
+java:S1192Í"FDefine a constant instead of duplicating this literal "Error" 3 times.(µûø–8”…¹Ùô1
+s	java:S117ÿ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ö¯­ıÿÿÿÿ8•…¹Ùô1
+s	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ñˆáæÿÿÿÿÿ8•…¹Ùô1
+l
+java:S1104G"PMake path a static final constant or non-public and provide accessors if needed.(‡ÛÛ?8•…¹Ùô1
+r
+java:S2095ô"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ƒ»ÊŞûÿÿÿÿ8³…¹Ùô1
+s	java:S1167"RRename this field "pani_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ü¹²„úÿÿÿÿ8³…¹Ùô1
+n	java:S116;"RRename this field "id_user" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òá¶¥8³…¹Ùô1
+^	java:S125‡"<This block of commented-out lines of code should be removed.(»öÑøÿÿÿÿ8º…¹Ùô1
+^	java:S125"<This block of commented-out lines of code should be removed.(ñËñıÿÿÿÿ8¿…¹Ùô1
+M	java:S106"+Replace this use of System.out by a logger.(éÚõ øÿÿÿÿ8¿…¹Ùô1
+M	java:S106¶"+Replace this use of System.out by a logger.(õş±»úÿÿÿÿ8À…¹Ùô1
+M	java:S106ç"+Replace this use of System.out by a logger.(²€ñ»ıÿÿÿÿ8Â…¹Ùô1
+q
+java:S1602ô"SRemove useless curly braces around statement and then remove useless return keyword(Øó8Ã…¹Ùô1
+J
+java:S1172",Remove this unused method parameter "event".(èó‚Ë8È…¹Ùô1
+M	java:S106"+Replace this use of System.out by a logger.(±ïñ»ûÿÿÿÿ8É…¹Ùô1
+l
+java:S1858•"I"getSelectedItem" returns a string, there's no need to call "toString()".(Âê¨ëúÿÿÿÿ8É…¹Ùô1
+M	java:S106Ÿ"+Replace this use of System.out by a logger.(¼à½Êÿÿÿÿÿ8Ê…¹Ùô1
+M	java:S106¡"+Replace this use of System.err by a logger.(ïù¯¯ûÿÿÿÿ8Ê…¹Ùô1
+Y	java:S125©"<This block of commented-out lines of code should be removed.(€ğìÖ8Ë…¹Ùô1
+M	java:S106¿"+Replace this use of System.out by a logger.(­¨ªØüÿÿÿÿ8Ì…¹Ùô1
+O
+java:S1172Ã",Remove this unused method parameter "event".(à™çÚúÿÿÿÿ8Í…¹Ùô1
+M	java:S106Æ"+Replace this use of System.out by a logger.(±ïñ»ûÿÿÿÿ8Í…¹Ùô1
+Z
+java:S1117Ô"<Rename "produit" which hides the field declared at line 123.(¤§øÖ8Î…¹Ùô1
+M	java:S106Ù"+Replace this use of System.out by a logger.(¼à½Êÿÿÿÿÿ8Î…¹Ùô1
+M	java:S106Ş"+Replace this use of System.err by a logger.(ïù¯¯ûÿÿÿÿ8Ï…¹Ùô1
+M	java:S106æ"+Replace this use of System.out by a logger.(±ïñ»ûÿÿÿÿ8Ğ…¹Ùô1
+[
+java:S1117ö"8Rename "nom" which hides the field declared at line 108.(‘ñÂ³ûÿÿÿÿ8Ğ…¹Ùô1
+[
+java:S1117ø"8Rename "prix" which hides the field declared at line 88.(şğšÃùÿÿÿÿ8Ğ…¹Ùô1
+_
+java:S1117ù"<Rename "quantite" which hides the field declared at line 90.(ÛĞ¯üÿÿÿÿ8Ğ…¹Ùô1
+H	java:S106’"+Replace this use of System.out by a logger.(â³ÏÛ8Ñ…¹Ùô1
+M	java:S106”"+Replace this use of System.err by a logger.(ïù¯¯ûÿÿÿÿ8Ñ…¹Ùô1
+Y	java:S125™"<This block of commented-out lines of code should be removed.(…öß8Ò…¹Ùô1
+f
+java:S1117Ç"CRename "selectedProduit" which hides the field declared at line 72.(¤ªåúÿÿÿÿ8Õ…¹Ùô1
+Y
+java:S1117ş"6Rename "id" which hides the field declared at line 60.(°æêüÿÿÿÿ8Ø…¹Ùô1
+^
+java:S1117ÿ";Rename "pani_id" which hides the field declared at line 54.(ö¯­ıÿÿÿÿ8Ø…¹Ùô1
+]
+java:S1117€":Rename "totale" which hides the field declared at line 56.(éë’Îÿÿÿÿÿ8Ø…¹Ùô1
+^
+java:S1117";Rename "id_user" which hides the field declared at line 58.(Ñˆáæÿÿÿÿÿ8Ø…¹Ùô1
+[
+java:S1117„"=Rename "commande" which hides the field declared at line 114.(‰áƒŸ8Ù…¹Ùô1
+e
+java:S1128"HRemove this unused import 'javafx.beans.property.SimpleIntegerProperty'.(©Ú¡8Ç±çÚô1
+d
+java:S1128"GRemove this unused import 'javafx.beans.property.SimpleObjectProperty'.(¶Ö­¤8Ç±çÚô1
+M
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8Ç±çÚô1
+Z
+java:S1128'"8Remove this unused import 'javafx.application.Platform'.(§“óùÿÿÿÿ8Ç±çÚô1
+\
+java:S1128)":Remove this unused import 'org.controlsfx.control.Rating'.(Ó˜ƒıÿÿÿÿ8Ç±çÚô1
