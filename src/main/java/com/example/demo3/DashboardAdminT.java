@@ -1,5 +1,9 @@
 package com.example.demo3;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.BitMatrix;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -14,17 +18,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import models.Transport;
 import services.ServiceTransport;
+import javafx.scene.image.WritableImage;
+
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class DashboardAdminT extends Application implements Initializable {
 
@@ -91,6 +97,12 @@ public class DashboardAdminT extends Application implements Initializable {
     @FXML
     private TableView<Transport> transport_tableview;
     private FilteredList<Transport> filteredTransportData;
+
+    @FXML
+    private Button qrCode;
+
+    @FXML
+    private ImageView qrcodeImage;
 
     private void setupTableColumns() {
         transport_col_ID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -166,6 +178,75 @@ public class DashboardAdminT extends Application implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void handle() {
+        qrCode.setOnAction(event -> {
+            Transport selectedTransport = transport_tableview.getSelectionModel().getSelectedItem();
+
+            if (selectedTransport != null) {
+                String qrData = "ID: " + selectedTransport.getId() +
+                        "\nType: " + selectedTransport.getType() +
+                        "\nMarque: " + selectedTransport.getMarque() +
+                        "\nMatricule: " + selectedTransport.getMatricule() +
+                        "\nAnnée de fabrication: " + selectedTransport.getAnneefab() +
+                        "\nÉtat: " + selectedTransport.getEtat() +
+                        "\nLivreur: " + selectedTransport.getLivreur();
+
+                generateAndDisplayQRCode(qrData);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Aucun transport sélectionné");
+                alert.setHeaderText(null);
+                alert.setContentText("Veuillez sélectionner un transport pour générer le QR code.");
+                alert.showAndWait();
+            }
+        });
+    }
+
+
+    private void generateAndDisplayQRCode(String qrData) {
+        try {
+
+            Map<EncodeHintType, Object> hints = new HashMap<>();
+            hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+
+            BitMatrix matrix = new MultiFormatWriter().encode(qrData, BarcodeFormat.QR_CODE, 184, 199, hints);
+
+            qrcodeImage.setFitWidth(100);
+            qrcodeImage.setFitHeight(100);
+
+            Image qrCodeImage = matrixToImage(matrix);
+
+            qrcodeImage.setImage(qrCodeImage);
+            Alert a = new Alert(Alert.AlertType.WARNING);
+
+            a.setTitle("Succes");
+            a.setContentText("QR code générer");
+            a.showAndWait();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Image matrixToImage(BitMatrix matrix) {
+        int width = matrix.getWidth();
+        int height = matrix.getHeight();
+
+        WritableImage writableImage = new WritableImage(width, height);
+        PixelWriter pixelWriter = writableImage.getPixelWriter();
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int pixelColor = matrix.get(x, y) ? 0xFF000000 : 0xFFFFFFFF;
+                pixelWriter.setArgb(x, y, pixelColor);
+            }
+        }
+
+        System.out.println("Matrice convertie en image avec succès");
+
+        return writableImage;
     }
 
     @Override

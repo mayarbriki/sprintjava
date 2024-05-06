@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -109,6 +110,7 @@
                                             </font>
                                         </Label>
                                         <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="77.0" layoutY="83.0" size="80" />
+                              <ImageView fx:id="qrcodeImage" fitHeight="124.0" fitWidth="165.0" layoutX="18.0" layoutY="401.0" pickOnBounds="true" preserveRatio="true" />
                                     </children>
                                     <styleClass>
                                         <String fx:value="nav-form" />
@@ -135,7 +137,7 @@
                                                         <String fx:value="shadow" />
                                                     </styleClass>
                                                     <children>
-                                                        <TableView fx:id="transport_tableview" layoutX="10.0" layoutY="46.0" prefHeight="512.0" prefWidth="1044.0">
+                                                        <TableView fx:id="transport_tableview" layoutX="10.0" layoutY="46.0" prefHeight="438.0" prefWidth="1044.0">
                                                             <columns>
                                                                 <TableColumn fx:id="transport_col_ID" prefWidth="92.80000686645508" text="ID" />
                                                                 <TableColumn fx:id="transport_col_Type" prefWidth="137.59996032714844" text="Type" />
@@ -148,6 +150,11 @@
                                                         </TableView>
                                                         <TextField fx:id="transport_search" layoutX="14.0" layoutY="8.0" prefHeight="30.0" prefWidth="277.0" promptText="Rechercher..." styleClass="search" stylesheets="@DashbordDesign.css" />
                                                         <FontAwesomeIconView glyphName="SEARCH" layoutX="22.0" layoutY="29.0" size="18" text="" />
+                                          <Button fx:id="qrCode" layoutX="469.0" layoutY="495.0" mnemonicParsing="false" onAction="#handle" prefHeight="58.0" prefWidth="154.0" styleClass="button-clear" text="afficher QR code">
+                                             <font>
+                                                <Font name="Arial" size="15.0" />
+                                             </font>
+                                          </Button>
                                                     </children>
                                                 </AnchorPane>
                                             </children>
