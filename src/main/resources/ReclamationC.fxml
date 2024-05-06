@@ -20,12 +20,12 @@
                </image>
             </ImageView>
             <FontAwesomeIconView fill="#e5f3f4" glyphName="SIGN_OUT" layoutX="14.0" layoutY="465.0" size="2em" />
-            <Button fx:id="dash" layoutX="34.0" layoutY="444.0" mnemonicParsing="false" onAction="#dash" styleClass="logout" stylesheets="@design.css" text="Retour" />
+            <Button fx:id="dash" layoutX="8.0" layoutY="444.0" mnemonicParsing="false" onAction="#dash" prefHeight="23.0" prefWidth="82.0" styleClass="logout" stylesheets="@design.css" text="      Retour" />
          </children>
       </AnchorPane>
    </left>
    <center>
-      <AnchorPane prefHeight="483.0" prefWidth="528.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="483.0" prefWidth="538.0" styleClass="creer-main" stylesheets="@design.css" BorderPane.alignment="CENTER">
          <children>
             <Label layoutX="70.0" layoutY="101.0" text="Titre">
                <font>
@@ -56,13 +56,13 @@
             </Button>
             <Button layoutX="442.0" layoutY="14.0" mnemonicParsing="false" onAction="#close" prefHeight="26.0" prefWidth="31.0" styleClass="close" stylesheets="@design.css" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0" />
             <FontAwesomeIconView glyphName="CLOSE" layoutX="484.0" layoutY="20.0" />
-            <Button layoutX="428.0" layoutY="424.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="39.0" styleClass="update-btn" stylesheets="@design.css">
+            <Button fx:id="recherchebtn" layoutX="428.0" layoutY="424.0" mnemonicParsing="false" onAction="#afficherDetailsReclamation" prefHeight="27.0" prefWidth="39.0" styleClass="update-btn" stylesheets="@design.css">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
             <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" layoutX="441.0" layoutY="442.0" />
-            <TextField layoutX="234.0" layoutY="426.0" prefHeight="26.0" prefWidth="174.0" promptText="Veuillez entrer votre ID .." styleClass="textfield" stylesheets="@design.css" />
+            <TextField fx:id="rechid" layoutX="234.0" layoutY="426.0" prefHeight="26.0" prefWidth="174.0" promptText="Veuillez entrer votre ID .." styleClass="textfield" stylesheets="@design.css" />
             <Label layoutX="14.0" layoutY="430.0" text="Consulter ma réclamation">
                <font>
                   <Font name="Arial Rounded MT Bold" size="16.0" />

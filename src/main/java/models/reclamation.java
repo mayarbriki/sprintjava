@@ -26,7 +26,7 @@ public class reclamation {
         this.date_r = date_r;
     }
 
-    public int getId() {
+    public  int getId() {
         return id;
     }
 
@@ -34,7 +34,7 @@ public class reclamation {
         this.id = id;
     }
 
-    public String getTitre() {
+    public  String getTitre() {
         return titre;
     }
 
@@ -42,7 +42,7 @@ public class reclamation {
         this.titre = titre;
     }
 
-    public String getDescription_r() {
+    public  String getDescription_r() {
         return description_r;
     }
 
@@ -50,7 +50,7 @@ public class reclamation {
         this.description_r = description_r;
     }
 
-    public String getStatus_r() {
+    public  String getStatus_r() {
         return status_r;
     }
 
@@ -58,7 +58,7 @@ public class reclamation {
         this.status_r = status_r;
     }
 
-    public java.sql.Date getDate_r() {
+    public  java.sql.Date getDate_r() {
         return (java.sql.Date) date_r;
     }
 

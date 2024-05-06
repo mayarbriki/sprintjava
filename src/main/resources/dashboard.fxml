@@ -7,6 +7,7 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -19,9 +20,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="contollers.dashboard">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="contollers.dashboard">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane prefHeight="200.0" prefWidth="1300.0">
          <children>
             <BorderPane layoutX="157.0" layoutY="305.0" prefHeight="505.6" prefWidth="714.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <top>
@@ -29,7 +30,7 @@
                      <children>
                         <AnchorPane layoutX="-12.0" layoutY="-86.0" prefHeight="48.0" prefWidth="714.0" style="-fx-background-color: #e5f3f4;" stylesheets="@design.css" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Label layoutX="67.0" layoutY="11.0" text="Les Réclamations" textFill="#04636b">
+                              <Label layoutX="67.0" layoutY="11.0" text="Les Réclamations et Les Réponses" textFill="#04636b">
                                  <font>
                                     <Font name="News706 BT Bold" size="18.0" />
                                  </font>
@@ -40,7 +41,7 @@
                                  </image>
                               </ImageView>
                               <Button layoutX="705.0" layoutY="4.0" mnemonicParsing="false" onAction="#close" prefHeight="26.0" prefWidth="42.0" styleClass="close" stylesheets="@design.css" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0" />
-                              <FontAwesomeIconView glyphName="CLOSE" layoutX="748.0" layoutY="21.0" />
+                              <FontAwesomeIconView glyphName="CLOSE" layoutX="1270.0" layoutY="21.0" />
                            </children>
                            <styleClass>
                               <String fx:value="top-form" />
@@ -53,7 +54,7 @@
                <left>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane layoutX="-14.0" layoutY="-7.2" prefHeight="436.0" prefWidth="200.0" styleClass="nav-form" stylesheets="@design.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-7.0">
+                        <AnchorPane layoutX="-14.0" layoutY="-7.2" prefHeight="546.0" prefWidth="211.0" styleClass="nav-form" stylesheets="@design.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-11.0" AnchorPane.topAnchor="-7.0">
                            <children>
                               <Button layoutX="42.0" layoutY="504.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="73.0" styleClass="logout" stylesheets="@design.css" text="Retour">
                                  <font>
@@ -62,18 +63,28 @@
                               </Button>
                               <FontAwesomeIconView fx:id="out" fill="#e5f3f4" glyphName="SIGN_OUT" layoutX="18.0" layoutY="527.0" size="2em" wrappingWidth="21.542880058288574" />
                               <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="67.0" layoutY="90.0" size="7em" wrappingWidth="53.942874908447266" />
-                              <Label layoutX="30.0" layoutY="112.0" text="Bienvenue !" textFill="WHITE">
+                              <Label layoutX="48.0" layoutY="102.0" text="Bienvenue !" textFill="WHITE">
                                  <font>
-                                    <Font name="News706 BT Bold" size="24.0" />
+                                    <Font name="News706 BT Bold" size="17.0" />
                                  </font>
                               </Label>
-                              <Line endX="100.0" layoutX="76.0" layoutY="163.0" startX="-52.5000114440918" startY="1.52587890625E-5" stroke="WHITE" />
-                              <Button fx:id="nav_rep" contentDisplay="CENTER" layoutX="7.0" layoutY="240.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="42.0" prefWidth="142.0" styleClass="nav-btn" stylesheets="@design.css" text="         Les réponses" textAlignment="CENTER" />
-                              <Button fx:id="nav_rec" contentDisplay="CENTER" layoutX="9.0" layoutY="190.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="42.0" prefWidth="171.0" styleClass="nav-btn" stylesheets="@design.css" text="         Les réclamations" textAlignment="CENTER" />
-                              <FontAwesomeIconView fill="WHITE" glyphName="BELL" layoutX="12.0" layoutY="219.0" size="2em" tabSize="3" wrappingWidth="20.800018310546875" />
-                              <FontAwesomeIconView fill="WHITE" glyphName="CHECK" layoutX="12.0" layoutY="269.0" size="2em" tabSize="3" wrappingWidth="20.800018310546875" />
-                              <Button fx:id="nav_acc" contentDisplay="CENTER" layoutX="5.0" layoutY="282.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="42.0" prefWidth="174.0" styleClass="nav-btn" stylesheets="@design.css" text="         Acceuil" textAlignment="CENTER" />
-                              <FontAwesomeIconView fill="WHITE" glyphName="HOME" layoutX="12.0" layoutY="311.0" size="2em" tabSize="3" wrappingWidth="20.800018310546875" />
+                              <Line endX="100.0" layoutX="76.0" layoutY="133.0" startX="-52.5000114440918" startY="1.52587890625E-5" stroke="WHITE" />
+                              <Button fx:id="nav_rep" contentDisplay="CENTER" layoutX="12.0" layoutY="230.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="42.0" prefWidth="170.0" styleClass="nav-btn" stylesheets="@design.css" text="      Gestion réponse" textAlignment="CENTER" />
+                              <Button fx:id="nav_rec" contentDisplay="CENTER" layoutX="14.0" layoutY="186.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="42.0" prefWidth="171.0" styleClass="nav-btn" stylesheets="@design.css" text="      Gestion réclamation" textAlignment="CENTER" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="BELL" layoutX="17.0" layoutY="215.0" size="2em" tabSize="3" wrappingWidth="20.800018310546875" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="CHECK" layoutX="17.0" layoutY="259.0" size="2em" tabSize="3" wrappingWidth="20.800018310546875" />
+                              <Button fx:id="nav_acc" contentDisplay="CENTER" layoutX="10.0" layoutY="141.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="41.0" prefWidth="174.0" styleClass="nav-btn" stylesheets="@design.css" text="       Acceuil" textAlignment="CENTER" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="HOME" layoutX="17.0" layoutY="170.0" size="2em" tabSize="3" wrappingWidth="20.800018310546875" />
+                              <Button fx:id="nav_rep1" contentDisplay="CENTER" layoutX="12.0" layoutY="272.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="42.0" prefWidth="170.0" styleClass="nav-btn" stylesheets="@design.css" text="      Gestion transport" textAlignment="CENTER" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="TRUCK" layoutX="12.0" layoutY="301.0" size="2em" tabSize="3" wrappingWidth="20.800018310546875" />
+                              <Button fx:id="nav_rep2" contentDisplay="CENTER" layoutX="12.0" layoutY="314.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="42.0" prefWidth="170.0" styleClass="nav-btn" stylesheets="@design.css" text="      Gestion livraison" textAlignment="CENTER" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="MALE" layoutX="19.0" layoutY="343.0" size="2em" tabSize="3" wrappingWidth="20.800018310546875" />
+                              <Button fx:id="nav_rep3" contentDisplay="CENTER" layoutX="12.0" layoutY="355.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="42.0" prefWidth="170.0" styleClass="nav-btn" stylesheets="@design.css" text="      Gestion réponse" textAlignment="CENTER" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="CHECK" layoutX="17.0" layoutY="384.0" size="2em" tabSize="3" wrappingWidth="20.800018310546875" />
+                              <Button fx:id="nav_rep4" contentDisplay="CENTER" layoutX="12.0" layoutY="394.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="42.0" prefWidth="170.0" styleClass="nav-btn" stylesheets="@design.css" text="      Gestion réponse" textAlignment="CENTER" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="CHECK" layoutX="17.0" layoutY="423.0" size="2em" tabSize="3" wrappingWidth="20.800018310546875" />
+                              <Button fx:id="nav_rep41" contentDisplay="CENTER" layoutX="12.0" layoutY="435.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="42.0" prefWidth="170.0" styleClass="nav-btn" stylesheets="@design.css" text="      Gestion réponse" textAlignment="CENTER" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="CHECK" layoutX="17.0" layoutY="464.0" size="2em" tabSize="3" wrappingWidth="20.800018310546875" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -82,54 +93,81 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="home" layoutX="14.0" layoutY="-8.8" prefHeight="438.0" prefWidth="514.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-9.0">
+                        <AnchorPane fx:id="home" layoutX="14.0" layoutY="-8.8" prefHeight="438.0" prefWidth="514.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-9.0">
                            <children>
-                              <AnchorPane layoutX="8.0" layoutY="6.0" prefHeight="536.0" prefWidth="561.0" stylesheets="@design.css">
+                              <AnchorPane fx:id="mainchart" layoutX="20.0" layoutY="6.0" prefHeight="536.0" prefWidth="1070.0" stylesheets="@design.css">
                                  <styleClass>
                                     <String fx:value="white-bg" />
                                     <String fx:value="shadow" />
                                  </styleClass>
                                  <children>
-                                    <AnchorPane prefHeight="135.0" prefWidth="559.0" stylesheets="@design.css">
+                                    <AnchorPane prefHeight="166.0" prefWidth="1073.0" stylesheets="@design.css">
                                        <styleClass>
                                           <String fx:value="white-bg" />
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <AnchorPane layoutX="8.0" layoutY="8.0" prefHeight="118.0" prefWidth="178.0" styleClass="card" stylesheets="@design.css">
+                                          <AnchorPane layoutX="8.0" layoutY="6.0" prefHeight="154.0" prefWidth="348.0" stylesheets="@design.css">
                                              <children>
-                                                <FontAwesomeIconView fill="WHITE" glyphName="FLAG" layoutX="13.0" layoutY="80.0" size="3em" />
-                                                <Label layoutX="14.0" layoutY="89.0" text="Réclamations reçues" textFill="WHITE">
+                                                <FontAwesomeIconView fill="#048b9a" glyphName="SEND" layoutX="13.0" layoutY="80.0" selectionFill="#04636b" size="3em" />
+                                                <Label layoutX="14.0" layoutY="89.0" text="Réclamations reçues" textFill="#04636b">
                                                    <font>
-                                                      <Font name="Arial Rounded MT Bold" size="12.0" />
+                                                      <Font name="Arial Rounded MT Bold" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="reclamation_count" layoutX="309.0" layoutY="20.0" text="0">
+                                                   <font>
+                                                      <Font name="Arial Rounded MT Bold" size="27.0" />
                                                    </font>
                                                 </Label>
                                              </children>
+                                             <styleClass>
+                                                <String fx:value="creer-main" />
+                                                <String fx:value="label-info" />
+                                             </styleClass>
                                           </AnchorPane>
-                                          <AnchorPane layoutX="193.0" layoutY="8.0" prefHeight="118.0" prefWidth="178.0" styleClass="card" stylesheets="@design.css">
+                                          <AnchorPane layoutX="366.0" layoutY="6.0" prefHeight="154.0" prefWidth="347.0" stylesheets="@design.css">
                                              <children>
-                                                <FontAwesomeIconView fill="WHITE" glyphName="CHECK" layoutX="14.0" layoutY="79.0" size="3em" />
-                                                <Label layoutX="15.0" layoutY="88.0" text="Réclamations traitées" textFill="WHITE">
+                                                <FontAwesomeIconView fill="#048b9a" glyphName="CHECK" layoutX="14.0" layoutY="79.0" size="3em" />
+                                                <Label layoutX="15.0" layoutY="88.0" text="Réclamations traitées" textFill="#04636b">
                                                    <font>
-                                                      <Font name="Arial Rounded MT Bold" size="12.0" />
+                                                      <Font name="Arial Rounded MT Bold" size="20.0" />
                                                    </font>
                                                 </Label>
                                                 <GlyphsStack />
-                                             </children>
-                                          </AnchorPane>
-                                          <AnchorPane layoutX="377.0" layoutY="7.0" prefHeight="118.0" prefWidth="178.0" styleClass="card" stylesheets="@design.css">
-                                             <children>
-                                                <FontAwesomeIconView fill="WHITE" glyphName="TIMES" layoutX="8.0" layoutY="80.0" size="3em" />
-                                                <Label layoutX="9.0" layoutY="89.0" text="Réclamations non traitées" textFill="WHITE">
+                                                <Label fx:id="reponse_count" layoutX="309.0" layoutY="24.0" text="0">
                                                    <font>
-                                                      <Font name="Arial Rounded MT Bold" size="11.0" />
+                                                      <Font name="Arial Rounded MT Bold" size="27.0" />
                                                    </font>
                                                 </Label>
                                              </children>
+                                             <styleClass>
+                                                <String fx:value="label-info" />
+                                                <String fx:value="creer-main" />
+                                             </styleClass>
+                                          </AnchorPane>
+                                          <AnchorPane layoutX="725.0" layoutY="7.0" prefHeight="152.0" prefWidth="347.0" stylesheets="@design.css">
+                                             <children>
+                                                <FontAwesomeIconView fill="#048b9a" glyphName="TIMES" layoutX="8.0" layoutY="80.0" size="3em" />
+                                                <Label layoutX="9.0" layoutY="89.0" text="Réclamations non traitées" textFill="#04636b">
+                                                   <font>
+                                                      <Font name="Arial Rounded MT Bold" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="nonreponse_count" layoutX="318.0" layoutY="23.0" text="0">
+                                                   <font>
+                                                      <Font name="Arial Rounded MT Bold" size="27.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <styleClass>
+                                                <String fx:value="creer-main" />
+                                                <String fx:value="label-info" />
+                                             </styleClass>
                                           </AnchorPane>
                                        </children>
                                     </AnchorPane>
-                                    <BarChart layoutX="37.0" layoutY="163.0" prefHeight="228.0" prefWidth="412.0" title="Réclamations ">
+                                    <BarChart fx:id="reclamationbydate" layoutX="169.0" layoutY="191.0" prefHeight="331.0" prefWidth="690.0" title="Les Réclamations reçues ">
                                       <xAxis>
                                         <CategoryAxis side="BOTTOM" />
                                       </xAxis>
@@ -141,113 +179,134 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="reclamationss" layoutX="194.0" layoutY="71.0" prefHeight="422.4" prefWidth="514.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="reclamationss" layoutX="194.0" layoutY="142.4" prefHeight="422.4" prefWidth="578.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <AnchorPane layoutX="8.0" layoutY="7.0" prefHeight="524.0" prefWidth="559.0" stylesheets="@design.css">
+                              <AnchorPane layoutX="17.0" layoutY="7.0" prefHeight="524.0" prefWidth="1064.0" stylesheets="@design.css">
                                  <children>
-                                    <AnchorPane prefHeight="372.0" prefWidth="562.0" stylesheets="@design.css">
+                                    <AnchorPane prefHeight="394.0" prefWidth="1077.0" stylesheets="@design.css">
                                        <styleClass>
-                                          <String fx:value="white-bg" />
+                                          <String fx:value="creer-main" />
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <TableView fx:id="rectable" layoutX="4.0" layoutY="60.0" onMouseClicked="#addReclamationSelect" prefHeight="302.0" prefWidth="552.0" stylesheets="@design.css">
+                                          <TableView fx:id="rectable" layoutX="7.0" layoutY="82.0" prefHeight="302.0" prefWidth="1069.0" stylesheets="@design.css">
                                             <columns>
-                                              <TableColumn fx:id="idrec" prefWidth="36.0" text=" ID" />
-                                              <TableColumn fx:id="titrerec" prefWidth="106.39996337890625" text="Titre" />
-                                                <TableColumn fx:id="descrec" prefWidth="165.60006713867188" text="Description" />
-                                                <TableColumn fx:id="daterec" prefWidth="83.99993896484375" text="Date" />
-                                                <TableColumn fx:id="statrec" prefWidth="68.79998779296875" text="Status" />
-                                                <TableColumn fx:id="rep" prefWidth="108.800048828125" text="Réponse" />
+                                              <TableColumn fx:id="idrec" prefWidth="64.79998779296875" text=" ID" />
+                                              <TableColumn fx:id="titrerec" prefWidth="245.60003662109375" text="Titre" />
+                                                <TableColumn fx:id="descrec" prefWidth="529.5999755859375" text="Description" />
+                                                <TableColumn fx:id="daterec" prefWidth="109.5999755859375" text="Date" />
+                                                <TableColumn fx:id="statrec" prefWidth="124.0" text="Status" />
                                             </columns>
                                              <styleClass>
                                                 <String fx:value="table-view" />
                                                 <String fx:value="table-column" />
                                              </styleClass>
                                           </TableView>
-                                          <TextField fx:id="reachrec" layoutX="10.0" layoutY="21.0" prefHeight="23.0" prefWidth="178.0" promptText="Recherche" styleClass="search" stylesheets="@design.css" />
+                                          <TextField fx:id="reachrec" layoutX="10.0" layoutY="21.0" onKeyTyped="#addReclamationSearch" prefHeight="23.0" prefWidth="178.0" promptText="Recherche" styleClass="search" stylesheets="@design.css" />
                                           <FontAwesomeIconView glyphName="SEARCH" layoutX="14.0" layoutY="36.0" />
+                                          <Label layoutX="397.0" layoutY="20.0" text="Les Réclamations" textFill="#04636b">
+                                             <font>
+                                                <Font name="News706 BT Bold" size="25.0" />
+                                             </font>
+                                          </Label>
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="ajouterrep" contentDisplay="CENTER" layoutX="191.0" layoutY="396.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="180.0" styleClass="update-btn" stylesheets="@design.css" text="Ajouter une réponse" textAlignment="CENTER" />
-                                    <Button fx:id="modstatus" contentDisplay="CENTER" layoutX="191.0" layoutY="451.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="180.0" styleClass="button-modifier" stylesheets="@design.css" text="Modifier status" textAlignment="CENTER" />
+                                    <Button fx:id="modstatus" contentDisplay="CENTER" layoutX="873.0" layoutY="465.0" mnemonicParsing="false" onAction="#statusUpdate" prefHeight="42.0" prefWidth="158.0" styleClass="button-modifier" stylesheets="@design.css" text="Modifier status" textAlignment="CENTER" />
+                                    <Button fx:id="suprec" contentDisplay="CENTER" layoutX="429.0" layoutY="427.0" mnemonicParsing="false" onAction="#deleteReclamation" prefHeight="73.0" prefWidth="218.0" styleClass="button-modifier" stylesheets="@design.css" text="Supprimer réclamation" textAlignment="CENTER">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                    </Button>
+                                    <Label layoutX="845.0" layoutY="429.0" text="Status : ">
+                                       <font>
+                                          <Font name="Arial Rounded MT Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox fx:id="statusComboBox" layoutX="904.0" layoutY="425.0" onAction="#statusList" prefWidth="150.0" promptText="Choisir" styleClass="textfield" stylesheets="@design.css" />
                                  </children>
                                  <styleClass>
-                                    <String fx:value="white-bg" />
+                                    <String fx:value="creer-main" />
                                     <String fx:value="shadow" />
                                  </styleClass>
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="ajoutterreppage" layoutX="112.0" layoutY="-12.8" prefHeight="551.0" prefWidth="578.0" visible="false" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-13.0">
+                        <AnchorPane fx:id="ajoutterreppage" layoutX="7.2" layoutY="-12.8" prefHeight="551.0" prefWidth="1064.0" visible="false" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-13.0">
                            <children>
-                              <AnchorPane layoutX="7.0" layoutY="13.0" prefHeight="530.0" prefWidth="562.0" stylesheets="@design.css">
+                              <AnchorPane layoutX="7.0" layoutY="13.0" prefHeight="534.0" prefWidth="1064.0" stylesheets="@design.css">
                                  <styleClass>
-                                    <String fx:value="white-bg" />
+                                    <String fx:value="creer-main" />
                                     <String fx:value="shadow" />
                                  </styleClass>
                                  <children>
-                                    <TableView fx:id="viewreprec" layoutX="211.0" layoutY="-2.0" prefHeight="534.0" prefWidth="351.0">
+                                    <TableView fx:id="viewrec" layoutX="409.0" layoutY="12.0" prefHeight="512.0" prefWidth="670.0" stylesheets="@design.css">
                                        <columns>
-                                          <TableColumn fx:id="colid" prefWidth="75.0" text="ID " />
-                                          <TableColumn fx:id="coltitre" prefWidth="73.5999755859375" text="Titre" />
-                                          <TableColumn fx:id="coldes" prefWidth="112.00006103515625" text="Description" />
-                                          <TableColumn fx:id="colstat" prefWidth="84.79996337890623" text="Status" />
+                                          <TableColumn fx:id="idrec1" prefWidth="68.0" text=" ID" />
+                                          <TableColumn fx:id="titrerec1" prefWidth="136.79998779296875" text="Titre" />
+                                          <TableColumn fx:id="descrec1" prefWidth="240.0" text="Description" />
+                                          <TableColumn fx:id="daterec1" prefWidth="120.79998779296875" text="Date" />
+                                          <TableColumn fx:id="statrec1" prefWidth="106.4000244140625" text="Status" />
                                        </columns>
+                                       <styleClass>
+                                          <String fx:value="table-view" />
+                                          <String fx:value="table-column" />
+                                       </styleClass>
                                     </TableView>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutX="7.0" layoutY="13.0" prefHeight="532.0" prefWidth="208.0" stylesheets="@design.css">
+                              <AnchorPane layoutX="7.0" layoutY="14.0" prefHeight="532.0" prefWidth="394.0" stylesheets="@design.css">
                                  <styleClass>
-                                    <String fx:value="white-bg" />
+                                    <String fx:value="creer-main" />
                                     <String fx:value="shadow" />
                                  </styleClass>
                                  <children>
-                                    <Label layoutX="60.0" layoutY="58.0" text="La Réponse">
+                                    <Label layoutX="159.0" layoutY="136.0" text="La Réponse">
                                        <font>
                                           <Font name="Arial Rounded MT Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField alignment="TOP_LEFT" layoutX="8.0" layoutY="86.0" prefHeight="158.0" prefWidth="194.0" promptText="Veuillez saisir la réponse ..." styleClass="textfield" stylesheets="@design.css" />
-                                    <Button fx:id="ajouterreponse" layoutX="24.0" layoutY="257.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="163.0" styleClass="update-btn" stylesheets="@design.css" text="Ajouter" />
-                                    <Button fx:id="clearreponse" layoutX="74.0" layoutY="302.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="74.0" styleClass="update-btn" stylesheets="@design.css" text="Clear" />
-                                    <AnchorPane layoutX="47.0" layoutY="341.0" prefHeight="150.0" prefWidth="119.0" stylesheets="@design.css">
-                                       <styleClass>
-                                          <String fx:value="white-bg" />
-                                          <String fx:value="shadow" />
-                                       </styleClass>
-                                       <children>
-                                          <ImageView fitHeight="155.0" fitWidth="119.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Button layoutX="1.0" layoutY="127.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="118.0" styleClass="import-btn" stylesheets="@design.css" text="Importer" />
-                                       </children>
-                                    </AnchorPane>
-                                    <Label layoutX="14.0" layoutY="22.0" text="ID : ">
+                                    <TextField fx:id="reptextfield" alignment="TOP_LEFT" layoutX="5.0" layoutY="166.0" prefHeight="246.0" prefWidth="382.0" promptText="Veuillez saisir la réponse ..." styleClass="textfield" stylesheets="@design.css" />
+                                    <Button fx:id="soumettrelareponse" layoutX="117.0" layoutY="441.0" mnemonicParsing="false" onAction="#ajouterReponseAReclamation" prefHeight="36.0" prefWidth="163.0" styleClass="update-btn" stylesheets="@design.css" text="Soumettre" />
+                                    <Label layoutX="53.0" layoutY="46.0" text="Ajouter une réponse" textFill="#04636b">
                                        <font>
-                                          <Font name="Arial Rounded MT Bold" size="14.0" />
+                                          <Font name="News706 BT Bold" size="30.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="44.0" layoutY="21.0" prefHeight="19.0" prefWidth="49.0" styleClass="label-info" stylesheets="@design.css" />
                                  </children>
                               </AnchorPane>
                            </children>
                         </AnchorPane>
                         <AnchorPane fx:id="rep_page" layoutX="134.0" layoutY="115.0" prefHeight="539.2" prefWidth="577.6" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <AnchorPane layoutX="6.0" layoutY="4.0" prefHeight="526.0" prefWidth="562.0" stylesheets="@design.css">
+                              <AnchorPane layoutX="15.0" layoutY="4.0" prefHeight="526.0" prefWidth="1064.0" stylesheets="@design.css">
                                  <styleClass>
-                                    <String fx:value="white-bg" />
+                                    <String fx:value="creer-main" />
                                     <String fx:value="shadow" />
                                  </styleClass>
                                  <children>
-                                    <TableView layoutX="8.0" layoutY="14.0" prefHeight="348.0" prefWidth="546.0">
+                                    <TableView fx:id="reponsetable" layoutX="333.0" layoutY="72.0" prefHeight="446.0" prefWidth="722.0">
                                       <columns>
-                                        <TableColumn prefWidth="105.60005187988281" text="ID Réponse" />
-                                        <TableColumn prefWidth="104.0" text="ID Réclamation" />
-                                          <TableColumn prefWidth="336.800048828125" text="La réponse" />
+                                        <TableColumn fx:id="idreponse" prefWidth="105.60003662109375" text="ID Réponse" />
+                                        <TableColumn fx:id="idreclamation" prefWidth="124.79998779296875" text="ID Réclamation" />
+                                          <TableColumn fx:id="reponserep" prefWidth="492.0" text="La réponse" />
                                       </columns>
                                     </TableView>
-                                    <Button layoutX="61.0" layoutY="403.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="99.0" styleClass="update-btn" stylesheets="@design.css" text="Modifier" />
-                                    <Button layoutX="173.0" layoutY="404.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="99.0" styleClass="button-reponse" stylesheets="@design.css" text="Supprimer" />
+                                    <Button fx:id="modifreponse" layoutX="89.0" layoutY="462.0" mnemonicParsing="false" onAction="#reponseUpdate" prefHeight="42.0" prefWidth="158.0" styleClass="update-btn" stylesheets="@design.css" text="Modifier" />
+                                    <Button fx:id="supprep" layoutX="59.0" layoutY="193.0" mnemonicParsing="false" onAction="#deleteReponse" prefHeight="56.0" prefWidth="196.0" styleClass="update-btn" stylesheets="@design.css" text="Supprimer" />
+                                    <Button fx:id="ajouterrep" contentDisplay="CENTER" layoutX="59.0" layoutY="120.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="59.0" prefWidth="196.0" styleClass="update-btn" stylesheets="@design.css" text="Ajouter une réponse" textAlignment="CENTER" />
+                                    <TextField fx:id="casemodif" alignment="TOP_LEFT" layoutX="37.0" layoutY="303.0" prefHeight="142.0" prefWidth="262.0" promptText="Modifier la réponse ..." styleClass="textfield" stylesheets="@design.css" />
+                                    <Label layoutX="83.0" layoutY="273.0" text="Modifier ici la réponse :">
+                                       <font>
+                                          <Font name="Arial Rounded MT Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="reachrec1" layoutX="10.0" layoutY="17.0" onKeyTyped="#ReponseSearch" prefHeight="23.0" prefWidth="178.0" promptText="Recherche" styleClass="search" stylesheets="@design.css" />
+                                    <FontAwesomeIconView glyphName="SEARCH" layoutX="14.0" layoutY="32.0" />
+                                    <Label layoutX="378.0" layoutY="10.0" prefHeight="36.0" prefWidth="211.0" text="Les Réponses" textFill="#04636b">
+                                       <font>
+                                          <Font name="News706 BT Bold" size="30.0" />
+                                       </font>
+                                    </Label>
                                  </children>
                               </AnchorPane>
                            </children>

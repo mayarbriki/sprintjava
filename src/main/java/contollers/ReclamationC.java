@@ -31,9 +31,13 @@ public class ReclamationC  implements Initializable {
 
     @FXML
     private Button dash;
+    @FXML
+    private Button recherchebtn;
 
     @FXML
     private TextField descriptionTextField;
+    @FXML
+    private TextField rechid;
 
     @FXML
     private AnchorPane leftt;
@@ -57,16 +61,35 @@ public class ReclamationC  implements Initializable {
     public void setDashboardController(dashboard dashboardController) {
         this.dashboard= dashboardController;
     }
+    @FXML
+    private void afficherDetailsReclamation(ActionEvent event) {
+        int idReclamation = Integer.parseInt(rechid.getText());
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/affichage.fxml"));
+            Parent resultsPageParent = loader.load();
+            affichage controller = loader.getController();
+            controller.afficherDetailsReclamation(idReclamation); // Envoyer les résultats à la nouvelle page
+
+            Scene resultsPageScene = new Scene(resultsPageParent);
+            Stage window = (Stage) rechid.getScene().getWindow();
+            window.setScene(resultsPageScene);
+            window.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void addReclamationAdd() {
 
         java.util.Date date = new java.util.Date();
         java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 
-        String sql = "INSERT INTO reclamation (titre, description_r, date_r, status_r) VALUES (?, ?, ?, 'nouvelle')";
+        String sql = "INSERT INTO reclamation (titre, description_r, date_r, status_r) VALUES (?, ?, ?, 'En attente')";
 
 
         connect = MyDatabase.getInstance().getConnection();
+        PreparedStatement prepare = null;
+        ResultSet generatedKeys = null;
 
         try {
             Alert alert;
@@ -81,6 +104,7 @@ public class ReclamationC  implements Initializable {
                 } else {
 
                     prepare = connect.prepareStatement(sql);
+                prepare = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                     prepare.setString(1, titreTextField.getText());
                     prepare.setString(2, descriptionTextField.getText());
 
@@ -88,6 +112,29 @@ public class ReclamationC  implements Initializable {
                     prepare.setString(3, String.valueOf(sqlDate));
 
                     prepare.executeUpdate();
+
+                // Récupération de l'ID de la réclamation généré par la base de données
+                generatedKeys = prepare.getGeneratedKeys();
+                int idDeLaReclamation = -1;
+                if (generatedKeys.next()) {
+                    idDeLaReclamation = generatedKeys.getInt(1);
+                }
+
+                // Envoi d'e-mail après l'ajout réussi
+                String subject = "Nouvelle réclamation ajoutée";
+
+
+// Contenu de l'e-mail au format HTML avec style CSS
+                String message ="Une nouvelle réclamation a été ajoutée :\n" +
+                        "ID : " + idDeLaReclamation  + "\n" +// Remplacez idDeLaReclamation par l'ID réel
+                        "Titre : " + titreTextField.getText()  +"\n" +
+                        "Description : " + descriptionTextField.getText()  +"\n" +
+                        "Date : " + sqlDate +"\n" +
+                        "Remarque : N'oubliez pas cet ID pour consulter votre réclamation ultérieurement." ;
+
+
+                GMailer gMailer = new GMailer(); // Instanciation de GMailer
+                gMailer.sendMail(subject, message);
 
 
 
@@ -103,13 +150,13 @@ public class ReclamationC  implements Initializable {
                     alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Message");
                     alert.setHeaderText(null);
-                    alert.setContentText("Successfully Added!");
+                    alert.setContentText("Opération réussie ! Vérifiez votre e-mail");
                     alert.showAndWait();
 
                 titreTextField.clear();
                 descriptionTextField.clear();
 
-                    dashboard.addReclamationShowListData();
+                dashboard.addReclamationShowListData();
 
                 }
 
@@ -119,9 +166,7 @@ public class ReclamationC  implements Initializable {
         }
 
     }
-    public void soumettreButtonOneAction() {
 
-        }
 
     public void annulerButtonOneAction(ActionEvent event){
         Stage stage= (Stage) annulerButton.getScene().getWindow();
