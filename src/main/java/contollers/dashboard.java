@@ -535,6 +535,10 @@ public class dashboard implements Initializable {
             prepare.setString(2, reptextfield.getText()); // Contenu de la réponse
             prepare.executeUpdate();
 
+            // Envoi du SMS
+            SendSMS smsSender = new SendSMS();
+            String smsResponse = smsSender.sendSms(String.valueOf(idReclamation));
+
             // Afficher un message de succès
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information Message");
