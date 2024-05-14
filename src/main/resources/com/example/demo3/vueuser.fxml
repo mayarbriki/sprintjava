@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="723.0" prefWidth="848.0" styleClass="nav-form" stylesheets="@DashboardDesign.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.Vueuser">
+    <children>
+        <GridPane fx:id="container" hgap="20" layoutX="73.0" layoutY="14.0" prefHeight="606.0" prefWidth="670.0" style="-fx-background-color: #ffffff; -fx-background-radius: 20px; -fx-padding: 20px;" vgap="20">
+            <!-- Product Cards -->
+            <children>
+                <!-- Product Card 1 -->
+
+                <AnchorPane prefHeight="355.0" prefWidth="558.0" style="-fx-background-radius: 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.0, 0, 2);" GridPane.rowIndex="2">
+
+               <children>
+                      <!-- Product Card 2 -->
+                      <AnchorPane layoutX="7.0" layoutY="14.0" prefHeight="274.0" prefWidth="543.0" style="-fx-background-radius: 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.0, 0, 2);" />
+               </children></AnchorPane>
+            </children>
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+
+        </GridPane>
+        <!-- Styling for the Add to Cart button -->
+        <Button fx:id="addtocart" layoutX="85.0" layoutY="644.0" mnemonicParsing="false" styleClass="button-save" text="Ajouter au panier" />
+        <!-- Styling for the Panier button -->
+        <Button fx:id="panier" layoutX="231.0" layoutY="644.0" mnemonicParsing="false" onAction="#redirectToPanier" styleClass="button-save" text="Panier" />
+      <TextField fx:id="rechercher" layoutX="352.0" layoutY="631.0" prefHeight="25.0" prefWidth="182.0" />
+      <Button fx:id="rechbutton" layoutX="438.0" layoutY="659.0" mnemonicParsing="false" styleClass="button-save" stylesheets="@DashbordDesign.css" text="Rechercher" />
+      <Button fx:id="tricroissant" layoutX="578.0" layoutY="628.0" mnemonicParsing="false" styleClass="button-save" stylesheets="@DashbordDesign.css" text="Tri par prix croissant" />
+      <Button fx:id="tridecroissant" layoutX="578.0" layoutY="674.0" mnemonicParsing="false" styleClass="button-save" stylesheets="@DashbordDesign.css" text="Tri par prix decroissant" />
+      <Button fx:id="chat" layoutX="761.0" layoutY="478.0" mnemonicParsing="false" onAction="#redirectToChatBotUI" text="chat" />
+    </children>
+</AnchorPane>

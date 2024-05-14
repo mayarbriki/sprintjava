@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="624.0" prefWidth="1441.0" style="-fx-background-color: white;" styleClass="gradient-background" stylesheets="@DashboardDesign.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.Dashboard">  <children>
+      <VBox fx:id="vboxNavigation" layoutX="45.0" layoutY="55.0" prefHeight="380.0" prefWidth="214.0" spacing="10" styleClass="nav-form">
+         <children>
+            <Button fx:id="user" mnemonicParsing="false" onAction="#handleProduitButtonClick1" prefHeight="64.0" prefWidth="239.0" styleClass="nav-btn" text="Gestion utilisateur" />
+            <Button fx:id="produit" mnemonicParsing="false" onAction="#handleProduitButtonClick" prefHeight="75.0" prefWidth="244.0" styleClass="nav-btn" text="Gestion Produit" />
+            <Button fx:id="commande" mnemonicParsing="false" onAction="#handleGestionCommandeButtonClick" prefHeight="81.0" prefWidth="270.0" styleClass="nav-btn" text="Gestion commandes" />
+            <Button fx:id="livraison" mnemonicParsing="false" onAction="#switchToDashboardAdminL" prefHeight="83.0" prefWidth="239.0" styleClass="nav-btn" text="Gestion livraison" />
+         </children>
+      </VBox>
+      <AnchorPane fx:id="anchorPane1" layoutX="323.0" layoutY="55.0" prefHeight="546.0" prefWidth="474.0" styleClass="white-bg" visible="false">
+         <children>
+            <Text layoutX="189.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Admin" wrappingWidth="124.81097412109375" />
+            <TextField fx:id="nom" layoutX="177.0" layoutY="64.0" styleClass="textfield" />
+            <TextField fx:id="prenom" layoutX="178.0" layoutY="109.0" styleClass="textfield" />
+            <TextField fx:id="age" layoutX="178.0" layoutY="156.0" styleClass="textfield" />
+            <ComboBox fx:id="comb" layoutX="177.0" layoutY="202.0" prefWidth="150.0" styleClass="textfield" />
+            <Button fx:id="add" layoutX="225.0" layoutY="294.0" mnemonicParsing="false" onAction="#add" styleClass="button-save" text="Add Admin" />
+            <TextField fx:id="pwd" layoutX="179.0" layoutY="248.0" styleClass="textfield" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="anchorPane2" layoutX="272.0" layoutY="56.0" prefHeight="546.0" prefWidth="390.0" styleClass="white-bg" visible="false">
+         <children>
+            <TextField fx:id="nomproduit" layoutX="94.0" layoutY="45.0" styleClass="textfield" />
+            <BorderPane fx:id="layout" layoutX="93.0" layoutY="89.0" prefHeight="114.0" prefWidth="150.0">
+               <center>
+                  <ImageView fx:id="imgview" fitHeight="151.0" fitWidth="138.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+            <Button layoutX="149.0" layoutY="240.0" mnemonicParsing="false" onAction="#insertImage" styleClass="button-save" text="Insert Image" />
+            <TextArea fx:id="description" layoutX="87.0" layoutY="400.0" prefHeight="100.0" prefWidth="200.0" styleClass="textfield" />
+            <Button fx:id="addproduit" layoutX="149.0" layoutY="502.0" mnemonicParsing="false" onAction="#addproduit1" styleClass="button-save" text="Add Product" />
+            <Label fx:id="imagePathLabel" layoutX="230.0" layoutY="232.0" text="Label" />
+            <TextField fx:id="prix1" layoutX="112.0" layoutY="310.0" styleClass="textfield" />
+            <TextField fx:id="quantite1" layoutX="112.0" layoutY="352.0" styleClass="textfield" />
+            <Text layoutX="37.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="quantite" />
+            <Text layoutX="37.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="prix" />
+            <Text layoutX="46.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nom" />
+            <Text layoutX="46.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="image" />
+            <Text layoutX="26.0" layoutY="430.0" strokeType="OUTSIDE" strokeWidth="0.0" text="description" />
+         </children>
+      </AnchorPane>
+      <TableView fx:id="tableViewProduit" layoutX="758.0" layoutY="85.0" prefHeight="430.0" prefWidth="729.0" styleClass="table-view" visible="false">
+         <columns>
+            <TableColumn fx:id="idP" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="nomP" prefWidth="150.0" text="Product Name" />
+            <TableColumn fx:id="prix" prefWidth="75.0" text="Price" />
+            <TableColumn fx:id="imageP" prefWidth="100.0" text="Image" />
+            <TableColumn fx:id="descriptionproduit" prefWidth="200.0" text="Description" />
+            <TableColumn fx:id="quantite" prefWidth="75.0" text="Quantity" />
+         </columns>
+      </TableView>
+      <Button fx:id="modifier" layoutX="1011.0" layoutY="526.0" mnemonicParsing="false" onAction="#modifyProduit" styleClass="button-save" text="Modify" visible="false" />
+      <Button fx:id="supprimer" layoutX="1111.0" layoutY="526.0" mnemonicParsing="false" onAction="#handleSupprimerButtonClick" styleClass="button-save" text="Delete" visible="false" />
+      <AnchorPane layoutX="579.0" layoutY="148.0" prefHeight="138.0" prefWidth="436.0">
+         <children>
+            <TableView fx:id="commandeadmin" layoutX="14.0" layoutY="20.0" prefHeight="339.0" prefWidth="308.0">
+               <columns>
+                  <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
+                  <TableColumn fx:id="pani_id" prefWidth="100.0" text="Cart ID" />
+                  <TableColumn fx:id="id_user" prefWidth="100.0" text="Customer ID" />
+                  <TableColumn fx:id="totale" prefWidth="75.0" text="Total" />
+               </columns>
+            </TableView>
+            <Button fx:id="Creer_Liv" layoutX="328.0" layoutY="166.0" mnemonicParsing="false" onAction="#handleCreerLivraisonButtonClick" prefHeight="48.0" prefWidth="125.0" styleClass="button-modifier" text="Créer Livraison">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

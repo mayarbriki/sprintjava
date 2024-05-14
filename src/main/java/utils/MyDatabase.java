@@ -1,14 +1,11 @@
 package utils;
-
-import services.ServiceReclamation;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MyDatabase {
 
-    private final String URL = "jdbc:mysql://localhost:3306/parapharmacy";
+    private final String URL = "jdbc:mysql://localhost:3306/3A60";
     private final String USER = "root";
     private final String PASS = "";
     private Connection connection;
@@ -29,25 +26,10 @@ public class MyDatabase {
         return instance;
     }
 
-    public  Connection getConnection() {
+    public Connection getConnection() {
         return connection;
     }
     public static void main(String[] args) {
-        MyDatabase db = new MyDatabase();
-        ServiceReclamation su = new ServiceReclamation();
-
-        try {
-
-            // serviceReclamation.ajouter(new Reclamation(2 , "rania" , "ktata" ));
-
-            // serviceReclamation.modifier(new Reclamation(2 , "3ktata" , "5" ));
-
-            System.out.println(su.recuperer());
-            su.supprimer(2);
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-
-        }
-
+        MyDatabase sp = new MyDatabase();
     }
 }

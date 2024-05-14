@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo3.Commandeview">
+   <children>
+      <TableView fx:id="commandeTableView" layoutX="120.0" layoutY="64.0" prefHeight="200.0" prefWidth="400.0">
+        <columns>
+          <TableColumn fx:id="commandeIdColumn" prefWidth="75.0" text="C1" />
+          <TableColumn fx:id="panierIdColumn" prefWidth="75.0" text="C2" />
+            <TableColumn fx:id="totalColumn" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="name" prefWidth="75.0" text="Column X" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
