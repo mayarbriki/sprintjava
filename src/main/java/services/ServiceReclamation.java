@@ -41,6 +41,41 @@ public class ServiceReclamation implements IService<reclamation>{
     }
 
     @Override
+    public void ajouterT(reclamation reclamation, int livreur_id) throws SQLException {
+
+    }
+
+    @Override
+    public void modifierT(reclamation reclamation, int livreur_id) throws SQLException {
+
+    }
+
+    @Override
+    public void supprimerT(int id) throws SQLException {
+
+    }
+
+    @Override
+    public List<reclamation> recupererT(int livreur_id) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public List<reclamation> recupererT() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public List<String> Matriculescombobox(int livreur_id) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public void modifier(reclamation reclamation) throws SQLException {
+
+    }
+
+    @Override
     public void supprimer(int id) throws SQLException {
         String sql = "DELETE FROM reclamation where id = ?";
         PreparedStatement ps = cnx.prepareStatement(sql);

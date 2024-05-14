@@ -61,6 +61,11 @@ public class ServicePersonne implements IService<Personne>{
 
     }
 
+    @Override
+    public void modifierT(Personne personne) throws SQLException {
+
+    }
+
     public void ajouteradmin(Personne personne) throws SQLException {
         String sql = "INSERT INTO user (nom, prenom, age, password , role ) VALUES (?, ?, ?, ? , ?)";
         PreparedStatement ps = cnx.prepareStatement(sql);

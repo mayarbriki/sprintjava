@@ -153,6 +153,11 @@ public class ServiceTransport implements IService<Transport>{
     }
 
     @Override
+    public void modifierT(Transport transport) throws SQLException {
+
+    }
+
+    @Override
     public void modifier(Transport transport) throws SQLException {
 
     }
